@@ -6,7 +6,7 @@ import javax.swing.*;
  * <p>
  * Abstract class representing actions the user might take in the interface.
  * </p>
- * 
+ * Finn Rimmer
  * <p>
  * This class uses Java's AbstractAction approach for Actions that can be applied to images.
  * The key difference from a generic AbstractAction is that an ImageAction contains a reference
