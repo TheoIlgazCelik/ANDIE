@@ -8,9 +8,13 @@ import javax.imageio.*;
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
  * </p>
+<<<<<<< HEAD
 *   Finn Rimmer
+=======
+ * ILGAZ
+>>>>>>> 3ba8c0829cd73e89bb1048d0b073ea37d69f8762
  * <p>
- * This class is the entry point for the program.
+ * This class is the entry point for the program. h
  * It creates a Graphical User Interface (GUI) that provides access to various image editing and processing operations.
  * </p>
  * 
