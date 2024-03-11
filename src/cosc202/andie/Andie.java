@@ -10,7 +10,7 @@ import javax.imageio.*;
  * </p>
  * ILGAZ
  * <p>
- * This class is the entry point for the program.
+ * This class is the entry point for the program. h
  * It creates a Graphical User Interface (GUI) that provides access to various image editing and processing operations.
  * </p>
  * 
