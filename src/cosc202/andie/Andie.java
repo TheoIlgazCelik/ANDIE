@@ -10,7 +10,7 @@ import javax.imageio.*;
  * </p>
  * (This is a Git Test) - Josh
  * <p>
- * This class is the entry point for the program. h
+ * This class is the entry point for the program.
  * It creates a Graphical User Interface (GUI) that provides access to various image editing and processing operations.
  * </p>
  * 
