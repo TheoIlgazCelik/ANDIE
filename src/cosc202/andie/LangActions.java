@@ -4,6 +4,7 @@ import java.util.prefs.Preferences;
 import java.awt.event.*;
 import javax.swing.*;
 
+
 public class LangActions {
     protected ArrayList<Action> actions;
 
