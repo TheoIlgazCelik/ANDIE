@@ -10,9 +10,6 @@ import java.awt.image.BufferedImage;
  * <p>
  * A horizontal flip transposes the input x co-ordinate to it's corresponding
  * output x co-ordinate while retaining the original y co-ordinate.
- * 
- * outputX = (width-1) - inputX
- * outputY = inputY;
  * </p>
  * 
  * @author Matthew Rae

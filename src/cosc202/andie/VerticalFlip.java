@@ -10,9 +10,6 @@ import java.awt.image.BufferedImage;
  * <p>
  * A vertical flip transposes the input y co-ordinate to it's corresponding
  * output y co-ordinate while retaining the original x co-ordinate.
- * 
- * outputX = inputX
- * outputY = (height-1) - inputX;
  * </p>
  * 
  * @author Matthew Rae
@@ -21,28 +18,22 @@ import java.awt.image.BufferedImage;
 public class VerticalFlip implements ImageOperation, java.io.Serializable {
 
     public BufferedImage apply(BufferedImage input) {
-        // set output image dimensions to opposite of input image
-        int outputWidth = input.getWidth();
-        int outputHeight = input.getHeight();
-        
-        int outputType = input.getType();
-        
-        BufferedImage output = new BufferedImage(outputWidth, outputHeight, outputType);
-        
-        // iterate through each pixel of input image
-        for (int iy = 0; iy < input.getHeight(); iy++) {
-            for (int ix = 0; ix < input.getWidth(); ix++) {
-                int argb = input.getRGB(ix, iy);
-            
-                // transpose (x, y) of the input pixel to (x, y) in the output
-                int ox = ix;
-                int oy = (input.getHeight() - 1) - iy;
-            
-                output.setRGB(ox, oy, argb);
+        // iterate through each pixel of top half of image (excluding center pixel if height is odd)
+        for (int y = 0; y < input.getHeight() / 2; y++) {
+            for (int x = 0; x < input.getWidth(); x++) {
+                // ry = corresponding y co-ordinate on bottom half of image
+                int ry = (input.getHeight() - 1) - y;
+
+                int argbLeft = input.getRGB(x, y);
+                int argbRight = input.getRGB(x, ry);
+
+                input.setRGB(x, y, argbRight);
+                input.setRGB(x, ry, argbLeft);
             }
+
         }
-    
-        return output;
+
+        return input;
     }
     
 }
