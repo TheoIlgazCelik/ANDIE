@@ -43,6 +43,7 @@ public class ViewActions {
         actions.add(new ImageRotateRightAction("Rotate 90º right", null, "Rotate image 90º to the right", Integer.valueOf(KeyEvent.VK_2)));
         actions.add(new ImageRotateLeftAction("Rotate 90º left", null, "Rotate image 90º to the left", Integer.valueOf(KeyEvent.VK_3)));
         actions.add(new ImageRotateFullAction("Rotate 180º", null, "Rotate image 180º", Integer.valueOf(KeyEvent.VK_4)));
+        actions.add(new HorizontalFlipAction("Flip Horizontally", null, "Flip image horizontally", Integer.valueOf(KeyEvent.VK_5)));
     }
 
     /**
@@ -322,6 +323,50 @@ public class ViewActions {
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
             target.getImage().apply(new ImageRotateFull());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    /**
+     * <p>
+     * Action to flip the image horizontally
+     * </p>
+     * 
+     * @author Matthew Rae
+     */
+    public class HorizontalFlipAction extends ImageAction {
+        /**
+         * <p>
+         * Create a HorizontalFlip action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        HorizontalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the HorizontalFlip action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the HorizontalFlip is triggered.
+         * It applies an {@link HorizontalFlip} action, which flips the image across
+         * the x-axis.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the rotation
+            target.getImage().apply(new HorizontalFlip());
             target.repaint();
             target.getParent().revalidate();
         }
