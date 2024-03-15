@@ -21,28 +21,22 @@ import java.awt.image.BufferedImage;
 public class HorizontalFlip implements ImageOperation, java.io.Serializable {
 
     public BufferedImage apply(BufferedImage input) {
-        // set output image dimensions to opposite of input image
-        int outputWidth = input.getWidth();
-        int outputHeight = input.getHeight();
-        
-        int outputType = input.getType();
-        
-        BufferedImage output = new BufferedImage(outputWidth, outputHeight, outputType);
-        
-        // iterate through each pixel of input image
-        for (int iy = 0; iy < input.getHeight(); iy++) {
-            for (int ix = 0; ix < input.getWidth(); ix++) {
-                int argb = input.getRGB(ix, iy);
-            
-                // transpose (x, y) of the input pixel to (x, y) in the output
-                int ox = (input.getWidth() - 1) - ix;
-                int oy = iy;
-            
-                output.setRGB(ox, oy, argb);
+        // iterate through each pixel of left half of image (excluding center pixel if width is odd)
+        for (int y = 0; y < input.getHeight(); y++) {
+            for (int x = 0; x < input.getWidth() / 2; x++) {
+                // rx = corresponding x co-ordinate on right half of image
+                int rx = (input.getWidth() - 1) - x;
+
+                int argbLeft = input.getRGB(x, y);
+                int argbRight = input.getRGB(rx, y);
+
+                input.setRGB(x, y, argbRight);
+                input.setRGB(rx, y, argbLeft);
             }
+
         }
-    
-        return output;
+
+        return input;
     }
-    
+
 }
