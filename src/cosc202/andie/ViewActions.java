@@ -44,6 +44,7 @@ public class ViewActions {
         actions.add(new ImageRotateLeftAction("Rotate 90º left", null, "Rotate image 90º to the left", Integer.valueOf(KeyEvent.VK_3)));
         actions.add(new ImageRotateFullAction("Rotate 180º", null, "Rotate image 180º", Integer.valueOf(KeyEvent.VK_4)));
         actions.add(new HorizontalFlipAction("Flip Horizontally", null, "Flip image horizontally", Integer.valueOf(KeyEvent.VK_5)));
+        actions.add(new VerticalFlipAction("Flip Vertically", null, "Flip image vertically", Integer.valueOf(KeyEvent.VK_6)));
     }
 
     /**
@@ -367,6 +368,50 @@ public class ViewActions {
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
             target.getImage().apply(new HorizontalFlip());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    /**
+     * <p>
+     * Action to flip the image vertically
+     * </p>
+     * 
+     * @author Matthew Rae
+     */
+    public class VerticalFlipAction extends ImageAction {
+        /**
+         * <p>
+         * Create a VerticalFlip action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        VerticalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the VerticalFlip action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the HVerticalFlip is triggered.
+         * It applies an {@link VerticalFlip} action, which flips the image across
+         * the y-axis.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the rotation
+            target.getImage().apply(new VerticalFlip());
             target.repaint();
             target.getParent().revalidate();
         }
