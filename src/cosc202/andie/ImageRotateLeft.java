@@ -18,7 +18,28 @@ import java.awt.image.BufferedImage;
 public class ImageRotateLeft implements ImageOperation, java.io.Serializable {
 
     public BufferedImage apply(BufferedImage input) {
-        return input;
+        // set output image dimensions to opposite of input image
+        int outputWidth = input.getHeight();
+        int outputHeight = input.getWidth();
+        
+        int outputType = input.getType();
+        
+        BufferedImage output = new BufferedImage(outputWidth, outputHeight, outputType);
+        
+        // iterate through each pixel of input image
+        for (int iy = 0; iy < input.getHeight(); iy++) {
+            for (int ix = 0; ix < input.getWidth(); ix++) {
+                int argb = input.getRGB(ix, iy);
+            
+                // transpose (x, y) of the input pixel to (x, y) in the output
+                int ox = iy;
+                int oy = (output.getHeight() - 1) - ix;
+            
+                output.setRGB(ox, oy, argb);
+            }
+        }
+    
+        return output;
     }
     
 }
