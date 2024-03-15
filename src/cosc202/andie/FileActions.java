@@ -48,7 +48,7 @@ public class FileActions {
      * @return The File menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("File");
+        JMenu fileMenu = new JMenu("File"); 
 
         for(Action action: actions) {
             fileMenu.add(new JMenuItem(action));

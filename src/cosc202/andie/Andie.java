@@ -3,6 +3,8 @@ package cosc202.andie;
 import java.awt.*;
 import javax.swing.*;
 import javax.imageio.*;
+import java.util.*;
+import java.util.prefs.Preferences;
 
 /**
  * <p>
@@ -82,6 +84,9 @@ public class Andie {
         // Actions that affect the representation of colour in the image
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
+
+        LangActions langActions = new LangActions();
+        menuBar.add(langActions.createMenu());
         
         frame.setJMenuBar(menuBar);
         frame.pack();
@@ -103,6 +108,8 @@ public class Andie {
      * @see #createAndShowGUI()
      */
     public static void main(String[] args) throws Exception {
+        Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+        Locale.setDefault(new Locale(prefs.get("language","es"),prefs.get("country","ES")));
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
