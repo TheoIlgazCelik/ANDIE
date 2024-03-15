@@ -109,7 +109,8 @@ public class Andie {
      */
     public static void main(String[] args) throws Exception {
         Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-        Locale.setDefault(new Locale(prefs.get("language","es"),prefs.get("country","ES")));
+        //Locale.setDefault(new Locale(prefs.get("language","en"),prefs.get("country","NZ")));
+        Locale.setDefault(new Locale("en","NZ"));
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {

@@ -44,7 +44,8 @@ public class LangActions {
 
         public void actionPerformed(ActionEvent e) {
             Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-            Locale.setDefault(new Locale(prefs.get("language","en")));
+            prefs.put("language","en");
+            prefs.put("country","NZ");
         }
     
     }
