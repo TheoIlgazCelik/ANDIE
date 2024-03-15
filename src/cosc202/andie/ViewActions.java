@@ -199,6 +199,8 @@ public class ViewActions {
      * <p>
      * Action to rotate the image 90º to the right
      * </p>
+     * 
+     * @author Matthew Rae
      */
     public class ImageRotateRightAction extends ImageAction {
         /**
@@ -222,7 +224,8 @@ public class ViewActions {
          * 
          * <p>
          * This method is called whenever the ImageRotateRight is triggered.
-         * It resets the Zoom level to 100%.
+         * It applies an {@link ImageRotateRight} action, which rotates the image 90 degrees
+         * to the right.
          * </p>
          * 
          * @param e The event triggering this callback.
