@@ -41,6 +41,7 @@ public class ViewActions {
         actions.add(new ZoomOutAction("Zoom Out", null, "Zoom Out", Integer.valueOf(KeyEvent.VK_MINUS)));
         actions.add(new ZoomFullAction("Zoom Full", null, "Zoom Full", Integer.valueOf(KeyEvent.VK_1)));
         actions.add(new ImageRotateRightAction("Rotate 90º right", null, "Rotate image 90º to the right", Integer.valueOf(KeyEvent.VK_2)));
+        actions.add(new ImageRotateLeftAction("Rotate 90º left", null, "Rotate image 90º to the left", Integer.valueOf(KeyEvent.VK_3)));
     }
 
     /**
@@ -233,6 +234,50 @@ public class ViewActions {
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
             target.getImage().apply(new ImageRotateRight());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
+
+    /**
+     * <p>
+     * Action to rotate the image 90º to the left
+     * </p>
+     * 
+     * @author Matthew Rae
+     */
+    public class ImageRotateLeftAction extends ImageAction {
+        /**
+         * <p>
+         * Create a ImageRotateLeft action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        ImageRotateLeftAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the ImageRotateLeft action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ImageRotateLeft is triggered.
+         * It applies an {@link ImageRotateLeft} action, which rotates the image 90 degrees
+         * to the left.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the rotation
+            target.getImage().apply(new ImageRotateLeft());
             target.repaint();
             target.getParent().revalidate();
         }
