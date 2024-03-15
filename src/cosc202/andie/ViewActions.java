@@ -40,6 +40,7 @@ public class ViewActions {
         actions.add(new ZoomInAction("Zoom In", null, "Zoom In", Integer.valueOf(KeyEvent.VK_PLUS)));
         actions.add(new ZoomOutAction("Zoom Out", null, "Zoom Out", Integer.valueOf(KeyEvent.VK_MINUS)));
         actions.add(new ZoomFullAction("Zoom Full", null, "Zoom Full", Integer.valueOf(KeyEvent.VK_1)));
+        actions.add(new ImageRotateRightAction("Rotate 90º right", null, "Rotate image 90º to the right", Integer.valueOf(KeyEvent.VK_2)));
     }
 
     /**
@@ -194,6 +195,46 @@ public class ViewActions {
 
     }
 
+    /**
+     * <p>
+     * Action to rotate the image 90º to the right
+     * </p>
+     */
+    public class ImageRotateRightAction extends ImageAction {
+        /**
+         * <p>
+         * Create a ImageRotateRight action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
+        ImageRotateRightAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the ImageRotateRight action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ImageRotateRight is triggered.
+         * It resets the Zoom level to 100%.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the rotation
+            target.getImage().apply(new ImageRotateRight());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+
+    }
 
 
 }
