@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
  * @author Matthew Rae
  * @version 1.0
  */
-public class HorizontalFlip implements ImageOperation, java.io.Serializable {
+public class FlipHorizontal implements ImageOperation, java.io.Serializable {
 
     public BufferedImage apply(BufferedImage input) {
         // iterate through each pixel of left half of image (excluding center pixel if width is odd)

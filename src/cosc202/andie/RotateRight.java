@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 /**
  * <p>
- * ImageOperation to apply a 90 degree rotation to the left.
+ * ImageOperation to apply a 90 degree rotation to the right.
  * </p>
  * 
  * <p>
@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
  * @author Matthew Rae
  * @version 1.0
  */
-public class ImageRotateLeft implements ImageOperation, java.io.Serializable {
+public class RotateRight implements ImageOperation, java.io.Serializable {
 
     public BufferedImage apply(BufferedImage input) {
         // set output image dimensions to opposite of input image
@@ -32,8 +32,8 @@ public class ImageRotateLeft implements ImageOperation, java.io.Serializable {
                 int argb = input.getRGB(ix, iy);
             
                 // transpose (x, y) of the input pixel to (x, y) in the output
-                int ox = iy;
-                int oy = (output.getHeight() - 1) - ix;
+                int ox = (output.getWidth()-1) - iy;
+                int oy = ix;
             
                 output.setRGB(ox, oy, argb);
             }

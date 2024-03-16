@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
  * @author Matthew Rae
  * @version 1.0
  */
-public class ImageRotateFull implements ImageOperation, java.io.Serializable {
+public class RotateFull implements ImageOperation, java.io.Serializable {
 
     public BufferedImage apply(BufferedImage input) {
         // set output image dimensions to same as input image

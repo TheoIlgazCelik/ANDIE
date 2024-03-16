@@ -40,11 +40,11 @@ public class ViewActions {
         actions.add(new ZoomInAction("Zoom In", null, "Zoom In", Integer.valueOf(KeyEvent.VK_PLUS)));
         actions.add(new ZoomOutAction("Zoom Out", null, "Zoom Out", Integer.valueOf(KeyEvent.VK_MINUS)));
         actions.add(new ZoomFullAction("Zoom Full", null, "Zoom Full", Integer.valueOf(KeyEvent.VK_1)));
-        actions.add(new ImageRotateRightAction("Rotate 90\u00b0 right", null, "Rotate image 90\u00b0 to the right", Integer.valueOf(KeyEvent.VK_2)));
-        actions.add(new ImageRotateLeftAction("Rotate 90\u00b0 left", null, "Rotate image 90\u00b0 to the left", Integer.valueOf(KeyEvent.VK_3)));
-        actions.add(new ImageRotateFullAction("Rotate 180\u00b0", null, "Rotate image 180\u00b0", Integer.valueOf(KeyEvent.VK_4)));
-        actions.add(new HorizontalFlipAction("Flip Horizontally", null, "Flip image horizontally", Integer.valueOf(KeyEvent.VK_5)));
-        actions.add(new VerticalFlipAction("Flip Vertically", null, "Flip image vertically", Integer.valueOf(KeyEvent.VK_6)));
+        actions.add(new RotateRightAction("Rotate 90\u00b0 right", null, "Rotate image 90\u00b0 to the right", Integer.valueOf(KeyEvent.VK_2)));
+        actions.add(new RotateLeftAction("Rotate 90\u00b0 left", null, "Rotate image 90\u00b0 to the left", Integer.valueOf(KeyEvent.VK_3)));
+        actions.add(new RotateFullAction("Rotate 180\u00b0", null, "Rotate image 180\u00b0", Integer.valueOf(KeyEvent.VK_4)));
+        actions.add(new FlipHorizontalAction("Flip Horizontally", null, "Flip image horizontally", Integer.valueOf(KeyEvent.VK_5)));
+        actions.add(new FlipVerticalAction("Flip Vertically", null, "Flip image vertically", Integer.valueOf(KeyEvent.VK_6)));
     }
 
     /**
@@ -206,10 +206,10 @@ public class ViewActions {
      * 
      * @author Matthew Rae
      */
-    public class ImageRotateRightAction extends ImageAction {
+    public class RotateRightAction extends ImageAction {
         /**
          * <p>
-         * Create a ImageRotateRight action.
+         * Create a RotateRight action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -217,18 +217,18 @@ public class ViewActions {
          * @param desc A brief description of the action  (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
-        ImageRotateRightAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        RotateRightAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
         /**
          * <p>
-         * Callback for when the ImageRotateRight action is triggered.
+         * Callback for when the RotateRight action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the ImageRotateRight is triggered.
-         * It applies an {@link ImageRotateRight} action, which rotates the image 90 degrees
+         * This method is called whenever the RotateRight is triggered.
+         * It applies an {@link RotateRight} action, which rotates the image 90 degrees
          * to the right.
          * </p>
          * 
@@ -236,7 +236,7 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
-            target.getImage().apply(new ImageRotateRight());
+            target.getImage().apply(new RotateRight());
             target.repaint();
             target.getParent().revalidate();
         }
@@ -250,10 +250,10 @@ public class ViewActions {
      * 
      * @author Matthew Rae
      */
-    public class ImageRotateLeftAction extends ImageAction {
+    public class RotateLeftAction extends ImageAction {
         /**
          * <p>
-         * Create a ImageRotateLeft action.
+         * Create a RotateLeft action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -261,18 +261,18 @@ public class ViewActions {
          * @param desc A brief description of the action  (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
-        ImageRotateLeftAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        RotateLeftAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
         /**
          * <p>
-         * Callback for when the ImageRotateLeft action is triggered.
+         * Callback for when the RotateLeft action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the ImageRotateLeft is triggered.
-         * It applies an {@link ImageRotateLeft} action, which rotates the image 90 degrees
+         * This method is called whenever the RotateLeft is triggered.
+         * It applies an {@link RotateLeft} action, which rotates the image 90 degrees
          * to the left.
          * </p>
          * 
@@ -280,7 +280,7 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
-            target.getImage().apply(new ImageRotateLeft());
+            target.getImage().apply(new RotateLeft());
             target.repaint();
             target.getParent().revalidate();
         }
@@ -294,10 +294,10 @@ public class ViewActions {
      * 
      * @author Matthew Rae
      */
-    public class ImageRotateFullAction extends ImageAction {
+    public class RotateFullAction extends ImageAction {
         /**
          * <p>
-         * Create a ImageRotateFull action.
+         * Create a RotateFull action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -305,25 +305,25 @@ public class ViewActions {
          * @param desc A brief description of the action  (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
-        ImageRotateFullAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        RotateFullAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
         /**
          * <p>
-         * Callback for when the ImageRotateFull action is triggered.
+         * Callback for when the RotateFull action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the ImageRotateFull is triggered.
-         * It applies an {@link ImageRotateFull} action, which rotates the image 180 degrees.
+         * This method is called whenever the RotateFull is triggered.
+         * It applies an {@link RotateFull} action, which rotates the image 180 degrees.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
-            target.getImage().apply(new ImageRotateFull());
+            target.getImage().apply(new RotateFull());
             target.repaint();
             target.getParent().revalidate();
         }
@@ -337,10 +337,10 @@ public class ViewActions {
      * 
      * @author Matthew Rae
      */
-    public class HorizontalFlipAction extends ImageAction {
+    public class FlipHorizontalAction extends ImageAction {
         /**
          * <p>
-         * Create a HorizontalFlip action.
+         * Create a FlipHorizontal action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -348,18 +348,18 @@ public class ViewActions {
          * @param desc A brief description of the action  (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
-        HorizontalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        FlipHorizontalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
         /**
          * <p>
-         * Callback for when the HorizontalFlip action is triggered.
+         * Callback for when the FlipHorizontal action is triggered.
          * </p>
          * 
          * <p>
          * This method is called whenever the HorizontalFlip is triggered.
-         * It applies an {@link HorizontalFlip} action, which flips the image across
+         * It applies an {@link FlipHorizontal} action, which flips the image across
          * the x-axis.
          * </p>
          * 
@@ -367,7 +367,7 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
-            target.getImage().apply(new HorizontalFlip());
+            target.getImage().apply(new FlipHorizontal());
             target.repaint();
             target.getParent().revalidate();
         }
@@ -381,10 +381,10 @@ public class ViewActions {
      * 
      * @author Matthew Rae
      */
-    public class VerticalFlipAction extends ImageAction {
+    public class FlipVerticalAction extends ImageAction {
         /**
          * <p>
-         * Create a VerticalFlip action.
+         * Create a FlipVertical action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -392,18 +392,18 @@ public class ViewActions {
          * @param desc A brief description of the action  (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
-        VerticalFlipAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        FlipVerticalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
         /**
          * <p>
-         * Callback for when the VerticalFlip action is triggered.
+         * Callback for when the FlipVertical action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the HVerticalFlip is triggered.
-         * It applies an {@link VerticalFlip} action, which flips the image across
+         * This method is called whenever the FlipVertical is triggered.
+         * It applies an {@link FlipVertical} action, which flips the image across
          * the y-axis.
          * </p>
          * 
@@ -411,7 +411,7 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
-            target.getImage().apply(new VerticalFlip());
+            target.getImage().apply(new FlipVertical());
             target.repaint();
             target.getParent().revalidate();
         }
