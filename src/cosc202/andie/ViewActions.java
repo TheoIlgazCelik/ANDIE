@@ -40,9 +40,9 @@ public class ViewActions {
         actions.add(new ZoomInAction("Zoom In", null, "Zoom In", Integer.valueOf(KeyEvent.VK_PLUS)));
         actions.add(new ZoomOutAction("Zoom Out", null, "Zoom Out", Integer.valueOf(KeyEvent.VK_MINUS)));
         actions.add(new ZoomFullAction("Zoom Full", null, "Zoom Full", Integer.valueOf(KeyEvent.VK_1)));
-        actions.add(new ImageRotateRightAction("Rotate 90º right", null, "Rotate image 90º to the right", Integer.valueOf(KeyEvent.VK_2)));
-        actions.add(new ImageRotateLeftAction("Rotate 90º left", null, "Rotate image 90º to the left", Integer.valueOf(KeyEvent.VK_3)));
-        actions.add(new ImageRotateFullAction("Rotate 180º", null, "Rotate image 180º", Integer.valueOf(KeyEvent.VK_4)));
+        actions.add(new ImageRotateRightAction("Rotate 90\u00b0 right", null, "Rotate image 90\u00b0 to the right", Integer.valueOf(KeyEvent.VK_2)));
+        actions.add(new ImageRotateLeftAction("Rotate 90\u00b0 left", null, "Rotate image 90\u00b0 to the left", Integer.valueOf(KeyEvent.VK_3)));
+        actions.add(new ImageRotateFullAction("Rotate 180\u00b0", null, "Rotate image 180\u00b0", Integer.valueOf(KeyEvent.VK_4)));
         actions.add(new HorizontalFlipAction("Flip Horizontally", null, "Flip image horizontally", Integer.valueOf(KeyEvent.VK_5)));
         actions.add(new VerticalFlipAction("Flip Vertically", null, "Flip image vertically", Integer.valueOf(KeyEvent.VK_6)));
     }
