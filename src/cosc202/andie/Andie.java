@@ -107,10 +107,12 @@ public class Andie {
      * @throws Exception If something goes awry
      * @see #createAndShowGUI()
      */
+    //public static Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+    public static Locale locale = new Locale("en");
     public static void main(String[] args) throws Exception {
-        Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+        //Preferences prefs = Preferences.userNodeForPackage(Andie.class);
         //Locale.setDefault(new Locale(prefs.get("language","en"),prefs.get("country","NZ")));
-        Locale.setDefault(new Locale("en","NZ"));
+        //Locale.setDefault(new Locale("en","NZ"));
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -122,4 +124,6 @@ public class Andie {
             }
         });
     }
+
+
 }

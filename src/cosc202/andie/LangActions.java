@@ -16,8 +16,8 @@ public class LangActions {
     }
 
     public JMenu createMenu() {
-        ResourceBundle bundle = ResourceBundle.getBundle("LanguageBundle");
-        JMenu langMenu = new JMenu(bundle.getString("Language"));
+        ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
+        JMenu langMenu = new JMenu(b.getString("Language"));
         for (Action action : actions) {
             langMenu.add(new JMenuItem(action));
         }
@@ -31,9 +31,12 @@ public class LangActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-            Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-            prefs.put("language","es");
-            prefs.put("country","ES");
+            //Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+            //prefs.put("language","es");
+            //prefs.put("country","ES");
+            Andie.locale = new Locale("es");
+            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
+            System.out.println(b.getString("Language"));
         }
     
     }
@@ -44,9 +47,12 @@ public class LangActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-            Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-            prefs.put("language","en");
-            prefs.put("country","NZ");
+            //Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+            //Andie.prefs.put("language","en");
+            //Andie.prefs.put("country","NZ");
+            Andie.locale = new Locale("en");
+            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
+            System.out.println(b.getString("Language"));
         }
     
     }
