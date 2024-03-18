@@ -59,7 +59,12 @@ public class ViewActions {
 
         return viewMenu;
     }
-
+    /**
+     * <p>
+     * Action to Resize an Image
+     * </p>
+     * 
+     */
     public class ResizeAction extends ImageAction {
 
         ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic){
@@ -67,7 +72,20 @@ public class ViewActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new ResizeImage());
+
+            int sizePercentageIncrease100 = 100;
+
+            SpinnerNumberModel increaseModel = new SpinnerNumberModel(100, 1, 1000, 1); //new spinner model
+            JSpinner increaseSpinner = new JSpinner(increaseModel);
+            int option = JOptionPane.showOptionDialog(null, increaseSpinner, "Enter size increase as a percentage", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                sizePercentageIncrease100 = increaseModel.getNumber().intValue();
+            }
+
+            target.getImage().apply(new ResizeImage(sizePercentageIncrease100));
             target.repaint();
             target.getParent().revalidate();
         }
