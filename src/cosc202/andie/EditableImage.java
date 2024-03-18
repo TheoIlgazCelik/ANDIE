@@ -46,6 +46,8 @@ class EditableImage {
     /** The file where the operation sequence is stored. */
     private String opsFilename;
 
+    private String exportFileName;
+
     /**
      * <p>
      * Create a new EditableImage.
@@ -62,6 +64,7 @@ class EditableImage {
         redoOps = new Stack<ImageOperation>();
         imageFilename = null;
         opsFilename = null;
+        exportFileName = null;
     }
 
     /**
@@ -179,7 +182,7 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void save() throws Exception {
-        if (this.opsFilename == null) {
+        if (this.opsFilename == null && this.exportFileName == null) {
             this.opsFilename = this.imageFilename + ".ops";
         }
         // Write image file based on file extension
@@ -191,6 +194,27 @@ class EditableImage {
         objOut.writeObject(this.ops);
         objOut.close();
         fileOut.close();
+    }
+
+
+    /**
+     * Export an image as a 'jpg'
+     * 
+     * Saves all the image operations onto the actual image, then saves it to the file location. It doesn't save the operations
+     * just the image.
+     * @param imageFileName
+     * @throws Exception If something goes wrong
+     */
+    public void export(String imageFileName) throws Exception {
+        BufferedImage editedImage = original;
+        for(ImageOperation op : ops){
+            //applys the operations to the actual image
+            editedImage = op.apply(editedImage);
+
+        }
+        ImageIO.write(editedImage, "jpg", new File(imageFileName));
+        
+        
     }
 
 
@@ -215,6 +239,8 @@ class EditableImage {
         save();
     }
 
+
+    
     /**
      * <p>
      * Apply an {@link ImageOperation} to this image.
