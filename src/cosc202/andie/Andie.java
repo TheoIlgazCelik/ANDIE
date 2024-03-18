@@ -48,6 +48,7 @@ public class Andie {
      * 
      * @throws Exception if something goes wrong.
      */
+    public static JMenuBar menuBar;
     private static void createAndShowGUI() throws Exception {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
@@ -63,7 +64,7 @@ public class Andie {
         frame.add(scrollPane, BorderLayout.CENTER);
         
         // Add in menus for various types of action the user may perform.
-        JMenuBar menuBar = new JMenuBar();
+        menuBar = new JMenuBar();
 
         // File menus are pretty standard, so things that usually go in File menus go here.
         FileActions fileActions = new FileActions();

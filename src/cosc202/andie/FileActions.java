@@ -103,7 +103,7 @@ public class FileActions {
                 } catch (Exception ex) {
                     System.exit(1);
                 }
-            }
+            } 
 
             target.repaint();
             target.getParent().revalidate();
