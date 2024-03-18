@@ -93,7 +93,7 @@ public class FilterActions {
                 radius = radiusModel.getNumber().intValue();
             }
 
-            target.getImage().apply(new MedianFilter());
+            target.getImage().apply(new MedianFilter(radius));
             target.repaint();
             target.getParent().revalidate();
         }
