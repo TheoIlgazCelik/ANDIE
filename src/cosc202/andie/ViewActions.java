@@ -40,7 +40,7 @@ public class ViewActions {
         actions.add(new ZoomInAction("Zoom In", null, "Zoom In", Integer.valueOf(KeyEvent.VK_PLUS)));
         actions.add(new ZoomOutAction("Zoom Out", null, "Zoom Out", Integer.valueOf(KeyEvent.VK_MINUS)));
         actions.add(new ZoomFullAction("Zoom Full", null, "Zoom Full", Integer.valueOf(KeyEvent.VK_1)));
-        actions.add(new ResizeAction("Resize", null, "Resize", Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new ResizeAction("Resize Image", null, "Resize Image", Integer.valueOf(KeyEvent.VK_R)));
     }
 
     /**
@@ -58,6 +58,19 @@ public class ViewActions {
         }
 
         return viewMenu;
+    }
+
+    public class ResizeAction extends ImageAction {
+
+        ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ResizeImage());
+            target.repaint();
+            target.getParent().revalidate();
+        }
     }
 
     /**
@@ -105,41 +118,6 @@ public class ViewActions {
 
     }
 
-    /**
-     * <p>
-     * Action to resize an image.
-     * </p>
-     */
-    public class ResizeAction extends ImageAction {
-
-
-        /**
-         * @param name
-         * @param icon
-         * @param desc
-         * @param mnemonic
-         */
-        ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic){
-            super(name, icon, desc, mnemonic);
-        }
-        
-        /**
-         * <p>
-         * Callback for when the resize action is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the ResizeAction is triggered.
-         * It changes the size of the image
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e){
-
-        }
-
-    }
 
     /**
      * <p>
