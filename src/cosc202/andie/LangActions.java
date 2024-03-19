@@ -52,17 +52,17 @@ public class LangActions   {
     //Code sampled from https://stackoverflow.com/questions/24850424/get-jmenuitems-from-jmenubar
     public static void langChange() {
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-        String[][] m = {{"File","Open","Save","Save_as","Exit"},
+        String[][] m = {{"File","Open","Save","Save_as","Exit","Export"},
                         {"Edit","Undo","Redo"},
-                        {"View","Zoom_in","Zoom_out","Zoom_full"},
-                        {"Filter","Mean_filter"},
-                        {"Colour","Greyscale"},
+                        {"View","Zoom_in","Zoom_out","Zoom_full","Rotate_right","Rotate_left","Rotate_180","Flip_horizontal","Flip_vertical","Resize"},
+                        {"Filter","Mean_filter","Sharpen","Median"},
+                        {"Colour","Greyscale","Invert_color"},
                         {"Language","English","Spanish"}};
-        String[][] descs = {{"Open_desc","Save_desc","Save_as_desc","Exit_desc"},
+        String[][] descs = {{"Open_desc","Save_desc","Save_as_desc","Exit_desc","Export_desc"},
                           {"Undo_desc","Redo_desc"},
-                          {"Zoom_in_desc","Zoom_out_desc","Zoom_full_desc"},
-                          {"Mean_filter_desc"},
-                          {"Greyscale_desc"},
+                          {"Zoom_in_desc","Zoom_out_desc","Zoom_full_desc","Rotate_right_desc","Rotate_left_desc","Rotate_180_desc","Flip_horizontal_desc","Flip_vertical_desc","Resize_desc"},
+                          {"Mean_filter_desc","Sharpen_desc","Median_desc"},
+                          {"Greyscale_desc","Invert_color_desc"},
                           {"English_desc","Spanish_desc"}};
 
         for (int i = 0; i < Andie.menuBar.getMenuCount(); i++) {
@@ -83,6 +83,6 @@ public class LangActions   {
             }
         }
         
-    }
+    } 
 
 }
