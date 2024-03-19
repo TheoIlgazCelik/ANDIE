@@ -79,19 +79,20 @@ public class LangActions   {
                           {"Greyscale_desc","Invert_color_desc"},
                           {"English_desc","Spanish_desc","Maori_desc"}};
 
-        for (int i = 0; i < Andie.menuBar.getMenuCount(); i++) {
+        for (int i = 0; i < m.length/*Andie.menuBar.getMenuCount()*/; i++) {
             JMenu menu1 = Andie.menuBar.getMenu(i);
             //System.out.println("Menu:" + menu1.getText());
             menu1.setText(b.getString(m[i][0]));
-            for (int j = 0; j < menu1.getMenuComponentCount(); j++) {
+            for (int j = 0; j < m[i].length-1/*menu1.getMenuComponentCount()*/; j++) {
                 java.awt.Component comp = menu1.getMenuComponent(j);
                 if (comp instanceof JMenuItem) {
                     JMenuItem menuItem1 = (JMenuItem) comp;
                     //System.out.println("MenuItem:" + menuItem1.getText());
                     if (j+1 < m[i].length)  {
-                        menuItem1.setText(b.getString(m[i][j+1]));                       
+                        menuItem1.setText(b.getString(m[i][j+1]));    
+                        menuItem1.setToolTipText(b.getString(descs[i][j]));                   
                     }
-                    menuItem1.setToolTipText(b.getString(descs[i][j]));
+                    
                     
                 }
             }
