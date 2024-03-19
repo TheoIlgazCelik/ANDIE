@@ -45,6 +45,7 @@ public class ViewActions {
         actions.add(new RotateFullAction("Rotate 180\u00b0", null, "Rotate image 180\u00b0", Integer.valueOf(KeyEvent.VK_4)));
         actions.add(new FlipHorizontalAction("Flip Horizontally", null, "Flip image horizontally", Integer.valueOf(KeyEvent.VK_5)));
         actions.add(new FlipVerticalAction("Flip Vertically", null, "Flip image vertically", Integer.valueOf(KeyEvent.VK_6)));
+        actions.add(new ResizeAction("Resize Image", null, "Resize Image", Integer.valueOf(KeyEvent.VK_R)));
     }
 
     /**
@@ -62,6 +63,37 @@ public class ViewActions {
         }
 
         return viewMenu;
+    }
+    /**
+     * <p>
+     * Action to Resize an Image
+     * </p>
+     * 
+     */
+    public class ResizeAction extends ImageAction {
+
+        ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+
+            int sizePercentageIncrease100 = 100;
+
+            SpinnerNumberModel increaseModel = new SpinnerNumberModel(100, 1, 1000, 1); //new spinner model
+            JSpinner increaseSpinner = new JSpinner(increaseModel);
+            int option = JOptionPane.showOptionDialog(null, increaseSpinner, "Enter size increase as a percentage", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                sizePercentageIncrease100 = increaseModel.getNumber().intValue();
+            }
+
+            target.getImage().apply(new ResizeImage(sizePercentageIncrease100));
+            target.repaint();
+            target.getParent().revalidate();
+        }
     }
 
     /**
@@ -108,6 +140,7 @@ public class ViewActions {
         }
 
     }
+
 
     /**
      * <p>
