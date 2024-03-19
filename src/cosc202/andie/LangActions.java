@@ -1,12 +1,10 @@
 package cosc202.andie;
 import java.util.*;
-import java.util.prefs.Preferences;
 import java.awt.event.*;
 import javax.swing.*;
-import java.awt.*;
 
 
-public class LangActions {
+public class LangActions   {
     protected ArrayList<Action> actions;
 
     public LangActions() {
@@ -33,14 +31,7 @@ public class LangActions {
 
         
         public void actionPerformed(ActionEvent e) {
-            //Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-            //prefs.put("language","es");
-            //prefs.put("country","ES");
             Andie.locale = new Locale("es");
-            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-            System.out.println(b.getString("Language"));
-            //Andie.menuBar.getAccessibleContext().setAccessibleName("k");
-            
             langChange();
         }
     
@@ -52,37 +43,46 @@ public class LangActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-            //Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-            //Andie.prefs.put("language","en");
-            //Andie.prefs.put("country","NZ");
             Andie.locale = new Locale("en");
-            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-            System.out.println(b.getString("Language"));
-            //for (Component c : Andie.menuBar.getComponents()) {
-            //    setText("k");
-            //}
             langChange();
         }
     
     }
-
+ 
     //Code sampled from https://stackoverflow.com/questions/24850424/get-jmenuitems-from-jmenubar
     public static void langChange() {
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
+        String[][] m = {{"File","Open","Save","Save_as","Exit"},
+                        {"Edit","Undo","Redo"},
+                        {"View","Zoom_in","Zoom_out","Zoom_full"},
+                        {"Filter","Mean_filter"},
+                        {"Colour","Greyscale"},
+                        {"Language","English","Spanish"}};
+        String[][] descs = {{"Open_desc","Save_desc","Save_as_desc","Exit_desc"},
+                          {"Undo_desc","Redo_desc"},
+                          {"Zoom_in_desc","Zoom_out_desc","Zoom_full_desc"},
+                          {"Mean_filter_desc"},
+                          {"Greyscale_desc"},
+                          {"English_desc","Spanish_desc"}};
+
         for (int i = 0; i < Andie.menuBar.getMenuCount(); i++) {
             JMenu menu1 = Andie.menuBar.getMenu(i);
             //System.out.println("Menu:" + menu1.getText());
-            menu1.setText(b.getString(/**/));
+            menu1.setText(b.getString(m[i][0]));
             for (int j = 0; j < menu1.getMenuComponentCount(); j++) {
                 java.awt.Component comp = menu1.getMenuComponent(j);
                 if (comp instanceof JMenuItem) {
                     JMenuItem menuItem1 = (JMenuItem) comp;
                     //System.out.println("MenuItem:" + menuItem1.getText());
-                    menuItem1.setText(b.getString(/* */));
+                    if (j+1 < m[i].length)  {
+                        menuItem1.setText(b.getString(m[i][j+1]));                       
+                    }
+                    menuItem1.setToolTipText(b.getString(descs[i][j]));
+                    
                 }
             }
         }
-        //need to create way of getting string names for all items regardless of language
+        
     }
 
 }
