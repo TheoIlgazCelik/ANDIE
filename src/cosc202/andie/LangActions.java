@@ -12,6 +12,7 @@ public class LangActions   {
         //Include languages here with action.add(. . .) //see fileActions for format
         actions.add(new LangEnglishAction("English",null,"Change language to english",null));
         actions.add(new LangSpanishAction("Spanish",null,"Change language to spanish",null));
+        actions.add(new LangMaoriAction("Maori",null,"Change language to maori",null));
     }
 
     public JMenu createMenu() {
@@ -48,6 +49,19 @@ public class LangActions   {
         }
     
     }
+
+    public class LangMaoriAction extends ImageAction {
+
+        public LangMaoriAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            Andie.locale = new Locale("mi");
+            langChange();
+        }
+    
+    }
  
     //Code sampled from https://stackoverflow.com/questions/24850424/get-jmenuitems-from-jmenubar
     public static void langChange() {
@@ -57,13 +71,13 @@ public class LangActions   {
                         {"View","Zoom_in","Zoom_out","Zoom_full","Rotate_right","Rotate_left","Rotate_180","Flip_horizontal","Flip_vertical","Resize"},
                         {"Filter","Mean_filter","Sharpen","Median"},
                         {"Colour","Greyscale","Invert_color"},
-                        {"Language","English","Spanish"}};
+                        {"Language","English","Spanish","Maori"}};
         String[][] descs = {{"Open_desc","Save_desc","Save_as_desc","Exit_desc","Export_desc"},
                           {"Undo_desc","Redo_desc"},
                           {"Zoom_in_desc","Zoom_out_desc","Zoom_full_desc","Rotate_right_desc","Rotate_left_desc","Rotate_180_desc","Flip_horizontal_desc","Flip_vertical_desc","Resize_desc"},
                           {"Mean_filter_desc","Sharpen_desc","Median_desc"},
                           {"Greyscale_desc","Invert_color_desc"},
-                          {"English_desc","Spanish_desc"}};
+                          {"English_desc","Spanish_desc","Maori_desc"}};
 
         for (int i = 0; i < Andie.menuBar.getMenuCount(); i++) {
             JMenu menu1 = Andie.menuBar.getMenu(i);
