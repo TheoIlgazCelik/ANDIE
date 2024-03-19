@@ -3,6 +3,8 @@ package cosc202.andie;
 import java.awt.*;
 import javax.swing.*;
 import javax.imageio.*;
+import java.util.*;
+import java.util.prefs.Preferences;
 
 /**
  * <p>
@@ -46,6 +48,7 @@ public class Andie {
      * 
      * @throws Exception if something goes wrong.
      */
+    public static JMenuBar menuBar;
     private static void createAndShowGUI() throws Exception {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
@@ -61,7 +64,7 @@ public class Andie {
         frame.add(scrollPane, BorderLayout.CENTER);
         
         // Add in menus for various types of action the user may perform.
-        JMenuBar menuBar = new JMenuBar();
+        menuBar = new JMenuBar();
 
         // File menus are pretty standard, so things that usually go in File menus go here.
         FileActions fileActions = new FileActions();
@@ -82,6 +85,9 @@ public class Andie {
         // Actions that affect the representation of colour in the image
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
+
+        LangActions langActions = new LangActions();
+        menuBar.add(langActions.createMenu());
         
         frame.setJMenuBar(menuBar);
         frame.pack();
@@ -102,7 +108,12 @@ public class Andie {
      * @throws Exception If something goes awry
      * @see #createAndShowGUI()
      */
+    //public static Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+    public static Locale locale = new Locale("en");
     public static void main(String[] args) throws Exception {
+        //Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+        //Locale.setDefault(new Locale(prefs.get("language","en"),prefs.get("country","NZ")));
+        //Locale.setDefault(new Locale("en","NZ"));
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -114,4 +125,6 @@ public class Andie {
             }
         });
     }
+
+
 }
