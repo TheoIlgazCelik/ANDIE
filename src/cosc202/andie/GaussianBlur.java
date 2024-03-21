@@ -1,7 +1,7 @@
 package cosc202.andie;
 
 import java.awt.image.*;
-import java.util.*;
+//import java.util.*;
 
 /**
  * <p>
@@ -24,7 +24,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Construct a Mean filter with the given size.
+     * Construct a Gaussian Blur filter with the given size.
      * </p>
      * 
      * 
@@ -62,17 +62,36 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
-        /*int size = (2*radius+1) * (2*radius+1);
-        float [] array = new float[size];
-        Arrays.fill(array, 1.0f/size);
 
+        //the code below is copied from Mean Filter - Feel Free to change it up
+        int size = (2*radius+1) * (2*radius+1);
+        float [] array = new float[size];
+
+
+
+        //wrote this bit myself - again, feel free to change it up if its wrong
+        double val = 1/(2*Math.PI*radius*radius);
+        double val2 = 2*radius*radius;
+        double sum = 0;
+        for (int i = 0;i<array.length;i++){
+            array[i]=(float)(val*Math.exp(-(((i%5)*(i%5)+(val/5+1)*(val/5+1))/val2)));
+            sum+=array[i];
+        }
+        for (int i = 0;i<array.length;i++){
+            array[i]=(float)(array[i]/sum);
+        }
+
+        
+
+
+
+        //the code below is copied from Mean Filter - Feel Free to change it up
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
         ConvolveOp convOp = new ConvolveOp(kernel);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
         convOp.filter(input, output);
 
-        return output;*/
-        return (new BufferedImage(1, 1, 0));
+        return output;
     }
 
 
