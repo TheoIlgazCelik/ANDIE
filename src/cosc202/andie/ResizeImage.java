@@ -30,9 +30,20 @@ public class ResizeImage implements ImageOperation, java.io.Serializable {
 
 
     public BufferedImage apply(BufferedImage input) {
-        double percentageIncrease = (double)percentageIncrease100/100; // changes the number from int to double and divides by 100
+        if (percentageIncrease100 == 100) {
+            return input;
+        }
 
-        Image resizedImage = input.getScaledInstance((int)(input.getWidth() *percentageIncrease), (int)(input.getHeight() * (percentageIncrease)), 0);//gets scaled version of image
+        double percentageIncrease = (double)percentageIncrease100/100; // changes the number from int to double and divides by 100
+        int operation;
+
+        if (percentageIncrease > 1) {
+            operation = Image.SCALE_SMOOTH;
+        } else {
+            operation = Image.SCALE_AREA_AVERAGING;
+        }
+
+        Image resizedImage = input.getScaledInstance((int)(input.getWidth() *percentageIncrease), (int)(input.getHeight() * (percentageIncrease)), operation);//gets scaled version of image
         BufferedImage resizedBufferedImage = new BufferedImage(resizedImage.getWidth(null), resizedImage.getHeight(null), input.getType());
         
         Graphics2D graphics = resizedBufferedImage.createGraphics();
