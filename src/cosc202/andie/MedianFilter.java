@@ -88,8 +88,8 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
                 int[] neighbourhoodValuesB = new int[size];
 
                 // iterate through neighbourhood
-                for (int yOffset = -radius, count = 0; yOffset <= radius; yOffset++) {
-                    for (int xOffset = -radius; xOffset <= radius; xOffset++, count++) {
+                for (int yOffset = -radius, currNeighbour = 0; yOffset <= radius; yOffset++) {
+                    for (int xOffset = -radius; xOffset <= radius; xOffset++, currNeighbour++) {
                         // x, y for neighbour
                         int nx = x + xOffset;
                         int ny = y + yOffset;
@@ -114,10 +114,10 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
                         int g = (argb & 0x0000FF00) >> 8;
                         int b = (argb & 0x000000FF);
 
-                        neighbourhoodValuesA[count] = a;
-                        neighbourhoodValuesR[count] = r;
-                        neighbourhoodValuesG[count] = g;
-                        neighbourhoodValuesB[count] = b;
+                        neighbourhoodValuesA[currNeighbour] = a;
+                        neighbourhoodValuesR[currNeighbour] = r;
+                        neighbourhoodValuesG[currNeighbour] = g;
+                        neighbourhoodValuesB[currNeighbour] = b;
                     }
                 }
 
