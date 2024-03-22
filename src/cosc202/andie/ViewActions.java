@@ -79,11 +79,11 @@ public class ViewActions {
         public void actionPerformed(ActionEvent e) {
 
             int sizePercentageIncrease100 = 100;
-
+            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
             SpinnerNumberModel increaseModel = new SpinnerNumberModel(100, 1, 1000, 1); //new spinner model
             JSpinner increaseSpinner = new JSpinner(increaseModel);
-            int option = JOptionPane.showOptionDialog(null, increaseSpinner, "Enter size increase as a percentage", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
+            Object[] options = {b.getString("Ok"),b.getString("Cancel")};
+            int option = JOptionPane.showOptionDialog(null, increaseSpinner, b.getString("Enter_size"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
