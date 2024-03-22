@@ -91,10 +91,13 @@ public class FilterActions {
             } else if (option == JOptionPane.OK_OPTION) {
                 radius = radiusModel.getNumber().intValue();
             }
-
+            try{
             target.getImage().apply(new MedianFilter(radius));
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -151,9 +154,13 @@ public class FilterActions {
             }
 
             // Create and apply the filter
+            try{
             target.getImage().apply(new GaussianBlur(radius));
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -214,9 +221,13 @@ public class FilterActions {
             }
 
             // Create and apply the filter
+            try{
             target.getImage().apply(new MeanFilter(radius));
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -227,9 +238,13 @@ public class FilterActions {
         }
 
         public void actionPerformed(ActionEvent e){
+            try{
             target.getImage().apply(new SharpenFilter());
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }

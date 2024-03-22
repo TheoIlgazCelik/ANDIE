@@ -89,10 +89,13 @@ public class ViewActions {
             } else if (option == JOptionPane.OK_OPTION) {
                 sizePercentageIncrease100 = increaseModel.getNumber().intValue();
             }
-
+            try{
             target.getImage().apply(new ResizeImage(sizePercentageIncrease100));
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -134,9 +137,13 @@ public class ViewActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
             target.setZoom(target.getZoom()+10);
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -180,9 +187,13 @@ public class ViewActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
             target.setZoom(target.getZoom()-10);
             target.repaint();
             target.getParent().revalidate();
+            }catch (Exception ex){
+                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -225,9 +236,13 @@ public class ViewActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
             target.setZoom(100);
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -269,9 +284,13 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
+            try{
             target.getImage().apply(new RotateRight());
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -313,9 +332,13 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
+            try{
             target.getImage().apply(new RotateLeft());
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -356,9 +379,13 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
+            try{
             target.getImage().apply(new RotateFull());
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -400,9 +427,13 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
+            try{
             target.getImage().apply(new FlipHorizontal());
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -444,9 +475,13 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
+            try{
             target.getImage().apply(new FlipVertical());
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
