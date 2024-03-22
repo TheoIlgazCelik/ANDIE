@@ -61,7 +61,7 @@ public class FilterActions {
 
     /**
      * <p>
-     * Create a new mean-filter action.
+     * Create a new median-filter action.
      * </p>
      * 
      * @param name     The name of the action (ignored if null).
