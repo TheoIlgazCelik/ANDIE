@@ -91,9 +91,13 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
             target.getImage().apply(new ConvertToGrey());
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -104,9 +108,13 @@ public class ColourActions {
         }
 
         public void actionPerformed(ActionEvent e) {
+            try{
             target.getImage().apply(new InvertColor());
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
