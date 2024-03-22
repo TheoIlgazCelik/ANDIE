@@ -72,12 +72,15 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred) image.
      */
     public BufferedImage apply(BufferedImage input) {
-        BufferedImage output = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());
+        int width = input.getWidth();
+        int height = input.getHeight();
+
+        BufferedImage output = new BufferedImage(width, height, input.getType());
         int size = (2 * radius + 1) * (2 * radius + 1);
 
         // iterate through each pixel of original image
-        for (int y = 0; y < input.getHeight(); y++) {
-            for (int x = 0; x < input.getWidth(); x++) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
 
                 int[] neighbourhoodValuesA = new int[size];
                 int[] neighbourhoodValuesR = new int[size];
@@ -88,24 +91,24 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
                 for (int yOffset = -radius, count = 0; yOffset <= radius; yOffset++) {
                     for (int xOffset = -radius; xOffset <= radius; xOffset++, count++) {
                         // x, y for neighbour
-                        int xVal = x + xOffset;
-                        int yVal = y + yOffset;
+                        int nx = x + xOffset;
+                        int ny = y + yOffset;
 
                         // bounds check
-                        if (xVal < 0) {
-                            xVal = 0;
-                        } else if (xVal >= input.getWidth()) {
-                            xVal = input.getWidth() - 1;
+                        if (nx < 0) {
+                            nx = 0;
+                        } else if (nx >= width) {
+                            nx = width - 1;
                         }
 
-                        if (yVal < 0) {
-                            yVal = 0;
-                        } else if (yVal >= input.getHeight()) {
-                            yVal = input.getHeight() - 1;
+                        if (ny < 0) {
+                            ny = 0;
+                        } else if (ny >= height) {
+                            ny = height - 1;
                         }
 
                         // unpack and store argb
-                        int argb = input.getRGB(xVal, yVal);
+                        int argb = input.getRGB(nx, ny);
                         int a = (argb & 0xFF000000) >> 24;
                         int r = (argb & 0x00FF0000) >> 16;
                         int g = (argb & 0x0000FF00) >> 8;
