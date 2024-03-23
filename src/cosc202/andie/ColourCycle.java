@@ -10,7 +10,7 @@ import java.awt.image.*;
  * <p>
  * The images produced by this operation are still colour images,
  * just that their red, green, and blue values rotate changing the colour 
- * channels each cycle. RGB, GBR, BRG
+ * channels each cycle. RGB, GBR, BRG.
  * </p>
  * 
  * 
