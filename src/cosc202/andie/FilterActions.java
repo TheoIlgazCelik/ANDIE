@@ -2,7 +2,13 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.text.DefaultFormatter;
 
 /**
  * <p>
@@ -70,6 +76,9 @@ public class FilterActions {
      * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
      */
     public class MedianFilterAction extends ImageAction {
+        private final int MIN_VALUE = 1;
+        private final int MAX_VALUE = 10;
+        
         MedianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
@@ -80,8 +89,11 @@ public class FilterActions {
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel();
             JSpinner radiusSpinner = new JSpinner(radiusModel);
+            radiusSpinner.setValue(this.MIN_VALUE);
+            addSpinnerChangeListener(radiusSpinner, this.MIN_VALUE, this.MAX_VALUE);
+
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
@@ -174,6 +186,8 @@ public class FilterActions {
      * @see MeanFilter
      */
     public class MeanFilterAction extends ImageAction {
+        private final int MIN_VALUE = 1;
+        private final int MAX_VALUE = 10;
 
         /**
          * <p>
@@ -208,9 +222,12 @@ public class FilterActions {
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel();
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            radiusSpinner.setValue(this.MIN_VALUE);
+            addSpinnerChangeListener(radiusSpinner, this.MIN_VALUE, this.MAX_VALUE);
+
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius (" + this.MIN_VALUE + "-" + this.MAX_VALUE + ")",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -246,5 +263,25 @@ public class FilterActions {
                 JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+
+    private void addSpinnerChangeListener(JSpinner radiusSpinner, int MIN, int MAX) {
+        JFormattedTextField textField = ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField();
+        DefaultFormatter formatter = (DefaultFormatter) textField.getFormatter();
+        formatter.setCommitsOnValidEdit(true);
+
+        textField.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent e) {
+                int value = (int) radiusSpinner.getValue();
+                System.out.println(value);
+                if (value < MIN) {
+                    radiusSpinner.setValue(MIN);
+                } else if (value > MAX) {
+                    radiusSpinner.setValue(MAX);
+                }
+            }
+    
+        });
     }
 }
