@@ -2,12 +2,8 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
 
 /**
@@ -78,7 +74,7 @@ public class FilterActions {
     public class MedianFilterAction extends ImageAction {
         private final int MIN_VALUE = 1;
         private final int MAX_VALUE = 10;
-        
+
         MedianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
@@ -89,12 +85,16 @@ public class FilterActions {
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel();
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, this.MIN_VALUE, this.MAX_VALUE, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            radiusSpinner.setValue(this.MIN_VALUE);
-            addSpinnerChangeListener(radiusSpinner, this.MIN_VALUE, this.MAX_VALUE);
 
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius",
+            // prevent invalid input into JSpinner
+            JFormattedTextField textField = ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField();
+            DefaultFormatter formatter = (DefaultFormatter) textField.getFormatter();
+            formatter.setAllowsInvalid(false);
+
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner,
+                    "Enter filter radius (" + this.MIN_VALUE + "-" + this.MAX_VALUE + ")",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
@@ -103,12 +103,12 @@ public class FilterActions {
             } else if (option == JOptionPane.OK_OPTION) {
                 radius = radiusModel.getNumber().intValue();
             }
-            try{
-            target.getImage().apply(new MedianFilter(radius));
-            target.repaint();
-            target.getParent().revalidate();
-            } catch(Exception ex){
-                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            try {
+                target.getImage().apply(new MedianFilter(radius));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(target, "No image selected", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -118,7 +118,6 @@ public class FilterActions {
      * Action to blur an image with a Gaussian Blur
      * </p>
      * 
-     * @see MeanFilter
      */
     public class GaussianBlurAction extends ImageAction {
 
@@ -127,10 +126,10 @@ public class FilterActions {
          * Create a new mean-filter action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         GaussianBlurAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -143,7 +142,7 @@ public class FilterActions {
          * 
          * <p>
          * This method is called whenever the GaussianBlurAction is triggered.
-         * It prompts the user for a filter radius, then applies an appropriately sized {@link MeanFilter}.
+         * It prompts the user for a filter radius, then applies an appropriately sized
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -166,17 +165,16 @@ public class FilterActions {
             }
 
             // Create and apply the filter
-            try{
-            target.getImage().apply(new GaussianBlur(radius));
-            target.repaint();
-            target.getParent().revalidate();
-            } catch(Exception ex){
-                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            try {
+                target.getImage().apply(new GaussianBlur(radius));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(target, "No image selected", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
 
     }
-
 
     /**
      * <p>
@@ -222,10 +220,13 @@ public class FilterActions {
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel();
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, this.MIN_VALUE, this.MAX_VALUE, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            radiusSpinner.setValue(this.MIN_VALUE);
-            addSpinnerChangeListener(radiusSpinner, this.MIN_VALUE, this.MAX_VALUE);
+
+            // prevent invalid input into JSpinner
+            JFormattedTextField textField = ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField();
+            DefaultFormatter formatter = (DefaultFormatter) textField.getFormatter();
+            formatter.setAllowsInvalid(false);
 
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius (" + this.MIN_VALUE + "-" + this.MAX_VALUE + ")",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -238,50 +239,31 @@ public class FilterActions {
             }
 
             // Create and apply the filter
-            try{
-            target.getImage().apply(new MeanFilter(radius));
-            target.repaint();
-            target.getParent().revalidate();
-            } catch(Exception ex){
-                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+            try {
+                target.getImage().apply(new MeanFilter(radius));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(target, "No image selected", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
 
     }
 
     public class SharpenFilterAction extends ImageAction {
-        SharpenFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+        SharpenFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
-        public void actionPerformed(ActionEvent e){
-            try{
-            target.getImage().apply(new SharpenFilter());
-            target.repaint();
-            target.getParent().revalidate();
-            } catch(Exception ex){
-                JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+        public void actionPerformed(ActionEvent e) {
+            try {
+                target.getImage().apply(new SharpenFilter());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(target, "No image selected", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
-    private void addSpinnerChangeListener(JSpinner radiusSpinner, int MIN, int MAX) {
-        JFormattedTextField textField = ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField();
-        DefaultFormatter formatter = (DefaultFormatter) textField.getFormatter();
-        formatter.setCommitsOnValidEdit(true);
-
-        textField.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent e) {
-                int value = (int) radiusSpinner.getValue();
-                System.out.println(value);
-                if (value < MIN) {
-                    radiusSpinner.setValue(MIN);
-                } else if (value > MAX) {
-                    radiusSpinner.setValue(MAX);
-                }
-            }
-    
-        });
-    }
 }
