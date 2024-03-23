@@ -114,16 +114,43 @@ public class ColourActions {
         }
     }
 
-    // begin comments here
+    /**
+     * <p>
+     * Action to cycle through an image's colour channels 
+     * </p>
+     * 
+     * @see ColourCycle
+     */
     public class ColourCycleAction extends ImageAction {
-
+        
         private ColourCycle colourCycle;
 
+        /**
+         * <p>
+         * Create a new colour-cycle action
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         public ColourCycleAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
             colourCycle = new ColourCycle();
         }
 
+        /**
+         * <p>
+         * Callback for when the colour-cycle action is triggered.
+         * <p>
+         * 
+         * <p>
+         * This method is called whenever the ColourCycleAction is triggered.
+         * It changes the image's colour channels.
+         * 
+         * @param e The event triggering this callback
+         */
         public void actionPerformed(ActionEvent e) {
             target.getImage().apply(colourCycle);
             target.repaint();
