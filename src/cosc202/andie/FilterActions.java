@@ -103,7 +103,6 @@ public class FilterActions {
             } else if (option == JOptionPane.OK_OPTION) {
                 radius = radiusModel.getNumber().intValue();
             }
-<<<<<<< HEAD
             try{
             target.getImage().apply(new MedianFilter(radius));
             target.repaint();
@@ -113,14 +112,6 @@ public class FilterActions {
                 ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
                 Object[] options = {b.getString("Ok")};
                 JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
-=======
-            try {
-                target.getImage().apply(new MedianFilter(radius));
-                target.repaint();
-                target.getParent().revalidate();
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(target, "No image selected", "Error", JOptionPane.ERROR_MESSAGE);
->>>>>>> cdbedaff1a8d12243794e57e1b3c1dbb89528d65
             }
         }
     }
@@ -179,7 +170,6 @@ public class FilterActions {
             }
 
             // Create and apply the filter
-<<<<<<< HEAD
             try{
             target.getImage().apply(new GaussianBlur(radius));
             target.repaint();
@@ -189,14 +179,6 @@ public class FilterActions {
 
                 Object[] options = {b.getString("Ok")};
                 JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
-=======
-            try {
-                target.getImage().apply(new GaussianBlur(radius));
-                target.repaint();
-                target.getParent().revalidate();
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(target, "No image selected", "Error", JOptionPane.ERROR_MESSAGE);
->>>>>>> cdbedaff1a8d12243794e57e1b3c1dbb89528d65
             }
         }
 
@@ -248,21 +230,10 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, this.MIN_VALUE, this.MAX_VALUE, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-<<<<<<< HEAD
             ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
             Object[] options2 = {b.getString("Ok"),b.getString("Cancel")};
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, b.getString("Filter_radius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
-=======
-
-            // prevent invalid input into JSpinner
-            JFormattedTextField textField = ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField();
-            DefaultFormatter formatter = (DefaultFormatter) textField.getFormatter();
-            formatter.setAllowsInvalid(false);
-
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius (" + this.MIN_VALUE + "-" + this.MAX_VALUE + ")",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
->>>>>>> cdbedaff1a8d12243794e57e1b3c1dbb89528d65
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -272,7 +243,6 @@ public class FilterActions {
             }
 
             // Create and apply the filter
-<<<<<<< HEAD
             try{
             target.getImage().apply(new MeanFilter(radius));
             target.repaint();
@@ -281,14 +251,6 @@ public class FilterActions {
                 //JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
                 Object[] options = {b.getString("Ok")};
                 JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
-=======
-            try {
-                target.getImage().apply(new MeanFilter(radius));
-                target.repaint();
-                target.getParent().revalidate();
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(target, "No image selected", "Error", JOptionPane.ERROR_MESSAGE);
->>>>>>> cdbedaff1a8d12243794e57e1b3c1dbb89528d65
             }
         }
 
@@ -299,7 +261,6 @@ public class FilterActions {
             super(name, icon, desc, mnemonic);
         }
 
-<<<<<<< HEAD
         public void actionPerformed(ActionEvent e){
             try{
             target.getImage().apply(new SharpenFilter());
@@ -310,15 +271,6 @@ public class FilterActions {
                 ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
                 Object[] options = {b.getString("Ok")};
                 JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
-=======
-        public void actionPerformed(ActionEvent e) {
-            try {
-                target.getImage().apply(new SharpenFilter());
-                target.repaint();
-                target.getParent().revalidate();
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(target, "No image selected", "Error", JOptionPane.ERROR_MESSAGE);
->>>>>>> cdbedaff1a8d12243794e57e1b3c1dbb89528d65
             }
         }
     }
