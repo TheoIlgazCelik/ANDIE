@@ -4,7 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 import javax.imageio.*;
 import java.util.*;
-import java.util.prefs.Preferences;
 
 /**
  * <p>

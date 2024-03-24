@@ -103,7 +103,9 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open(imageFilepath);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(fileChooser, "Please choose an image file", "Error", JOptionPane.ERROR_MESSAGE);
+                    ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
+                    Object[] options = {b.getString("Ok")};
+                    JOptionPane.showOptionDialog(fileChooser, b.getString("Choose_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
                 }
             } 
 
@@ -205,7 +207,10 @@ public class FileActions {
                     }
                     target.getImage().export(imageFilePath);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(fileChooser, "Open the file you want to export", "Error", JOptionPane.ERROR_MESSAGE);;
+                    //JOptionPane.showMessageDialog(fileChooser, "Open the file you want to export", "Error", JOptionPane.ERROR_MESSAGE);;
+                    ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
+                    Object[] options = {b.getString("Ok")};
+                    JOptionPane.showOptionDialog(fileChooser, b.getString("File_export"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
                 }
             }
         }
@@ -256,7 +261,10 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().saveAs(imageFilepath);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(fileChooser, "Open the image you want to save", LARGE_ICON_KEY, result);;
+                    //JOptionPane.showMessageDialog(fileChooser, "Open the image you want to save", LARGE_ICON_KEY, result);;
+                    ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
+                    Object[] options = {b.getString("Ok")};
+                    JOptionPane.showOptionDialog(fileChooser, b.getString("Save_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
                 }
             }
         }
