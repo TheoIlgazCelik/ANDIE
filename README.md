@@ -31,3 +31,56 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 ## Dependency Management
 
 The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+
+## Who has worked on each feature
+
+### Finn
+Sharpen Filter
+
+Exception Handling
+
+Image Export
+
+Error Avoidance/prevention
+
+General Support on other features
+
+### Ilgaz
+Gaussian Blur Filter
+
+Image Resize
+
+Error Avoidance/prevention
+
+General Support on other features
+
+### Josh
+Median Filter
+
+Colour channel cycling
+
+Error Avoidance/prevention
+
+General Support on other features
+
+### Aiden
+Image Inversion
+
+Multi-Lingual Support
+
+Error Avoidance/prevention
+
+General Support on other features
+
+### Matt
+Image Rotations
+
+Image flip
+
+Error Avoidance/prevention
+
+General Support on other features
+
+## How our code was tested
+* J-Unit testing
+* Print line Testing

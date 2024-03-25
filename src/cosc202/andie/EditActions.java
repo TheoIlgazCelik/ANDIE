@@ -91,9 +91,17 @@ public class EditActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
             target.getImage().undo();
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
+            }
         }
     }
 
@@ -134,9 +142,17 @@ public class EditActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            try{
             target.getImage().redo();
             target.repaint();
             target.getParent().revalidate();
+            } catch(Exception ex){
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
+            }
         }
     }
 
