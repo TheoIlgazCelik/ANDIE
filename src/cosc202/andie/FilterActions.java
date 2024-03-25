@@ -112,22 +112,27 @@ public class FilterActions {
             // disable keyboard input
             ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField().setEditable(false);
 
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner,
-                    "Enter filter radius (" + this.MIN_VALUE + "-" + this.MAX_VALUE + ")",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+            Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
+            String optionMessage = b.getString("Filter_radius") + " (" + this.MIN_VALUE + " - " + this.MAX_VALUE + ")";
 
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, optionMessage,
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
+                    
             // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
+            // Ok = 0, Cancel = 1, Exit = -1
+            if (option == 0) {
                 radius = radiusModel.getNumber().intValue();
+            } else {
+                return;
             }
+
             try {
                 target.getImage().apply(new MedianFilter(radius));
                 target.repaint();
                 target.getParent().revalidate();
             } catch (Exception ex) {
-                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
                 Object[] options = { b.getString("Ok") };
                 JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
                         JOptionPane.ERROR_MESSAGE, null, options, null);
