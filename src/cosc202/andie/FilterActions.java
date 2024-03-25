@@ -108,7 +108,7 @@ public class FilterActions {
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, this.MIN_VALUE, this.MAX_VALUE, 1);
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, this.MIN_VALUE, this.MAX_VALUE, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             // disable keyboard input
             ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField().setEditable(false);
@@ -253,14 +253,16 @@ public class FilterActions {
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, this.MIN_VALUE, this.MAX_VALUE, 1);
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, this.MIN_VALUE, this.MAX_VALUE, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
             // disable keyboard input
             ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField().setEditable(false);
 
             ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
             Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, b.getString("Filter_radius"),
+            String optionMessage = b.getString("Filter_radius") + " (" + this.MIN_VALUE + " - " + this.MAX_VALUE + ")";
+
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, optionMessage,
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
                     
             // Check the return value from the dialog box.
