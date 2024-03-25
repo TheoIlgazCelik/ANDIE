@@ -3,6 +3,9 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.io.File;
 
 /**
@@ -95,7 +98,23 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
+            UIManager.put("FileChooser.openButtonText",b.getString("Open"));
+            UIManager.put("FileChooser.cancelButtonText",b.getString("Cancel"));
+            UIManager.put("FileChooser.cancelButtonToolTipText",b.getString("Abort_file"));
+            UIManager.put("FileChooser.openButtonToolTipText",b.getString("Open_desc"));
+            UIManager.put("FileChooser.fileNameLabelText", b.getString("File_name"));
+            UIManager.put("FileChooser.filesOfTypeLabelText", b.getString("Type_file"));
+            UIManager.put("FileChooser.setDialogTitle",b.getString("Open"));
+            UIManager.put("FileChooser.lookInLabelText", b.getString("Look"));
+            UIManager.put("FileChooser.detailsViewButtonToolTipText", b.getString("Details_desc"));
+            UIManager.put("FileChooser.listViewButtonToolTipText",b.getString("List_desc"));
+            UIManager.put("FileChooser.upFolderToolTipText", b.getString("Up_level"));
+            UIManager.put("FileChooser.homeFolderToolTipText",b.getString("Home"));
+            UIManager.put("FileChooser.newFolderToolTipText",b.getString("Create_folder"));
+            
             JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle(b.getString("Open"));
             int result = fileChooser.showOpenDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
@@ -103,7 +122,6 @@ public class FileActions {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open(imageFilepath);
                 } catch (Exception ex) {
-                    ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
                     Object[] options = {b.getString("Ok")};
                     JOptionPane.showOptionDialog(fileChooser, b.getString("Choose_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
                 }
@@ -181,17 +199,31 @@ public class FileActions {
 
          /**
          * <p>
-         * Callback for when the file-save-as action is triggered.
+         * Callback for when the file-export action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the FileSaveAsAction is triggered.
-         * It prompts the user to select a file and saves the image to it.
+         * This method is called whenever the FileExportAction is triggered.
+         * It prompts the user to select a file and exports the image to it.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
+            UIManager.put("FileChooser.openButtonText",b.getString("Open"));
+            UIManager.put("FileChooser.cancelButtonText",b.getString("Cancel"));
+            UIManager.put("FileChooser.cancelButtonToolTipText",b.getString("Abort_file"));
+            UIManager.put("FileChooser.openButtonToolTipText",b.getString("Open_desc"));
+            UIManager.put("FileChooser.fileNameLabelText", b.getString("File_name"));
+            UIManager.put("FileChooser.filesOfTypeLabelText", b.getString("Type_file"));
+            UIManager.put("FileChooser.setDialogTitle",b.getString("Open"));
+            UIManager.put("FileChooser.lookInLabelText", b.getString("Look"));
+            UIManager.put("FileChooser.detailsViewButtonToolTipText", b.getString("Details_desc"));
+            UIManager.put("FileChooser.listViewButtonToolTipText",b.getString("List_desc"));
+            UIManager.put("FileChooser.upFolderToolTipText", b.getString("Up_level"));
+            UIManager.put("FileChooser.homeFolderToolTipText",b.getString("Home"));
+            UIManager.put("FileChooser.newFolderToolTipText",b.getString("Create_folder"));
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
 
@@ -208,7 +240,7 @@ public class FileActions {
                     target.getImage().export(imageFilePath);
                 } catch (Exception ex) {
                     //JOptionPane.showMessageDialog(fileChooser, "Open the file you want to export", "Error", JOptionPane.ERROR_MESSAGE);;
-                    ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
+                    //ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
                     Object[] options = {b.getString("Ok")};
                     JOptionPane.showOptionDialog(fileChooser, b.getString("File_export"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
                 }
