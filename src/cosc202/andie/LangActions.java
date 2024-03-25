@@ -3,10 +3,31 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-
+/**
+ * <p>
+ * Actions provided by the Language menu.
+ * </p>
+ * 
+ * <p>
+ * The Language menu is very common across applications, 
+ * and there are several items that the user will expect to find here.
+ * These include the languages that the application supports.
+ * </p>
+ * 
+ *
+ * 
+ * @author Aiden O'Brien
+ * @version 1.0
+ */
 public class LangActions   {
+    /** A list of actions for the language menu. */
     protected ArrayList<Action> actions;
 
+    /**
+     * <p>
+     * Create a set of Lang menu actions.
+     * </p>
+     */
     public LangActions() {
         actions = new ArrayList<Action>();
         //Include languages here with action.add(. . .) //see fileActions for format
@@ -15,6 +36,13 @@ public class LangActions   {
         actions.add(new LangMaoriAction("Maori",null,"Change language to maori",null));
     }
 
+    /**
+     * <p>
+     * Create a menu containing the list of language actions.
+     * </p>
+     * 
+     * @return The Language menu UI element.
+     */
     public JMenu createMenu() {
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
         JMenu langMenu = new JMenu(b.getString("Language"));
@@ -24,25 +52,80 @@ public class LangActions   {
         return langMenu;
     }
 
+    /**
+     * <p>
+     * Action to change the language to spanish
+     * </p>
+     * 
+     * @see EditableImage#open(String)
+     */
     public class LangSpanishAction extends ImageAction {
-
+        /**
+         * <p>
+         * Change the language to Spanish.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
         public LangSpanishAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
-        
+        /**
+         * <p>
+         * Callback for when the language change to Spanish action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the LangSpanishAction is triggered.
+         * It changes the language of the UI.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             Andie.locale = new Locale("es");
             langChange();
         }
     
     }
+    /**
+     * <p>
+     * Action to change the language to English
+     * </p>
+     * 
+     * @see EditableImage#open(String)
+     */
     public class LangEnglishAction extends ImageAction {
-
+        /**
+         * <p>
+         * Change the language to English.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
         public LangEnglishAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the language change to English action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the LangEnglishAction is triggered.
+         * It changes the language of the UI.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             Andie.locale = new Locale("en");
             langChange();
@@ -51,19 +134,44 @@ public class LangActions   {
     }
 
     public class LangMaoriAction extends ImageAction {
-
+        /**
+         * <p>
+         * Change the language to Maori.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
         public LangMaoriAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-
+        
+        /**
+         * <p>
+         * Callback for when the language change to Maori action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the LangMaoriAction is triggered.
+         * It changes the language of the UI.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             Andie.locale = new Locale("mi");
             langChange();
         }
     
     }
- 
-    //Code sampled from https://stackoverflow.com/questions/24850424/get-jmenuitems-from-jmenubar
+    /** 
+    * Code sampled from https://stackoverflow.com/questions/24850424/get-jmenuitems-from-jmenubar
+    * <p>
+    * Method that iterates through the UI and changes all text to the language chosen.
+    * </p>
+    */
     public static void langChange() {
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
         String[][] m = {{"File","Open","Save","Save_as","Exit","Export"},

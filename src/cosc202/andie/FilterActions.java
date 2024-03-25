@@ -118,7 +118,7 @@ public class FilterActions {
 
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, optionMessage,
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
-                    
+
             // Check the return value from the dialog box.
             // Ok = 0, Cancel = 1, Exit = -1
             if (option == 0) {
@@ -263,7 +263,7 @@ public class FilterActions {
 
             int option = JOptionPane.showOptionDialog(null, radiusSpinner, optionMessage,
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
-                    
+
             // Check the return value from the dialog box.
             // Ok = 0, Cancel = 1, Exit = -1
             if (option == 0) {
@@ -286,11 +286,30 @@ public class FilterActions {
 
     }
 
+    /**
+     * <p>
+     * Action to sharpen an image with a sharpen filter.
+     * </p>
+     * 
+     * @see SharpenFilter
+     */
     public class SharpenFilterAction extends ImageAction {
         SharpenFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the sharpen filter action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the SharpenFilterAction is triggered.
+         * {@link SharpenFilter}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             try {
                 target.getImage().apply(new SharpenFilter());
