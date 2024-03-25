@@ -36,29 +36,49 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 ### Finn
 Sharpen Filter
+
 Exception Handling
+
 Image Export
+
 Error Avoidance/prevention
+
 General Support on other features
+
 ### Ilgaz
 Gaussian Blur Filter
+
 Image Resize
+
 Error Avoidance/prevention
+
 General Support on other features
+
 ### Josh
 Median Filter
+
 Colour channel cycling
+
 Error Avoidance/prevention
+
 General Support on other features
+
 ### Aiden
 Image Inversion
+
 Multi-Lingual Support
+
 Error Avoidance/prevention
+
 General Support on other features
+
 ### Matt
 Image Rotations
+
 Image flip
+
 Error Avoidance/prevention
+
 General Support on other features
 
 ## How our code was tested
