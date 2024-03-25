@@ -181,12 +181,12 @@ public class FileActions {
 
          /**
          * <p>
-         * Callback for when the file-save-as action is triggered.
+         * Callback for when the file-export action is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the FileSaveAsAction is triggered.
-         * It prompts the user to select a file and saves the image to it.
+         * This method is called whenever the FileExportAction is triggered.
+         * It prompts the user to select a file and exports the image to it.
          * </p>
          * 
          * @param e The event triggering this callback.
