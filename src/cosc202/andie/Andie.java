@@ -56,7 +56,6 @@ public class Andie {
     private static void createAndShowGUI() {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
-
         try {
             Image image = ImageIO.read(Andie.class.getClassLoader().getResource(iconFilePath));
             frame.setIconImage(image);

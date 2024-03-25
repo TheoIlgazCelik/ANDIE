@@ -3,6 +3,9 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.io.File;
 
 /**
@@ -96,6 +99,9 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             JFileChooser fileChooser = new JFileChooser();
+            FileFilter filter = new FileNameExtensionFilter("Image", "jpg", "jpeg", "png", "gif", "bmp", "webp");
+            fileChooser.setFileFilter(filter);
+
             int result = fileChooser.showOpenDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
