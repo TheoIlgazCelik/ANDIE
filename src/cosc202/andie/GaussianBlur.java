@@ -1,7 +1,6 @@
 package cosc202.andie;
 
 import java.awt.image.*;
-//import java.util.*;
 
 /**
  * <p>
@@ -12,7 +11,7 @@ import java.awt.image.*;
  * </p>
  * 
  * @see java.awt.image.ConvolveOp
- * @author Steven Mills
+ * @author Ilgaz Celik
  * @version 1.0
  */
 public class GaussianBlur implements ImageOperation, java.io.Serializable {
@@ -21,6 +20,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
     private int radius;
+    public float[] array;
 
     /**
      * <p>
@@ -30,7 +30,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
      * 
      * @param radius The radius of the newly constructed Gaussian Blur
      */
-    GaussianBlur(int radius) {
+    public GaussianBlur(int radius) {
         this.radius = radius;    
     }
 
@@ -55,37 +55,40 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
      * <p>
      * As with many filters, the Gaussian Blur filter is implemented via convolution.
      * The size of the convolution kernel is specified by the {@link radius}.  
-     * Larger radii lead to stronger blurring.
      * </p>
      * 
-     * @param input The image to apply the Mean filter to.
+     * @param input The image to apply the Gaussian Blur to.
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
 
-        //the code below is copied from Mean Filter - Feel Free to change it up
+        //Initialising and declaring required variables
         int size = (2*radius+1) * (2*radius+1);
         float [] array = new float[size];
-
-
-
-        //wrote this bit myself - again, feel free to change it up if its wrong
-        double val = 1/(2*Math.PI*radius*radius);
-        double val2 = 2*radius*radius;
         double sum = 0;
+        double sigma = (double)radius/3;
+
+
+        //initialising and declaring variables that will be used often
+        double val = 1/(2*Math.PI*sigma*sigma);
+        double val2 = 2*sigma*sigma;
+        int diameter = 2*radius+1;
+        
+        //going through the array and entering in the gaussian blur values
         for (int i = 0;i<array.length;i++){
-            array[i]=(float)(val*Math.exp(-(((i%5)*(i%5)+(val/5+1)*(val/5+1))/val2)));
+            array[i]=(float)(val*Math.exp(-(((radius-i%diameter)*(radius-i%diameter)+(radius-i/diameter)*(radius-i/diameter))/val2)));
             sum+=array[i];
         }
+
+        //going through the array and diving each value by the sum to create a percentage value
         for (int i = 0;i<array.length;i++){
             array[i]=(float)(array[i]/sum);
         }
-
         
 
 
 
-        //the code below is copied from Mean Filter - Feel Free to change it up
+        //using a kernel to do a convolution operation
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
         ConvolveOp convOp = new ConvolveOp(kernel);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
