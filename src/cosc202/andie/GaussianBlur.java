@@ -21,6 +21,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
     private int radius;
+    public float[] array;
 
     /**
      * <p>
@@ -30,7 +31,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
      * 
      * @param radius The radius of the newly constructed Gaussian Blur
      */
-    GaussianBlur(int radius) {
+    public GaussianBlur(int radius) {
         this.radius = radius;    
     }
 
@@ -65,7 +66,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
         //the code below is copied from Mean Filter - Feel Free to change it up
         int size = (2*radius+1) * (2*radius+1);
-        float [] array = new float[size];
+        this.array = new float[size];
 
 
 
@@ -80,6 +81,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         for (int i = 0;i<array.length;i++){
             array[i]=(float)(array[i]/sum);
         }
+        
 
         
 
