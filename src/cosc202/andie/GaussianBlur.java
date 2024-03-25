@@ -64,7 +64,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
         //Initialising and declaring required variables
         int size = (2*radius+1) * (2*radius+1);
-        float [] array = new float[size];
+        this.array = new float[size];
         double sum = 0;
         double sigma = (double)radius/3;
 
