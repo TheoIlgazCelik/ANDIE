@@ -1,16 +1,21 @@
 #  **ANDIE**
+## About the project:
 
 'ANDIE' stands for A Non-Destructive Image Editor. The purpose of the program is editing and manipulating images - like Photoshop but much simpler. The approach taken in ANDIE is non-destructive image editing. Many image processing operations, such as blurring filters, cannot be reversed because information is lost in the process. Non-destructive editors take the approach of storing the original data (an image in this case) and a sequence of operations. The operations can be applied to a copy of the original to get the desired result, but since the original and the full sequence of operations has been kept, no information is lost. This approach also lets us implement undo operations easily.
 
-## Features
-- Sharpen filter
-- Gaussian blur filter
-- Median filter
-- Image inversion
-- Colour channel cycling
-- Multilingual support
-- Image resize
-- Image rotations
+This was built with java, within the VS code integrated development environment.
+
+## Features:
+* Sharpen filter
+* Gaussian blur filter
+* Median filter
+* Image inversion
+* Colour channel cycling
+* Multilingual support
+* Image resize
+* Image rotations
+* Export image
+* Image flipping
 
 ## Folder Structure
 
