@@ -114,6 +114,10 @@ public class FileActions {
             UIManager.put("FileChooser.newFolderToolTipText",b.getString("Create_folder"));
             
             JFileChooser fileChooser = new JFileChooser();
+
+            FileFilter filter = new FileNameExtensionFilter("Image", "jpg", "jpeg", "png", "gif", "bmp", "webp");
+            fileChooser.setFileFilter(filter);
+
             fileChooser.setDialogTitle(b.getString("Open"));
             int result = fileChooser.showOpenDialog(target);
 
