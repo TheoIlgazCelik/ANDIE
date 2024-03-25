@@ -4,7 +4,6 @@ import java.util.*;
 import java.awt.event.*;
 
 import javax.swing.*;
-import javax.swing.text.DefaultFormatter;
 
 /**
  * <p>
@@ -128,8 +127,6 @@ public class FilterActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (Exception ex) {
-                // JOptionPane.showMessageDialog(target,"No image selected", "Error",
-                // JOptionPane.ERROR_MESSAGE);
                 ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
                 Object[] options = { b.getString("Ok") };
                 JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
@@ -198,9 +195,6 @@ public class FilterActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (Exception ex) {
-                // JOptionPane.showMessageDialog(target,"No image selected", "Error",
-                // JOptionPane.ERROR_MESSAGE);
-
                 Object[] options = { b.getString("Ok") };
                 JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
                         JOptionPane.ERROR_MESSAGE, null, options, null);
@@ -298,8 +292,6 @@ public class FilterActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (Exception ex) {
-                // JOptionPane.showMessageDialog(target,"No image selected", "Error",
-                // JOptionPane.ERROR_MESSAGE);
                 ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
                 Object[] options = { b.getString("Ok") };
                 JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
