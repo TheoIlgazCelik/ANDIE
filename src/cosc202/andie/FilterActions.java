@@ -264,10 +264,11 @@ public class FilterActions {
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
                     
             // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
+            // Ok = 0, Cancel = 1, Exit = -1
+            if (option == 0) {
                 radius = radiusModel.getNumber().intValue();
+            } else {
+                return;
             }
 
             // Create and apply the filter
@@ -276,8 +277,6 @@ public class FilterActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (Exception ex) {
-                // JOptionPane.showMessageDialog(target,"No image selected", "Error",
-                // JOptionPane.ERROR_MESSAGE);
                 Object[] options = { b.getString("Ok") };
                 JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
                         JOptionPane.ERROR_MESSAGE, null, options, null);
