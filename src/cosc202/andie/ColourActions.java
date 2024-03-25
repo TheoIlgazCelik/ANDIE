@@ -105,11 +105,40 @@ public class ColourActions {
 
     }
 
+    /**
+     * <p>
+     * Action to invert an image.
+     * </p>
+     * 
+     * @see InvertColor
+     */
     public class ColorInversionAction extends ImageAction {
+        /**
+         * <p>
+         * Create a new invert color action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
         public ColorInversionAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
+        /**
+         * <p>
+         * Callback for when the invert color action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ColorInversionAction is triggered.
+         * It inverts the colors of the images.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             try{
             target.getImage().apply(new InvertColor());
