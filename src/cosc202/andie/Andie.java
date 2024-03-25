@@ -1,6 +1,8 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.io.IOException;
+
 import javax.swing.*;
 import javax.imageio.*;
 import java.util.*;
@@ -58,7 +60,7 @@ public class Andie {
         try {
             Image image = ImageIO.read(Andie.class.getClassLoader().getResource(iconFilePath));
             frame.setIconImage(image);
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Failed to load: " + iconFilePath);
             System.out.println(e);
         }
