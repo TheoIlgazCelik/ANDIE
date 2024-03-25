@@ -23,6 +23,8 @@ import java.util.*;
  * @version 1.0
  */
 public class Andie {
+    // file path for main ANDIE icon
+    private static final String iconFilePath = "icon.png";
 
     /**
      * <p>
@@ -48,12 +50,19 @@ public class Andie {
      * @throws Exception if something goes wrong.
      */
     public static JMenuBar menuBar;
-    private static void createAndShowGUI() throws Exception {
+
+    private static void createAndShowGUI() {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
 
-        Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
-        frame.setIconImage(image);
+        try {
+            Image image = ImageIO.read(Andie.class.getClassLoader().getResource(iconFilePath));
+            frame.setIconImage(image);
+        } catch (Exception e) {
+            System.out.println("Failed to load: " + iconFilePath);
+            System.out.println(e);
+        }
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // The main content area is an ImagePanel
