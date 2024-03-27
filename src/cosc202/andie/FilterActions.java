@@ -147,6 +147,8 @@ public class FilterActions {
      * 
      */
     public class GaussianBlurAction extends ImageAction {
+        private final int MIN_VALUE = 1;
+        private final int MAX_VALUE = 10;
 
         /**
          * <p>
@@ -180,18 +182,22 @@ public class FilterActions {
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, this.MIN_VALUE, this.MAX_VALUE, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
+
             ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
             Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, b.getString("Gaussian_blur_radius"),
+
+            String optionMessage = b.getString("Filter_radius") + " (" + this.MIN_VALUE + " - " + this.MAX_VALUE + ")";
+            int option = JOptionPane.showOptionDialog(null, radiusSpinner, optionMessage,
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
 
             // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
-                return;
-            } else if (option == JOptionPane.OK_OPTION) {
+            // Ok = 0, Cancel = 1, Exit = -1
+            if (option == 0) {
                 radius = radiusModel.getNumber().intValue();
+            } else {
+                return;
             }
 
             // Create and apply the filter
