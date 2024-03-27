@@ -77,6 +77,8 @@ Image Rotations
 
 Image flip
 
+Median Filter
+
 Error Avoidance/prevention
 
 General Support on other features
