@@ -99,19 +99,6 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-            UIManager.put("FileChooser.openButtonText",b.getString("Open"));
-            UIManager.put("FileChooser.cancelButtonText",b.getString("Cancel"));
-            UIManager.put("FileChooser.cancelButtonToolTipText",b.getString("Abort_file"));
-            UIManager.put("FileChooser.openButtonToolTipText",b.getString("Open_desc"));
-            UIManager.put("FileChooser.fileNameLabelText", b.getString("File_name"));
-            UIManager.put("FileChooser.filesOfTypeLabelText", b.getString("Type_file"));
-            UIManager.put("FileChooser.setDialogTitle",b.getString("Open"));
-            UIManager.put("FileChooser.lookInLabelText", b.getString("Look"));
-            UIManager.put("FileChooser.detailsViewButtonToolTipText", b.getString("Details_desc"));
-            UIManager.put("FileChooser.listViewButtonToolTipText",b.getString("List_desc"));
-            UIManager.put("FileChooser.upFolderToolTipText", b.getString("Up_level"));
-            UIManager.put("FileChooser.homeFolderToolTipText",b.getString("Home"));
-            UIManager.put("FileChooser.newFolderToolTipText",b.getString("Create_folder"));
             
             JFileChooser fileChooser = new JFileChooser();
 
@@ -173,10 +160,12 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
             try {
                 target.getImage().save();           
             } catch (Exception ex) {
-                System.exit(1);
+                System.err.println(ex);
+                JOptionPane.showMessageDialog(null, b.getString("No_image"));
             }
         }
 
@@ -215,19 +204,7 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-            UIManager.put("FileChooser.openButtonText",b.getString("Open"));
-            UIManager.put("FileChooser.cancelButtonText",b.getString("Cancel"));
-            UIManager.put("FileChooser.cancelButtonToolTipText",b.getString("Abort_file"));
-            UIManager.put("FileChooser.openButtonToolTipText",b.getString("Open_desc"));
-            UIManager.put("FileChooser.fileNameLabelText", b.getString("File_name"));
-            UIManager.put("FileChooser.filesOfTypeLabelText", b.getString("Type_file"));
-            UIManager.put("FileChooser.setDialogTitle",b.getString("Open"));
-            UIManager.put("FileChooser.lookInLabelText", b.getString("Look"));
-            UIManager.put("FileChooser.detailsViewButtonToolTipText", b.getString("Details_desc"));
-            UIManager.put("FileChooser.listViewButtonToolTipText",b.getString("List_desc"));
-            UIManager.put("FileChooser.upFolderToolTipText", b.getString("Up_level"));
-            UIManager.put("FileChooser.homeFolderToolTipText",b.getString("Home"));
-            UIManager.put("FileChooser.newFolderToolTipText",b.getString("Create_folder"));
+            
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
 
