@@ -1,6 +1,8 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 import javax.imageio.*;
@@ -13,11 +15,13 @@ import java.util.*;
  * 
  * <p>
  * This class is the entry point for the program. h
- * It creates a Graphical User Interface (GUI) that provides access to various image editing and processing operations.
+ * It creates a Graphical User Interface (GUI) that provides access to various
+ * image editing and processing operations.
  * </p>
  * 
  * <p>
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Steven Mills
@@ -33,8 +37,10 @@ public class Andie {
      * </p>
      * 
      * <p>
-     * This method sets up an interface consisting of an active image (an {@code ImagePanel})
-     * and various menus which can be used to trigger operations to load, save, edit, etc. 
+     * This method sets up an interface consisting of an active image (an
+     * {@code ImagePanel})
+     * and various menus which can be used to trigger operations to load, save,
+     * edit, etc.
      * These operations are implemented {@link ImageOperation}s and triggered via
      * {@code ImageAction}s grouped by their general purpose into menus.
      * </p>
@@ -62,8 +68,24 @@ public class Andie {
             System.out.println("Failed to load: " + iconFilePath);
             System.out.println(e);
         }
-        
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        // prompt user to save any changes before exiting application
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
+
+                int option = JOptionPane.showOptionDialog(null, b.getString("close_dialog"),
+                        null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
+
+                // 0 = OK
+                if (option == 0) {
+                    System.exit(0);
+                }
+            }
+        });
 
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
@@ -96,7 +118,7 @@ public class Andie {
 
         LangActions langActions = new LangActions();
         menuBar.add(langActions.createMenu());
-        
+
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
@@ -116,12 +138,15 @@ public class Andie {
      * @throws Exception If something goes awry
      * @see #createAndShowGUI()
      */
-    //public static Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+    // public static Preferences prefs =
+    // Preferences.userNodeForPackage(Andie.class);
     public static Locale locale = new Locale("en");
+
     public static void main(String[] args) throws Exception {
-        //Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-        //Locale.setDefault(new Locale(prefs.get("language","en"),prefs.get("country","NZ")));
-        //Locale.setDefault(new Locale("en","NZ"));
+        // Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+        // Locale.setDefault(new
+        // Locale(prefs.get("language","en"),prefs.get("country","NZ")));
+        // Locale.setDefault(new Locale("en","NZ"));
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -133,6 +158,5 @@ public class Andie {
             }
         });
     }
-
 
 }
