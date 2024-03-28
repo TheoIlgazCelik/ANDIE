@@ -90,3 +90,9 @@ General Support on other features
 ## How our code was tested
 * J-Unit testing
 * Print line Testing
+
+## Known issues and future improvements
+### Unsaved Changes
+- Closing the window always prompts the user to save their changes if they haven't done so, rather than checking if there are unsaved changes to save.
+### Colour Cycling
+- Colour channels can't yet be specified by the user. Currently they are shifted one place to the right when the cycle colour channel function is triggered.

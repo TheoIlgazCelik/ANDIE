@@ -320,7 +320,16 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            System.exit(0);
+            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+            Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
+
+            int option = JOptionPane.showOptionDialog(null, b.getString("close_dialog"),
+                    null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
+
+            // 0 = OK
+            if (option == 0) {
+                System.exit(0);
+            }
         }
 
     }
