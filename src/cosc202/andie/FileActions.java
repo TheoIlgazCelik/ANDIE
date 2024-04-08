@@ -99,21 +99,12 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-            UIManager.put("FileChooser.openButtonText",b.getString("Open"));
-            UIManager.put("FileChooser.cancelButtonText",b.getString("Cancel"));
-            UIManager.put("FileChooser.cancelButtonToolTipText",b.getString("Abort_file"));
-            UIManager.put("FileChooser.openButtonToolTipText",b.getString("Open_desc"));
-            UIManager.put("FileChooser.fileNameLabelText", b.getString("File_name"));
-            UIManager.put("FileChooser.filesOfTypeLabelText", b.getString("Type_file"));
-            UIManager.put("FileChooser.setDialogTitle",b.getString("Open"));
-            UIManager.put("FileChooser.lookInLabelText", b.getString("Look"));
-            UIManager.put("FileChooser.detailsViewButtonToolTipText", b.getString("Details_desc"));
-            UIManager.put("FileChooser.listViewButtonToolTipText",b.getString("List_desc"));
-            UIManager.put("FileChooser.upFolderToolTipText", b.getString("Up_level"));
-            UIManager.put("FileChooser.homeFolderToolTipText",b.getString("Home"));
-            UIManager.put("FileChooser.newFolderToolTipText",b.getString("Create_folder"));
             
             JFileChooser fileChooser = new JFileChooser();
+
+            FileFilter filter = new FileNameExtensionFilter("Image", "jpg", "jpeg", "png", "gif", "bmp", "webp");
+            fileChooser.setFileFilter(filter);
+
             fileChooser.setDialogTitle(b.getString("Open"));
             int result = fileChooser.showOpenDialog(target);
 
@@ -169,10 +160,12 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
             try {
                 target.getImage().save();           
             } catch (Exception ex) {
-                System.exit(1);
+                System.err.println(ex);
+                JOptionPane.showMessageDialog(null, b.getString("No_image"));
             }
         }
 
@@ -211,19 +204,7 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-            UIManager.put("FileChooser.openButtonText",b.getString("Open"));
-            UIManager.put("FileChooser.cancelButtonText",b.getString("Cancel"));
-            UIManager.put("FileChooser.cancelButtonToolTipText",b.getString("Abort_file"));
-            UIManager.put("FileChooser.openButtonToolTipText",b.getString("Open_desc"));
-            UIManager.put("FileChooser.fileNameLabelText", b.getString("File_name"));
-            UIManager.put("FileChooser.filesOfTypeLabelText", b.getString("Type_file"));
-            UIManager.put("FileChooser.setDialogTitle",b.getString("Open"));
-            UIManager.put("FileChooser.lookInLabelText", b.getString("Look"));
-            UIManager.put("FileChooser.detailsViewButtonToolTipText", b.getString("Details_desc"));
-            UIManager.put("FileChooser.listViewButtonToolTipText",b.getString("List_desc"));
-            UIManager.put("FileChooser.upFolderToolTipText", b.getString("Up_level"));
-            UIManager.put("FileChooser.homeFolderToolTipText",b.getString("Home"));
-            UIManager.put("FileChooser.newFolderToolTipText",b.getString("Create_folder"));
+            
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
 
@@ -339,7 +320,16 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            System.exit(0);
+            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+            Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
+
+            int option = JOptionPane.showOptionDialog(null, b.getString("close_dialog"),
+                    null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
+
+            // 0 = OK
+            if (option == 0) {
+                System.exit(0);
+            }
         }
 
     }

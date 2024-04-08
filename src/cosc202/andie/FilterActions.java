@@ -38,12 +38,9 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SharpenFilterAction("Sharpen filter", null, "Apply a sharpen filter",
-                Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(
-                new MedianFilterAction("Median Filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(
-                new GaussianBlurAction("Gaussian Blur", null, "Apply a Gaussian Blur", Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new SharpenFilterAction("Sharpen filter", null, "Apply a sharpen filter", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new MedianFilterAction("Median Filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new GaussianBlurAction("Gaussian Blur", null, "Apply a Gaussian Blur", Integer.valueOf(KeyEvent.VK_G)));
     }
 
     /**
@@ -61,6 +58,42 @@ public class FilterActions {
         }
 
         return fileMenu;
+    }
+
+    /**
+     * <p>
+     * Get filter radius from user using JOptionPane opton dialog box.
+     * </p>
+     * 
+     * @param MIN_VALUE minimum bound for radius (inclusive)
+     * @param MAX_VALUE maximum bound for radius (inclusive)
+     * 
+     * @return The radius input from user. -1 when input invalid
+     */
+    private int getRadiusFromUser(int MIN_VALUE, int MAX_VALUE) {
+        int radius = -1;
+
+        // JSpinner with range (MIN_VALUE - MAX_VALUE) inclusive
+        SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, MIN_VALUE, MAX_VALUE, 1);
+        JSpinner radiusSpinner = new JSpinner(radiusModel);
+        // disable keyboard input
+        ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField().setEditable(false);
+
+        ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+        Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
+        String optionMessage = b.getString("Filter_radius") + " (" + MIN_VALUE + " - " + MAX_VALUE + ")";
+
+        // Pop-up dialog box to ask for the radius value.
+        int option = JOptionPane.showOptionDialog(null, radiusSpinner, optionMessage,
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
+
+        // Check the return value from the dialog box.
+        // Ok = 0, Cancel = 1, Exit = -1
+        if (option == 0) {
+            radius = radiusModel.getNumber().intValue();
+        }
+
+        return radius;
     }
 
     /**
@@ -102,28 +135,9 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            int radius = getRadiusFromUser(this.MIN_VALUE, this.MAX_VALUE);
 
-            // Determine the radius - ask the user.
-            int radius = 1;
-
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, this.MIN_VALUE, this.MAX_VALUE, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            // disable keyboard input
-            ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField().setEditable(false);
-
-            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
-            Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
-            String optionMessage = b.getString("Filter_radius") + " (" + this.MIN_VALUE + " - " + this.MAX_VALUE + ")";
-
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, optionMessage,
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
-
-            // Check the return value from the dialog box.
-            // Ok = 0, Cancel = 1, Exit = -1
-            if (option == 0) {
-                radius = radiusModel.getNumber().intValue();
-            } else {
+            if (radius <= 0) {
                 return;
             }
 
@@ -132,7 +146,7 @@ public class FilterActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (Exception ex) {
-                b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
                 Object[] options = { b.getString("Ok") };
                 JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
                         JOptionPane.ERROR_MESSAGE, null, options, null);
@@ -147,6 +161,8 @@ public class FilterActions {
      * 
      */
     public class GaussianBlurAction extends ImageAction {
+        private final int MIN_VALUE = 1;
+        private final int MAX_VALUE = 10;
 
         /**
          * <p>
@@ -175,23 +191,10 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            int radius = getRadiusFromUser(this.MIN_VALUE, this.MAX_VALUE);
 
-            // Determine the radius - ask the user.
-            int radius = 1;
-
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
-            Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, b.getString("Gaussian_blur_radius"),
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
-
-            // Check the return value from the dialog box.
-            if (option == JOptionPane.CANCEL_OPTION) {
+            if (radius <= 0) {
                 return;
-            } else if (option == JOptionPane.OK_OPTION) {
-                radius = radiusModel.getNumber().intValue();
             }
 
             // Create and apply the filter
@@ -200,6 +203,7 @@ public class FilterActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (Exception ex) {
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
                 Object[] options = { b.getString("Ok") };
                 JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
                         JOptionPane.ERROR_MESSAGE, null, options, null);
@@ -247,28 +251,9 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            int radius = getRadiusFromUser(this.MIN_VALUE, this.MAX_VALUE);
 
-            // Determine the radius - ask the user.
-            int radius = 1;
-
-            // Pop-up dialog box to ask for the radius value.
-            SpinnerNumberModel radiusModel = new SpinnerNumberModel(radius, this.MIN_VALUE, this.MAX_VALUE, 1);
-            JSpinner radiusSpinner = new JSpinner(radiusModel);
-            // disable keyboard input
-            ((JSpinner.DefaultEditor) radiusSpinner.getEditor()).getTextField().setEditable(false);
-
-            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
-            Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
-            String optionMessage = b.getString("Filter_radius") + " (" + this.MIN_VALUE + " - " + this.MAX_VALUE + ")";
-
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, optionMessage,
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
-
-            // Check the return value from the dialog box.
-            // Ok = 0, Cancel = 1, Exit = -1
-            if (option == 0) {
-                radius = radiusModel.getNumber().intValue();
-            } else {
+            if (radius <= 0) {
                 return;
             }
 
@@ -278,6 +263,7 @@ public class FilterActions {
                 target.repaint();
                 target.getParent().revalidate();
             } catch (Exception ex) {
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
                 Object[] options = { b.getString("Ok") };
                 JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
                         JOptionPane.ERROR_MESSAGE, null, options, null);
