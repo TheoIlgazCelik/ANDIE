@@ -1,4 +1,4 @@
-package test.cosc202.andie;
+package test;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;

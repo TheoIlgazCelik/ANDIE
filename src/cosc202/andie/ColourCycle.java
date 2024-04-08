@@ -21,6 +21,7 @@ import java.awt.image.*;
 
 public class ColourCycle implements ImageOperation, java.io.Serializable {
 
+    private int argb;
     /**
      * <p>
      * Apply a colour channel cycle to an image
@@ -50,6 +51,7 @@ public class ColourCycle implements ImageOperation, java.io.Serializable {
                 input.setRGB(x, y, argb);
             }
         }
+        System.out.println(argb);
         return input;
     }
 }
