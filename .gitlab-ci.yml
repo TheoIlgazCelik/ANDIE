@@ -61,7 +61,7 @@ pages: # publish Javadoc website
     - ls -R public | head
     - echo 'first ten public/ files listed'
   artifacts:
-  paths:
-    - public
+    paths:
+      - public
   only:
   - main
