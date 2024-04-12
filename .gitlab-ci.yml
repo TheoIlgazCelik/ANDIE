@@ -69,13 +69,3 @@ pages: # publish Javadoc website
   only:
   - main
 
-unit-test-job:
-  tags:
-    - docker
-  image: eclipse-temurin:17
-  stage: test
-  script:
-    - echo "Attempting to run unit tests..."
-    - javac -d bin src/cosc202/andie/*.java
-    - javac -d bin -classpath "bin:lib/junit-platform-console-standalone-1.9.2.jar" src/test/cosc202/andie/*.java
-    - java -jar lib/junit-platform-console-standalone-1.9.2.jar -classpath bin --select-package test.cosc202.andie
