@@ -7,9 +7,6 @@ import javax.swing.*;
  /**
  * <p>
  * Actions provided by the Edit menu.
- * </p>
- * testing to see whether this commit works
- * <p>
  * The Edit menu is very common across a wide range of applications.
  * There are a lot of operations that a user might expect to see here.
  * In the sample code there are Undo and Redo actions, but more may need to be added.
