@@ -211,8 +211,8 @@ public class FileActions {
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilePath = fileChooser.getSelectedFile().getCanonicalPath();
-                    if(!imageFilePath.toLowerCase().endsWith(".jpg")){
-                        imageFilePath += ".jpg";
+                    if(!imageFilePath.toLowerCase().endsWith(".png")){
+                        imageFilePath += ".png";
                     }
                     File outputFile = new File(imageFilePath);
                     if(!outputFile.exists()){
