@@ -54,7 +54,7 @@ public class Andie {
      * @see FilterActions
      * @see ColourActions
      * 
-     * @throws Exception if something goes wrong.
+     * 
      */
     public static JMenuBar menuBar;
 
@@ -134,8 +134,8 @@ public class Andie {
      * As a result, this is essentially a wrapper around {@code createAndShowGUI()}.
      * </p>
      * 
-     * @param args Command line arguments, not currently used
-     * @throws Exception If something goes awry
+     *
+     * 
      * @see #createAndShowGUI()
      */
     // public static Preferences prefs =
