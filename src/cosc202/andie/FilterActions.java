@@ -120,7 +120,7 @@ public class FilterActions {
 
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
         Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
-        String optionMessage = b.getString("Filter_radius") + " (" + MIN_VALUE + " - " + MAX_VALUE + ")";
+        String optionMessage = b.getString("Filter_radius_two") + " (" + MIN_VALUE + " - " + MAX_VALUE + ")";
 
         // Pop-up dialog box to ask for the radius value.
         int option = JOptionPane.showOptionDialog(null, r, optionMessage,
