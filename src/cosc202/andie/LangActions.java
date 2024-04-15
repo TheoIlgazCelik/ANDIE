@@ -183,14 +183,14 @@ public class LangActions {
                 { "Edit", "Undo", "Redo" },
                 { "View", "Zoom_in", "Zoom_out", "Zoom_full", "Rotate_right", "Rotate_left", "Rotate_180",
                         "Flip_horizontal", "Flip_vertical", "Resize" },
-                { "Filter", "Mean_filter", "Sharpen", "Median", "Gaussian_blur","Block_average"},
+                { "Filter", "Mean_filter", "Sharpen", "Median", "Gaussian_blur","Block_average","Random_scattering"},
                 { "Colour", "Greyscale", "Invert_color","Colour_cycle"},
                 { "Language", "English", "Spanish", "Maori" } };
         String[][] descs = { { "Open_desc", "Save_desc", "Save_as_desc", "Exit_desc", "Export_desc" },
                 { "Undo_desc", "Redo_desc" },
                 { "Zoom_in_desc", "Zoom_out_desc", "Zoom_full_desc", "Rotate_right_desc", "Rotate_left_desc",
                         "Rotate_180_desc", "Flip_horizontal_desc", "Flip_vertical_desc", "Resize_desc" },
-                { "Mean_filter_desc", "Sharpen_desc", "Median_desc", "Gaussian_blur_desc","Block_average_desc" },
+                { "Mean_filter_desc", "Sharpen_desc", "Median_desc", "Gaussian_blur_desc","Block_average_desc","Random_scattering_desc" },
                 { "Greyscale_desc", "Invert_color_desc","Colour_cycle_desc" },
                 { "English_desc", "Spanish_desc", "Maori_desc" } };
 
