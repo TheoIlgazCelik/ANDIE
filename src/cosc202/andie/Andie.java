@@ -11,6 +11,7 @@ import javax.swing.*;
 import cosc202.andie.EditActions.RedoAction;
 import cosc202.andie.EditActions.UndoAction;
 import cosc202.andie.FileActions.FileExportAction;
+import cosc202.andie.FileActions.FileOpenAction;
 import cosc202.andie.FileActions.FileSaveAction;
 
 import javax.imageio.*;
@@ -152,6 +153,16 @@ public class Andie {
         exportButton.setPreferredSize(new Dimension(40,40));
         toolBar.add(exportButton);
 
+        // Adding a open icon and button
+        ImageIcon openIcon = new ImageIcon("src/OpenIcon.png");
+
+        JButton openButton = new JButton();
+        FileOpenAction openAction = fileActions.new FileOpenAction(null, new ImageIcon(openIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), null, Integer.valueOf(KeyEvent.VK_O));
+        openButton.setAction(openAction);
+
+        openButton.setPreferredSize(new Dimension(40,40));
+        toolBar.add(openButton);
+
         // Adding a undo icon and button
         ImageIcon undoIcon = new ImageIcon("src/UndoIcon.png");
 
@@ -168,7 +179,7 @@ public class Andie {
         JButton redoButton = new JButton(new ImageIcon(redoIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)));
         RedoAction redoAction = editActions.new RedoAction(null, new ImageIcon(redoIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), null, Integer.valueOf(KeyEvent.VK_Y));
         redoButton.setAction(redoAction);
-        
+
         redoButton.setPreferredSize(new Dimension(40,40));
         toolBar.add(redoButton);
 
