@@ -40,7 +40,7 @@ public class ColourActions {
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new ColorInversionAction("Invert Color", null, "Invert image color", null));
         actions.add(new ColourCycleAction("Colour Channel Cycle", null, "Change Colour Cycle", null));
-        actions.add(new BrightnessAndContrast("Brightness and Contrast", null, "Adjust Brightness and Contrast", null));
+        actions.add(new BrightnessAndContrastAction("Brightness and Contrast", null, "Adjust Brightness and Contrast", null));
     }
 
     /**
@@ -61,17 +61,17 @@ public class ColourActions {
     }
 
     private int getPercentageFromUser(int MIN_VALUE, int MAX_VALUE) {
-        int percentage = 100;
+        int percentage = 0;
 
         // JSpinner with range (MIN_VALUE - MAX_VALUE) inclusive
-        SpinnerNumberModel percentageModel = new SpinnerNumberModel(1, MIN_VALUE, MAX_VALUE, 1);
+        SpinnerNumberModel percentageModel = new SpinnerNumberModel(0, MIN_VALUE, MAX_VALUE, 1);
         JSpinner percentageSpinner = new JSpinner(percentageModel);
         // disable keyboard input
         ((JSpinner.DefaultEditor) percentageSpinner.getEditor()).getTextField().setEditable(false);
 
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
         Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
-        String optionMessage = b.getString("Percentage") + " (" + MIN_VALUE + " - " + MAX_VALUE + ")";
+        String optionMessage = b.getString("Filter_percentage") + " (" + MIN_VALUE + " to " + MAX_VALUE + ")";
 
         // Pop-up dialog box to ask for the radius value.
         int option = JOptionPane.showOptionDialog(null, percentageSpinner, optionMessage,
@@ -92,9 +92,9 @@ public class ColourActions {
      * </p>
      * 
      */
-    public class BrightnessAndContrast extends ImageAction {
-        private final int MIN_VALUE = 1;
-        private final int MAX_VALUE = 10;
+    public class BrightnessAndContrastAction extends ImageAction {
+        private final int MIN_VALUE = -100;
+        private final int MAX_VALUE = 100;
 
         /**
          * <p>
@@ -106,7 +106,7 @@ public class ColourActions {
          * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        BrightnessAndContrast(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        BrightnessAndContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
@@ -123,15 +123,16 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            int radius = getPercentageFromUser(this.MIN_VALUE, this.MAX_VALUE);
+            int brightness = getPercentageFromUser(this.MIN_VALUE, this.MAX_VALUE);
+            int contrast = getPercentageFromUser(this.MIN_VALUE, this.MAX_VALUE);
 
-            if (radius <= 0) {
+            if (brightness ==0 && contrast == 0) {
                 return;
             }
 
             // Create and apply the filter
             try {
-                target.getImage().apply(new GaussianBlur(radius));
+                target.getImage().apply(new BrightnessAndContrast(brightness, contrast));
                 target.repaint();
                 target.getParent().revalidate();
             } catch (Exception ex) {
