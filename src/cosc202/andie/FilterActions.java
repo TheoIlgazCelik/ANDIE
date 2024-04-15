@@ -42,6 +42,7 @@ public class FilterActions {
         actions.add(new MedianFilterAction("Median Filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new GaussianBlurAction("Gaussian Blur", null, "Apply a Gaussian Blur", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new BlockAverageAction("Block Average",null,"Apply a block averaging filter",Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new RandomScatteringAction("Random Scattering",null,"Apply a random scattering filter",Integer.valueOf(KeyEvent.VK_M)));
     }
 
     /**
@@ -397,6 +398,64 @@ public class FilterActions {
 
             try {
                 target.getImage().apply(new BlockAverage(radius[0],radius[1]));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
+            }
+        }
+    }
+
+        /**
+     * <p>
+     * Action to affect an image with Random Scattering filter.
+     * </p>
+     * 
+     * @see RandomScattering
+     */
+    public class RandomScatteringAction extends ImageAction {
+        private final int MIN_VALUE = 1;
+        private final int MAX_VALUE = 10;
+
+        /**
+         * <p>
+         * Create a new RandomScattering action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        RandomScatteringAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the Random Scattering filter action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the RandomScatteringAction is triggered.
+         * It prompts the user for a filter radius, then applies an appropriately sized
+         * {@link RandomScattering}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            int radius = getRadiusFromUser(this.MIN_VALUE, this.MAX_VALUE);
+
+            if (radius <= 0) {
+                return;
+            }
+
+            try {
+                target.getImage().apply(new RandomScattering(radius));
                 target.repaint();
                 target.getParent().revalidate();
             } catch (Exception ex) {
