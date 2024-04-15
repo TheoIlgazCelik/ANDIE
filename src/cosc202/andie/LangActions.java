@@ -192,7 +192,7 @@ public class LangActions {
                         "Rotate_180_desc", "Flip_horizontal_desc", "Flip_vertical_desc", "Resize_desc" },
                 { "Mean_filter_desc", "Sharpen_desc", "Median_desc", "Gaussian_blur_desc" },
                 { "Greyscale_desc", "Invert_color_desc" },
-                { "English_desc", "Spanish_desc", "Maori_desc" } };
+                { "English_desc", "Spanish_desc", "Maori_desc" } }; 
 
         for (int i = 0; i < m.length/* Andie.menuBar.getMenuCount() */; i++) {
             JMenu menu1 = Andie.menuBar.getMenu(i);
