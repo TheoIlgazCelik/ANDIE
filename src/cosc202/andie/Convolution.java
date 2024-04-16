@@ -32,7 +32,7 @@ public class Convolution {
 
   /**
      * <p>
-     * Get filter radius from user using JOptionPane opton dialog box.
+     * Apply convolution via kernel to a BufferedImage, inclusive of border regions
      * </p>
      * 
      * @param input Image to be filtered via convolution kernel
