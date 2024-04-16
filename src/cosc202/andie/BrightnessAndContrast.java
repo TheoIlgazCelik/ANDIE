@@ -85,6 +85,20 @@ public class BrightnessAndContrast implements ImageOperation, java.io.Serializab
             int outputG = (int)((1+(double)contrast/100)*((double)g-127.5)+127.5*(1+(double)brightness/100));
             int outputB = (int)((1+(double)contrast/100)*((double)b-127.5)+127.5*(1+(double)brightness/100));
 
+            if (outputR<0){
+                outputR = 0;
+            } else if (outputR>255){
+                outputR = 255;
+            }
+            if (outputG<0){
+                outputG = 0;
+            } else if (outputG>255){
+                outputG = 255;
+            }if (outputB<0){
+                outputB = 0;
+            } else if (outputB>255){
+                outputB = 255;
+            }
 
 
             int outputRGB = (a << 24) | (outputR << 16) | (outputG << 8) | outputB;

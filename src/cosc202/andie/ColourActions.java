@@ -60,7 +60,7 @@ public class ColourActions {
         return fileMenu;
     }
 
-    private int getPercentageFromUser(int MIN_VALUE, int MAX_VALUE) {
+    private int getPercentageFromUser(int MIN_VALUE, int MAX_VALUE, String text) {
         int percentage = 0;
 
         // JSpinner with range (MIN_VALUE - MAX_VALUE) inclusive
@@ -69,9 +69,12 @@ public class ColourActions {
         // disable keyboard input
         ((JSpinner.DefaultEditor) percentageSpinner.getEditor()).getTextField().setEditable(false);
 
+        JFormattedTextField jftf = ((JSpinner.DefaultEditor)percentageSpinner.getEditor()).getTextField();
+        jftf.setColumns(30);
+
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
         Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
-        String optionMessage = b.getString("Filter_percentage") + " (" + MIN_VALUE + " to " + MAX_VALUE + ")";
+        String optionMessage = b.getString("Filter_percentage") + " " + b.getString(text) + " (" + MIN_VALUE + " to " + MAX_VALUE + ")";
 
         // Pop-up dialog box to ask for the radius value.
         int option = JOptionPane.showOptionDialog(null, percentageSpinner, optionMessage,
@@ -123,8 +126,8 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            int brightness = getPercentageFromUser(this.MIN_VALUE, this.MAX_VALUE);
-            int contrast = getPercentageFromUser(this.MIN_VALUE, this.MAX_VALUE);
+            int brightness = getPercentageFromUser(this.MIN_VALUE, this.MAX_VALUE, "Brightness");
+            int contrast = getPercentageFromUser(this.MIN_VALUE, this.MAX_VALUE, "Contrast");
 
             if (brightness ==0 && contrast == 0) {
                 return;
