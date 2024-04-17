@@ -41,6 +41,7 @@ public class SharpenFilter implements ImageOperation, java.io.Serializable{
         Convolution convolution = new Convolution(kernel);
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
         convolution.filter(input, output);
+
         return output;
     }
     

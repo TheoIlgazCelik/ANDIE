@@ -47,6 +47,14 @@ public class Convolution {
    * @return The filtered image
    */
   public void filter(BufferedImage input, BufferedImage output) {
+    if (input == null) {
+      throw new NullPointerException("Parameter {input} is null");
+    }
+
+    if (output == null) {
+      throw new NullPointerException("Parameter {output} is null");
+    }
+
     boolean hasAlpha = input.getColorModel().hasAlpha();
 
     // for each pixel in image
@@ -94,8 +102,17 @@ public class Convolution {
             argb[3] += inputB * KERNEL_DATA[i]; 
           }
         }
+
+        // clamp argb values between 0 - 255
+        for (int j = 0; j < argb.length; j++) {
+          if (argb[j] < 0) {
+            argb[j] = 0;
+          } else if (argb[j] > 255) {
+            argb[j] = 255;
+          }
+        }
         
-        // int outputRGB = ((int) a << 24) | ((int) r << 16) | ((int) g << 8) | (int) b;
+        // set pixel in output image
         int outputRGB = ((int) argb[0] << 24) | ((int) argb[1] << 16) | ((int) argb[2] << 8) | (int) argb[3];
         output.setRGB(x, y, outputRGB);
       }
