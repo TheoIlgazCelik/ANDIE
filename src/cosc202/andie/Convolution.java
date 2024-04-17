@@ -29,9 +29,12 @@ public class Convolution {
   private final Kernel KERNEL;
   private final float[] KERNEL_DATA;
   private final int RADIUS;
+  private final boolean offset;
+  private final int OFFSET_VAL = 127;
 
-  public Convolution(Kernel kernel) {
+  public Convolution(Kernel kernel, boolean offset) {
     this.KERNEL = kernel;
+    this.offset = offset;
     this.KERNEL_DATA = kernel.getKernelData(null);
     this.RADIUS = this.KERNEL.getWidth() / 2;
   }
@@ -101,6 +104,12 @@ public class Convolution {
             argb[2] += inputG * KERNEL_DATA[i];
             argb[3] += inputB * KERNEL_DATA[i]; 
           }
+        }
+
+        if (offset) {
+          argb[1] += OFFSET_VAL;
+          argb[2] += OFFSET_VAL;
+          argb[3] += OFFSET_VAL;
         }
 
         // clamp argb values between 0 - 255
