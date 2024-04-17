@@ -1,27 +1,21 @@
 package cosc202.andie;
 
 import java.awt.image.BufferedImage;
-import java.awt.Color;
 import java.awt.image.Kernel;
-import java.awt.Graphics2D;
-import java.awt.image.ConvolveOp;
 
 /**
  * <p>
- * Convolution class to apply convolution via Kernel to BufferedImages, which
- * includes
- * image borders.
+ * Convolution class to apply convolution via Kernel to {@link BufferedImage}s, which
+ * includes image borders.
  * </p>
  * 
  * <p>
  * In Java's ConvolveOp class, the borders of an image (of width kernel-radius)
- * are either ignored
- * during the convolution or filled in black. This class solves that issue by
- * "preparing" the image
- * before convolution with Java's implementation.
+ * are either ignored during the convolution or filled in black. This class handles
+ * the image edges by using the "nearest valid pixel" in the convolution when the kernel
+ * hangs over the edge.
  * </p>
  * 
- * @see java.awt.image.ConvolveOp
  * @author Matthew Rae
  * @version 1.0
  */
@@ -32,6 +26,24 @@ public class Convolution {
   private final boolean offset;
   private final int OFFSET_VAL = 127;
 
+  /**
+   * <p>
+   * Create a new Convolution operation.
+   * </p>
+   * 
+   * <p>
+   * Default convolution has no offset
+   * </p>
+   */
+  public Convolution(Kernel kernel) {
+    this(kernel, false);
+  }
+
+  /**
+   * <p>
+   * Create a new Convolution operation with offset option
+   * </p>
+   */
   public Convolution(Kernel kernel, boolean offset) {
     this.KERNEL = kernel;
     this.offset = offset;
@@ -44,7 +56,7 @@ public class Convolution {
    * Apply convolution via kernel to a BufferedImage, inclusive of border regions
    * </p>
    * 
-   * @param input Original image to be filtered via convolution kernel
+   * @param input  Original image to be filtered via convolution kernel
    * @param output Image to write the "filtered" pixels to
    * 
    * @return The filtered image
@@ -63,7 +75,7 @@ public class Convolution {
     // for each pixel in image
     for (int y = 0; y < input.getHeight(); y++) {
       for (int x = 0; x < input.getWidth(); x++) {
-        float[] argb = {0, 0, 0, 0};
+        float[] argb = { 0, 0, 0, 0 };
 
         if (!hasAlpha) {
           argb[0] = (input.getRGB(x, y) & 0xFF000000) >> 24;
@@ -99,10 +111,10 @@ public class Convolution {
             if (hasAlpha) {
               argb[0] += inputA * KERNEL_DATA[i];
             }
-            
+
             argb[1] += inputR * KERNEL_DATA[i];
             argb[2] += inputG * KERNEL_DATA[i];
-            argb[3] += inputB * KERNEL_DATA[i]; 
+            argb[3] += inputB * KERNEL_DATA[i];
           }
         }
 
@@ -120,7 +132,7 @@ public class Convolution {
             argb[j] = 255;
           }
         }
-        
+
         // set pixel in output image
         int outputRGB = ((int) argb[0] << 24) | ((int) argb[1] << 16) | ((int) argb[2] << 8) | (int) argb[3];
         output.setRGB(x, y, outputRGB);
