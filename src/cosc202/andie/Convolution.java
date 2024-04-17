@@ -30,6 +30,14 @@ public class Convolution {
     this.RADIUS = this.KERNEL.getWidth() / 2;
   }
 
+  public void filter(BufferedImage input, BufferedImage output) {
+    for (int y = 0; y < input.getHeight(); y++) {
+      for (int x = 0; x < input.getWidth(); x++) {
+        output.setRGB(x, y, input.getRGB(x, y) + 10000);
+      }
+    }
+  }
+
   /**
      * <p>
      * Apply convolution via kernel to a BufferedImage, inclusive of border regions

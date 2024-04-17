@@ -81,7 +81,8 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
 
         Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
         Convolution convolution = new Convolution(kernel);
-        BufferedImage output = convolution.filter(input);
+        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+        convolution.filter(input, output);
 
         return output;
     }
