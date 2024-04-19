@@ -1,10 +1,19 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.awt.event.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.*;
+
+import cosc202.andie.EditActions.RedoAction;
+import cosc202.andie.EditActions.UndoAction;
+import cosc202.andie.FileActions.FileExportAction;
+import cosc202.andie.FileActions.FileOpenAction;
+import cosc202.andie.FileActions.FileSaveAction;
+
 import javax.imageio.*;
 import java.util.*;
 
@@ -59,6 +68,9 @@ public class Andie {
     public static JMenuBar menuBar;
 
     private static void createAndShowGUI() {
+        
+        
+        
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
         try {
@@ -118,6 +130,63 @@ public class Andie {
 
         LangActions langActions = new LangActions();
         menuBar.add(langActions.createMenu());
+
+
+        // Adding a save icon and button
+        ImageIcon saveIcon = new ImageIcon("src/SaveIcon.png");
+
+        JButton saveButton = new JButton();
+        FileSaveAction saveAction = fileActions.new FileSaveAction(null, new ImageIcon(saveIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), null, Integer.valueOf(KeyEvent.VK_S));
+        saveButton.setAction(saveAction);
+        
+        JPanel toolBar = new JPanel();
+        saveButton.setPreferredSize(new Dimension(40,40));
+        toolBar.add(saveButton);
+
+        // Adding a export icon and button
+        ImageIcon exportIcon = new ImageIcon("src/ExportIcon.png");
+
+        JButton exportButton = new JButton();
+        FileExportAction exportAction = fileActions.new FileExportAction(null, new ImageIcon(exportIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), null, Integer.valueOf(0));
+        exportButton.setAction(exportAction);
+
+        exportButton.setPreferredSize(new Dimension(40,40));
+        toolBar.add(exportButton);
+
+        // Adding a open icon and button
+        ImageIcon openIcon = new ImageIcon("src/OpenIcon.png");
+
+        JButton openButton = new JButton();
+        FileOpenAction openAction = fileActions.new FileOpenAction(null, new ImageIcon(openIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), null, Integer.valueOf(KeyEvent.VK_O));
+        openButton.setAction(openAction);
+
+        openButton.setPreferredSize(new Dimension(40,40));
+        toolBar.add(openButton);
+
+        // Adding a undo icon and button
+        ImageIcon undoIcon = new ImageIcon("src/UndoIcon.png");
+
+        JButton undoButton = new JButton();
+        UndoAction undoAction = editActions.new UndoAction(null, new ImageIcon(undoIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), null, Integer.valueOf(KeyEvent.VK_Z));
+        undoButton.setAction(undoAction);
+
+        undoButton.setPreferredSize(new Dimension(40,40));
+        toolBar.add(undoButton);
+
+        // Adding a redo icon and button
+        ImageIcon redoIcon = new ImageIcon("src/redoIcon.png");
+
+        JButton redoButton = new JButton(new ImageIcon(redoIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)));
+        RedoAction redoAction = editActions.new RedoAction(null, new ImageIcon(redoIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), null, Integer.valueOf(KeyEvent.VK_Y));
+        redoButton.setAction(redoAction);
+
+        redoButton.setPreferredSize(new Dimension(40,40));
+        toolBar.add(redoButton);
+
+
+
+
+        frame.add(toolBar, BorderLayout.NORTH);
 
         frame.setJMenuBar(menuBar);
         frame.pack();
