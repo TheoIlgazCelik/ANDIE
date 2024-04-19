@@ -122,9 +122,11 @@ public class FilterActions {
         // JSpinner with range (MIN_VALUE - MAX_VALUE) inclusive
         SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, MIN_VALUE, MAX_VALUE, 1);
         SpinnerNumberModel radiusModel2 = new SpinnerNumberModel(1, MIN_VALUE, MAX_VALUE, 1);
-        JSpinner[] r = new JSpinner[2];
-        r[0] = new JSpinner(radiusModel);
-        r[1] = new JSpinner(radiusModel2);
+        JComponent[] r = new JComponent[4];
+        r[0] = new JLabel("x");
+        r[1] = new JSpinner(radiusModel);
+        r[2] = new JLabel("y");
+        r[3] = new JSpinner(radiusModel2);
 
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
         Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
@@ -546,7 +548,7 @@ public class FilterActions {
     }
         /**
      * <p>
-     * Action to blur an image with a block averaging filter.
+     * Action to affect an image with a block averaging filter.
      * </p>
      * 
      * @see BlockAverage
