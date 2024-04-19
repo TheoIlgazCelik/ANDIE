@@ -60,33 +60,40 @@ public class ColourActions {
         return fileMenu;
     }
 
-    private int getPercentageFromUser(int MIN_VALUE, int MAX_VALUE, String text) {
-        int percentage = 0;
+    private int[] getTwoPercentagesFromUser(int MIN_VALUE, int MAX_VALUE, String text1, String text2) {
+        int percentageOne = 0;
+        int percentageTwo = 0;
 
         // JSpinner with range (MIN_VALUE - MAX_VALUE) inclusive
-        SpinnerNumberModel percentageModel = new SpinnerNumberModel(0, MIN_VALUE, MAX_VALUE, 1);
-        JSpinner percentageSpinner = new JSpinner(percentageModel);
+        SpinnerNumberModel percentageModelOne = new SpinnerNumberModel(0, MIN_VALUE, MAX_VALUE, 1);
+        SpinnerNumberModel percentageModelTwo = new SpinnerNumberModel(0, MIN_VALUE, MAX_VALUE, 1);
+        JLabel one = new JLabel(text1);
+        JLabel two = new JLabel(text2);
+        JSpinner percentageSpinnerOne = new JSpinner(percentageModelOne);
+        JSpinner percentageSpinnerTwo = new JSpinner(percentageModelTwo);
+        JComponent[] spinners = new JComponent[]{one, percentageSpinnerOne, two, percentageSpinnerTwo};
         // disable keyboard input
-        ((JSpinner.DefaultEditor) percentageSpinner.getEditor()).getTextField().setEditable(false);
+        ((JSpinner.DefaultEditor) percentageSpinnerOne.getEditor()).getTextField().setEditable(false);
+        ((JSpinner.DefaultEditor) percentageSpinnerTwo.getEditor()).getTextField().setEditable(false);
 
-        JFormattedTextField jftf = ((JSpinner.DefaultEditor)percentageSpinner.getEditor()).getTextField();
-        jftf.setColumns(30);
+        (((JSpinner.DefaultEditor)percentageSpinnerOne.getEditor()).getTextField()).setColumns(35);
 
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
         Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
-        String optionMessage = b.getString("Filter_percentage") + " " + b.getString(text) + " (" + MIN_VALUE + " to " + MAX_VALUE + ")";
+        String optionMessage = b.getString("Filter_percentage") + " " + b.getString(text1) + " and " + b.getString(text2) + " (" + MIN_VALUE + " to " + MAX_VALUE + ")";
 
         // Pop-up dialog box to ask for the radius value.
-        int option = JOptionPane.showOptionDialog(null, percentageSpinner, optionMessage,
+        int option = JOptionPane.showOptionDialog(null, spinners, optionMessage,
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
 
         // Check the return value from the dialog box.
         // Ok = 0, Cancel = 1, Exit = -1
         if (option == 0) {
-            percentage = percentageModel.getNumber().intValue();
+            percentageOne = percentageModelOne.getNumber().intValue();
+            percentageTwo = percentageModelTwo.getNumber().intValue();
         }
 
-        return percentage;
+        return new int[]{percentageOne, percentageTwo};
     }
 
     /**
@@ -126,8 +133,9 @@ public class ColourActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            int brightness = getPercentageFromUser(this.MIN_VALUE, this.MAX_VALUE, "Brightness");
-            int contrast = getPercentageFromUser(this.MIN_VALUE, this.MAX_VALUE, "Contrast");
+            int[] results = getTwoPercentagesFromUser(this.MIN_VALUE, this.MAX_VALUE, "Brightness", "Contrast");
+            int brightness = results[0];
+            int contrast = results[1];
 
             if (brightness ==0 && contrast == 0) {
                 return;
