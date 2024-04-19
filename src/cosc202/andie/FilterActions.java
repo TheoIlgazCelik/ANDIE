@@ -43,6 +43,13 @@ public class FilterActions {
         actions.add(new GaussianBlurAction("Gaussian Blur", null, "Apply a Gaussian Blur", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new BlockAverageAction("Block Average",null,"Apply a block averaging filter",Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new RandomScatteringAction("Random Scattering",null,"Apply a random scattering filter",Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new EmbossFilterEastAction("Emboss Filter East", null, "Apply a emboss filter", null));
+        actions.add(new EmbossFilterNorthEastAction("Emboss Filter North East", null, "Apply an emboss filter north east", null));
+        actions.add(new EmbossFilterNorthAction("Emboss Filter North", null, "Apply a emboss filter north", null));        
+        actions.add(new EmbossFilterNorthWestAction("Emboss Filter North West", null, "Apply an emboss filter north west", null));
+        actions.add(new EmbossFilterWestAction("Emboss Filter West", null, "Apply an emboss filter west", null));
+        actions.add(new EmbossFilterSouthWestAction("Emboss Filter South West", null, "Apply an emboss filter south west", null));
+
     }
 
     /**
@@ -353,6 +360,192 @@ public class FilterActions {
         }
     }
 
+    public class EmbossFilterNorthWestAction extends ImageAction {
+        EmbossFilterNorthWestAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the Emboss-east filter action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the EmbossFilterEastAction is triggered.
+         * {@link EmbossFilterEast}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            try {
+                target.getImage().apply(new EmbossFilterNorthWest());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
+            }
+        }
+    }
+
+    public class EmbossFilterSouthWestAction extends ImageAction {
+        EmbossFilterSouthWestAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the Emboss-east filter action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the EmbossFilterEastAction is triggered.
+         * {@link EmbossFilterEast}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            try {
+                target.getImage().apply(new EmbossFilterSouthWest());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
+            }
+        }
+    }
+
+
+    public class EmbossFilterWestAction extends ImageAction {
+        EmbossFilterWestAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the Emboss-east filter action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the EmbossFilterEastAction is triggered.
+         * {@link EmbossFilterEast}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            try {
+                target.getImage().apply(new EmbossFilterWest());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
+            }
+        }
+    }
+
+    public class EmbossFilterEastAction extends ImageAction {
+        EmbossFilterEastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the Emboss-east filter action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the EmbossFilterEastAction is triggered.
+         * {@link EmbossFilterEast}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            try {
+                target.getImage().apply(new EmbossFilterEast());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
+            }
+        }
+    }
+
+    public class EmbossFilterNorthAction extends ImageAction {
+        EmbossFilterNorthAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the Emboss-east filter action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the EmbossFilterEastAction is triggered.
+         * {@link EmbossFilterEast}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            try {
+                target.getImage().apply(new EmbossFilterNorth());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
+            }
+        }
+    }
+
+    public class EmbossFilterNorthEastAction extends ImageAction {
+        EmbossFilterNorthEastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the Emboss-east filter action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the EmbossFilterEastAction is triggered.
+         * {@link EmbossFilterEast}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            try {
+                target.getImage().apply(new EmbossFilterNorthEast());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
+            }
+        }
+    }
         /**
      * <p>
      * Action to affect an image with a block averaging filter.
