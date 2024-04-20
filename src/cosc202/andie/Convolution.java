@@ -13,10 +13,8 @@ import java.awt.image.Kernel;
  * <p>
  * In Java's ConvolveOp class, the borders of an image (of width kernel-radius)
  * are either ignored during the convolution or filled in black. This class
- * handles
- * the image edges by using the "nearest valid pixel" in the convolution when
- * the kernel
- * hangs over the edge.
+ * handles the image edges by using the "nearest valid pixel" in the convolution when
+ * the kernel hangs over the edge.
  * </p>
  * 
  * @author Matthew Rae
@@ -26,9 +24,10 @@ public class Convolution {
   private final Kernel KERNEL;
   private final float[] KERNEL_DATA;
   private final int RADIUS;
-  private final boolean offset;
+  private final boolean ARGB_OFFSET;
   private final int OFFSET_VAL = 127;
-  private final int ALPHA_MAX_VALUE = 255;
+  private final int ARGB_MIN_VALUE = 0;
+  private final int ARGB_MAX_VALUE = 255;
 
   /**
    * <p>
@@ -50,7 +49,7 @@ public class Convolution {
    */
   public Convolution(Kernel kernel, boolean offset) {
     this.KERNEL = kernel;
-    this.offset = offset;
+    this.ARGB_OFFSET = offset;
     this.KERNEL_DATA = kernel.getKernelData(null);
     this.RADIUS = this.KERNEL.getWidth() / 2;
   }
@@ -79,7 +78,7 @@ public class Convolution {
     int height = input.getHeight();
 
     int[] inputPixels = new int[width * height];
-    int[] outputPixels = new int[inputPixels.length];
+    int[] outputPixels = new int[width * height];
     input.getRGB(0, 0, width, height, inputPixels, 0, width);
 
     // pixel index
@@ -87,7 +86,7 @@ public class Convolution {
     // iterate each pixel
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
-        float[] argb = { 0, 0, 0, 0 };
+        float[] argb = {0, 0, 0, 0};
 
         // KERNEL_DATA index
         int ki = 0;
@@ -116,65 +115,46 @@ public class Convolution {
 
             // unpack argb from source image
             int ARGB = inputPixels[kpi];
-            int a = (ARGB >> 24) & 0xFF;
-            int r = (ARGB >> 16) & 0xFF;
-            int g = (ARGB >> 8) & 0xFF;
-            int b = (ARGB >> 0) & 0xFF;
+            int ka = (ARGB >> 24) & 0xFF;
+            int kr = (ARGB >> 16) & 0xFF;
+            int kg = (ARGB >> 8) & 0xFF;
+            int kb = (ARGB >> 0) & 0xFF;
 
-            argb[0] += a * KERNEL_DATA[ki];
-            argb[1] += r * KERNEL_DATA[ki];
-            argb[2] += g * KERNEL_DATA[ki];
-            argb[3] += b * KERNEL_DATA[ki];
+            argb[0] += ka * KERNEL_DATA[ki];
+            argb[1] += kr * KERNEL_DATA[ki];
+            argb[2] += kg * KERNEL_DATA[ki];
+            argb[3] += kb * KERNEL_DATA[ki];
 
             ki++;
           }
         }
 
-        int a = Math.round(argb[0]);
-        int r = Math.round(argb[1]);
-        int g = Math.round(argb[2]);
-        int b = Math.round(argb[3]);
+        int[] intARGB = {
+          Math.round(argb[0]),
+          Math.round(argb[1]),
+          Math.round(argb[2]),
+          Math.round(argb[3])
+        };
 
-        if (offset) {
-          a += OFFSET_VAL;
-          r += OFFSET_VAL;
-          g += OFFSET_VAL;
-          b += OFFSET_VAL;
+        for (int i = 0; i < intARGB.length; i++) {
+          // offset if required
+          if (ARGB_OFFSET) {
+            intARGB[i] += OFFSET_VAL;
+          }
+
+          // clamp values (0 - 255)
+          if (intARGB[i] < ARGB_MIN_VALUE) {
+            intARGB[i] = ARGB_MIN_VALUE;
+          } else if (intARGB[i] > ARGB_MAX_VALUE) {
+            intARGB[i] = ARGB_MAX_VALUE;
+          }
         }
-
-        // clamp argb (0 - 255)
-        if (a < 0) {
-          a = 0;
-        } else if (a > 255) {
-          a = 255;
-        }
-
-        if (r < 0) {
-          r = 0;
-        } else if (r > 255) {
-          r = 255;
-        }
-
-        if (g < 0) {
-          g = 0;
-        } else if (g > 255) {
-          g = 255;
-        }
-
-        if (b < 0) {
-          b = 0;
-        } else if (b > 255) {
-          b = 255;
-        }
-
+ 
         if (!hasAlpha) {
-          a = ALPHA_MAX_VALUE;
+          intARGB[0] = ARGB_MAX_VALUE;
         }
 
-        // set pixel in output image
-        int outputARGB = (a << 24) | (r << 16) | (g << 8) | b;
-        outputPixels[pi] = outputARGB;
-
+        outputPixels[pi] = (intARGB[0] << 24) | (intARGB[1] << 16) | (intARGB[2] << 8) | intARGB[3];
         pi++;
       }
     }
