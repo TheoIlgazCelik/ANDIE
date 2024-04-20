@@ -75,10 +75,18 @@ public class Convolution {
     }
 
     boolean hasAlpha = input.getColorModel().hasAlpha();
+    int width = input.getWidth();
+    int height = input.getHeight();
 
+    int[] inputPixels = new int[width * height];
+    int[] outputPixels = new int[inputPixels.length];
+    input.getRGB(0, 0, width, height, inputPixels, 0, width);
+
+    // pixel index
+    int pi = 0;
     // iterate each pixel
-    for (int y = 0; y < input.getHeight(); y++) {
-      for (int x = 0; x < input.getWidth(); x++) {
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
         float[] argb = { 0, 0, 0, 0 };
 
         // KERNEL_DATA index
@@ -92,19 +100,22 @@ public class Convolution {
             // y edge check
             if (dy < 0) {
               dy = 0;
-            } else if (dy >= input.getHeight()) {
-              dy = input.getHeight() - 1;
+            } else if (dy >= height) {
+              dy = height - 1;
             }
 
             // x edge check
             if (dx < 0) {
               dx = 0;
-            } else if (dx >= input.getWidth()) {
-              dx = input.getWidth() - 1;
+            } else if (dx >= width) {
+              dx = width - 1;
             }
 
+            // kernel-pixel index
+            int kpi = (dy * width) + dx;
+
             // unpack argb from source image
-            int ARGB = input.getRGB(dx, dy);
+            int ARGB = inputPixels[kpi];
             int a = (ARGB >> 24) & 0xFF;
             int r = (ARGB >> 16) & 0xFF;
             int g = (ARGB >> 8) & 0xFF;
@@ -162,9 +173,13 @@ public class Convolution {
 
         // set pixel in output image
         int outputARGB = (a << 24) | (r << 16) | (g << 8) | b;
-        output.setRGB(x, y, outputARGB);
+        outputPixels[pi] = outputARGB;
+
+        pi++;
       }
     }
+
+    output.setRGB(0, 0, width, height, outputPixels, 0, width);
   }
 
 }
