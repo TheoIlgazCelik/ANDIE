@@ -5,14 +5,17 @@ import java.awt.image.Kernel;
 
 /**
  * <p>
- * Convolution class to apply convolution via Kernel to {@link BufferedImage}s, which
+ * Convolution class to apply convolution via Kernel to {@link BufferedImage}s,
+ * which
  * includes image borders.
  * </p>
  * 
  * <p>
  * In Java's ConvolveOp class, the borders of an image (of width kernel-radius)
- * are either ignored during the convolution or filled in black. This class handles
- * the image edges by using the "nearest valid pixel" in the convolution when the kernel
+ * are either ignored during the convolution or filled in black. This class
+ * handles
+ * the image edges by using the "nearest valid pixel" in the convolution when
+ * the kernel
  * hangs over the edge.
  * </p>
  * 
@@ -25,6 +28,7 @@ public class Convolution {
   private final int RADIUS;
   private final boolean offset;
   private final int OFFSET_VAL = 127;
+  private final int ALPHA_MAX_VALUE = 255;
 
   /**
    * <p>
@@ -72,18 +76,16 @@ public class Convolution {
 
     boolean hasAlpha = input.getColorModel().hasAlpha();
 
-    // for each pixel in image
+    // iterate each pixel
     for (int y = 0; y < input.getHeight(); y++) {
       for (int x = 0; x < input.getWidth(); x++) {
         float[] argb = { 0, 0, 0, 0 };
 
-        if (!hasAlpha) {
-          argb[0] = (input.getRGB(x, y) & 0xFF000000) >> 24;
-        }
-
-        // for each pixel in kernel
-        for (int yOffset = -this.RADIUS, i = 0; yOffset <= this.RADIUS; yOffset++) {
-          for (int xOffset = -this.RADIUS; xOffset <= this.RADIUS; xOffset++, i++) {
+        // KERNEL_DATA index
+        int ki = 0;
+        // iterate each pixel of kernel
+        for (int yOffset = -this.RADIUS; yOffset <= this.RADIUS; yOffset++) {
+          for (int xOffset = -this.RADIUS; xOffset <= this.RADIUS; xOffset++) {
             int dy = y + yOffset;
             int dx = x + xOffset;
 
@@ -101,41 +103,66 @@ public class Convolution {
               dx = input.getWidth() - 1;
             }
 
-            // argb from source image
-            int inputARGB = input.getRGB(dx, dy);
-            int inputA = (inputARGB & 0xFF000000) >> 24;
-            int inputR = (inputARGB & 0x00FF0000) >> 16;
-            int inputG = (inputARGB & 0x0000FF00) >> 8;
-            int inputB = (inputARGB & 0x000000FF);
+            // unpack argb from source image
+            int ARGB = input.getRGB(dx, dy);
+            int a = (ARGB >> 24) & 0xFF;
+            int r = (ARGB >> 16) & 0xFF;
+            int g = (ARGB >> 8) & 0xFF;
+            int b = (ARGB >> 0) & 0xFF;
 
-            if (hasAlpha) {
-              argb[0] += inputA * KERNEL_DATA[i];
-            }
+            argb[0] += a * KERNEL_DATA[ki];
+            argb[1] += r * KERNEL_DATA[ki];
+            argb[2] += g * KERNEL_DATA[ki];
+            argb[3] += b * KERNEL_DATA[ki];
 
-            argb[1] += inputR * KERNEL_DATA[i];
-            argb[2] += inputG * KERNEL_DATA[i];
-            argb[3] += inputB * KERNEL_DATA[i];
+            ki++;
           }
         }
+
+        int a = Math.round(argb[0]);
+        int r = Math.round(argb[1]);
+        int g = Math.round(argb[2]);
+        int b = Math.round(argb[3]);
 
         if (offset) {
-          argb[1] += OFFSET_VAL;
-          argb[2] += OFFSET_VAL;
-          argb[3] += OFFSET_VAL;
+          a += OFFSET_VAL;
+          r += OFFSET_VAL;
+          g += OFFSET_VAL;
+          b += OFFSET_VAL;
         }
 
-        // clamp argb values between 0 - 255
-        for (int j = 0; j < argb.length; j++) {
-          if (argb[j] < 0) {
-            argb[j] = 0;
-          } else if (argb[j] > 255) {
-            argb[j] = 255;
-          }
+        // clamp argb (0 - 255)
+        if (a < 0) {
+          a = 0;
+        } else if (a > 255) {
+          a = 255;
+        }
+
+        if (r < 0) {
+          r = 0;
+        } else if (r > 255) {
+          r = 255;
+        }
+
+        if (g < 0) {
+          g = 0;
+        } else if (g > 255) {
+          g = 255;
+        }
+
+        if (b < 0) {
+          b = 0;
+        } else if (b > 255) {
+          b = 255;
+        }
+
+        if (!hasAlpha) {
+          a = ALPHA_MAX_VALUE;
         }
 
         // set pixel in output image
-        int outputRGB = ((int) argb[0] << 24) | ((int) argb[1] << 16) | ((int) argb[2] << 8) | (int) argb[3];
-        output.setRGB(x, y, outputRGB);
+        int outputARGB = (a << 24) | (r << 16) | (g << 8) | b;
+        output.setRGB(x, y, outputARGB);
       }
     }
   }
