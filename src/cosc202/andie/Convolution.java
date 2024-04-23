@@ -62,7 +62,7 @@ public class Convolution {
    * @param input  Original image to be filtered via convolution kernel
    * @param output Image to write the "filtered" pixels to
    * 
-   * @return The filtered image
+   * return The filtered image - Ilgaz here, simply removed the @ because it was giving a pipeline error
    */
   public void filter(BufferedImage input, BufferedImage output) {
     if (input == null) {
