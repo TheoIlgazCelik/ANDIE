@@ -131,7 +131,6 @@ public class ImagePanel extends JPanel {
      */
     @Override
     public void paintComponent(Graphics g) {
-        System.out.println("paint component");
         super.paintComponent(g);
         if (image.hasImage()) {
             Graphics2D g2  = (Graphics2D) g.create();
@@ -140,7 +139,6 @@ public class ImagePanel extends JPanel {
 
             if (processor != null) {
                 processor.paint(g2);
-                System.out.println("paint called");
             }
 
             g2.dispose();
@@ -148,22 +146,33 @@ public class ImagePanel extends JPanel {
 
     }
 
+    /**
+     * <p>
+     * Clear the current mouse listener and add new mouse listener for
+     * {@link MouseEvent} triggered actions. Also sets the cursor to "Draw" cursor
+     * </p>
+     * 
+     * @param MouseProcessor The MouseEvent callback to add to this ImagePanel
+     */
     public boolean setDrawingMode(MouseProcessor processor) {
-        if (this.processor != null) {
-            return false;
-        }
-
-        this.processor = processor;
+        clearDrawingMode();
         addMouseListener(processor);
         addMouseMotionListener(processor);
+        this.processor = processor;
         setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
         return true;
     }
 
+    /**
+     * <p>
+     * Clear the current mouse listener for {@link MouseEvent} triggered actions.
+     * Also resets the cursor to default.
+     * </p>
+     */
     public void clearDrawingMode() {
         removeMouseListener(processor);
         removeMouseMotionListener(processor);
-        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         this.processor = null;
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
 }
