@@ -10,21 +10,24 @@ import javax.swing.*;
  * </p>
  * 
  * <p>
- * The View menu contains actions that affect how the image is displayed in the application.
- * These actions do not affect the contents of the image itself, just the way it is displayed.
+ * The View menu contains actions that affect how the image is displayed in the
+ * application.
+ * These actions do not affect the contents of the image itself, just the way it
+ * is displayed.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Steven Mills
  * @version 1.0
  * 
- * MATT
+ *          MATT
  */
 public class ViewActions {
-    
+
     /**
      * A list of actions for the View menu.
      */
@@ -40,12 +43,18 @@ public class ViewActions {
         actions.add(new ZoomInAction("Zoom In", null, "Zoom In", Integer.valueOf(KeyEvent.VK_PLUS)));
         actions.add(new ZoomOutAction("Zoom Out", null, "Zoom Out", Integer.valueOf(KeyEvent.VK_MINUS)));
         actions.add(new ZoomFullAction("Zoom Full", null, "Zoom Full", Integer.valueOf(KeyEvent.VK_1)));
-        actions.add(new RotateRightAction("Rotate 90\u00b0 right", null, "Rotate image 90\u00b0 to the right", Integer.valueOf(KeyEvent.VK_2)));
-        actions.add(new RotateLeftAction("Rotate 90\u00b0 left", null, "Rotate image 90\u00b0 to the left", Integer.valueOf(KeyEvent.VK_3)));
-        actions.add(new RotateFullAction("Rotate 180\u00b0", null, "Rotate image 180\u00b0", Integer.valueOf(KeyEvent.VK_4)));
-        actions.add(new FlipHorizontalAction("Flip Horizontally", null, "Flip image horizontally", Integer.valueOf(KeyEvent.VK_5)));
-        actions.add(new FlipVerticalAction("Flip Vertically", null, "Flip image vertically", Integer.valueOf(KeyEvent.VK_6)));
+        actions.add(new RotateRightAction("Rotate 90\u00b0 right", null, "Rotate image 90\u00b0 to the right",
+                Integer.valueOf(KeyEvent.VK_2)));
+        actions.add(new RotateLeftAction("Rotate 90\u00b0 left", null, "Rotate image 90\u00b0 to the left",
+                Integer.valueOf(KeyEvent.VK_3)));
+        actions.add(new RotateFullAction("Rotate 180\u00b0", null, "Rotate image 180\u00b0",
+                Integer.valueOf(KeyEvent.VK_4)));
+        actions.add(new FlipHorizontalAction("Flip Horizontally", null, "Flip image horizontally",
+                Integer.valueOf(KeyEvent.VK_5)));
+        actions.add(new FlipVerticalAction("Flip Vertically", null, "Flip image vertically",
+                Integer.valueOf(KeyEvent.VK_6)));
         actions.add(new ResizeAction("Resize Image", null, "Resize Image", Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new CropAction("Crop Image", null, "Crop Image", Integer.valueOf(KeyEvent.VK_P)));
     }
 
     /**
@@ -58,12 +67,13 @@ public class ViewActions {
     public JMenu createMenu() {
         JMenu viewMenu = new JMenu("View");
 
-        for (Action action: actions) {
+        for (Action action : actions) {
             viewMenu.add(new JMenuItem(action));
         }
 
         return viewMenu;
     }
+
     /**
      * <p>
      * Action to Resize an Image
@@ -72,7 +82,7 @@ public class ViewActions {
      */
     public class ResizeAction extends ImageAction {
 
-        ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+        ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
             putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_W, KeyEvent.CTRL_DOWN_MASK));
         }
@@ -80,24 +90,27 @@ public class ViewActions {
         public void actionPerformed(ActionEvent e) {
 
             int sizePercentageIncrease100 = 100;
-            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-            SpinnerNumberModel increaseModel = new SpinnerNumberModel(100, 1, 1000, 1); //new spinner model
+            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+            SpinnerNumberModel increaseModel = new SpinnerNumberModel(100, 1, 1000, 1); // new spinner model
             JSpinner increaseSpinner = new JSpinner(increaseModel);
-            Object[] options2 = {b.getString("Ok"),b.getString("Cancel")};
-            int option = JOptionPane.showOptionDialog(null, increaseSpinner, b.getString("Enter_size"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
+            Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
+            int option = JOptionPane.showOptionDialog(null, increaseSpinner, b.getString("Enter_size"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
                 sizePercentageIncrease100 = increaseModel.getNumber().intValue();
             }
-            try{
-            target.getImage().apply(new ResizeImage(sizePercentageIncrease100));
-            target.repaint();
-            target.getParent().revalidate();
-            } catch(Exception ex){
-                //JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
-                Object[] options = {b.getString("Ok")};
-                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
+            try {
+                target.getImage().apply(new ResizeImage(sizePercentageIncrease100));
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                // JOptionPane.showMessageDialog(target,"No image selected", "Error",
+                // JOptionPane.ERROR_MESSAGE);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
             }
         }
     }
@@ -108,7 +121,8 @@ public class ViewActions {
      * </p>
      * 
      * <p>
-     * Note that this action only affects the way the image is displayed, not its actual contents.
+     * Note that this action only affects the way the image is displayed, not its
+     * actual contents.
      * </p>
      */
     public class ZoomInAction extends ImageAction {
@@ -118,10 +132,10 @@ public class ViewActions {
          * Create a new zoom-in action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         ZoomInAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -141,20 +155,21 @@ public class ViewActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            try{
-            target.setZoom(target.getZoom()+10);
-            target.repaint();
-            target.getParent().revalidate();
-            } catch(Exception ex){
-                //JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
-                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-                Object[] options = {b.getString("Ok")};
-                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
+            try {
+                target.setZoom(target.getZoom() + 10);
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                // JOptionPane.showMessageDialog(target,"No image selected", "Error",
+                // JOptionPane.ERROR_MESSAGE);
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
             }
         }
 
     }
-
 
     /**
      * <p>
@@ -162,7 +177,8 @@ public class ViewActions {
      * </p>
      * 
      * <p>
-     * Note that this action only affects the way the image is displayed, not its actual contents.
+     * Note that this action only affects the way the image is displayed, not its
+     * actual contents.
      * </p>
      */
     public class ZoomOutAction extends ImageAction {
@@ -172,10 +188,10 @@ public class ViewActions {
          * Create a new zoom-out action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         ZoomOutAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -195,15 +211,17 @@ public class ViewActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            try{
-            target.setZoom(target.getZoom()-10);
-            target.repaint();
-            target.getParent().revalidate();
-            }catch (Exception ex){
-                //JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
-                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-                Object[] options = {b.getString("Ok")};
-                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
+            try {
+                target.setZoom(target.getZoom() - 10);
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                // JOptionPane.showMessageDialog(target,"No image selected", "Error",
+                // JOptionPane.ERROR_MESSAGE);
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
             }
         }
 
@@ -215,7 +233,8 @@ public class ViewActions {
      * </p>
      * 
      * <p>
-     * Note that this action only affects the way the image is displayed, not its actual contents.
+     * Note that this action only affects the way the image is displayed, not its
+     * actual contents.
      * </p>
      */
     public class ZoomFullAction extends ImageAction {
@@ -225,10 +244,10 @@ public class ViewActions {
          * Create a new zoom-full action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         ZoomFullAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -248,15 +267,17 @@ public class ViewActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            try{
-            target.setZoom(100);
-            target.repaint();
-            target.getParent().revalidate();
-            } catch(Exception ex){
-                //JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
-                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-                Object[] options = {b.getString("Ok")};
-                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
+            try {
+                target.setZoom(100);
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                // JOptionPane.showMessageDialog(target,"No image selected", "Error",
+                // JOptionPane.ERROR_MESSAGE);
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
             }
         }
 
@@ -275,10 +296,10 @@ public class ViewActions {
          * Create a RotateRight action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         RotateRightAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -300,15 +321,17 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
-            try{
-            target.getImage().apply(new RotateRight());
-            target.repaint();
-            target.getParent().revalidate();
-            } catch(Exception ex){
-                //JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
-                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-                Object[] options = {b.getString("Ok")};
-                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
+            try {
+                target.getImage().apply(new RotateRight());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                // JOptionPane.showMessageDialog(target,"No image selected", "Error",
+                // JOptionPane.ERROR_MESSAGE);
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
             }
         }
 
@@ -327,10 +350,10 @@ public class ViewActions {
          * Create a RotateLeft action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         RotateLeftAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -352,15 +375,17 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
-            try{
-            target.getImage().apply(new RotateLeft());
-            target.repaint();
-            target.getParent().revalidate();
-            } catch(Exception ex){
-                //JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
-                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-                Object[] options = {b.getString("Ok")};
-                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
+            try {
+                target.getImage().apply(new RotateLeft());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                // JOptionPane.showMessageDialog(target,"No image selected", "Error",
+                // JOptionPane.ERROR_MESSAGE);
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
             }
         }
 
@@ -379,14 +404,15 @@ public class ViewActions {
          * Create a RotateFull action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         RotateFullAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
+            putValue(ACCELERATOR_KEY,
+                    KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         }
 
         /**
@@ -403,15 +429,17 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
-            try{
-            target.getImage().apply(new RotateFull());
-            target.repaint();
-            target.getParent().revalidate();
-            } catch(Exception ex){
-                //JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
-                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-                Object[] options = {b.getString("Ok")};
-                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
+            try {
+                target.getImage().apply(new RotateFull());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                // JOptionPane.showMessageDialog(target,"No image selected", "Error",
+                // JOptionPane.ERROR_MESSAGE);
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
             }
         }
 
@@ -430,14 +458,15 @@ public class ViewActions {
          * Create a FlipHorizontal action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FlipHorizontalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
+            putValue(ACCELERATOR_KEY,
+                    KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         }
 
         /**
@@ -455,15 +484,17 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
-            try{
-            target.getImage().apply(new FlipHorizontal());
-            target.repaint();
-            target.getParent().revalidate();
-            } catch(Exception ex){
-                //JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
-                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-                Object[] options = {b.getString("Ok")};
-                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
+            try {
+                target.getImage().apply(new FlipHorizontal());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                // JOptionPane.showMessageDialog(target,"No image selected", "Error",
+                // JOptionPane.ERROR_MESSAGE);
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
             }
         }
 
@@ -473,8 +504,6 @@ public class ViewActions {
      * <p>
      * Action to flip the image vertically
      * </p>
-     * 
-     * @author Matthew Rae
      */
     public class FlipVerticalAction extends ImageAction {
         /**
@@ -482,10 +511,10 @@ public class ViewActions {
          * Create a FlipVertical action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FlipVerticalAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -507,19 +536,59 @@ public class ViewActions {
          */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the rotation
-            try{
-            target.getImage().apply(new FlipVertical());
-            target.repaint();
-            target.getParent().revalidate();
-            } catch(Exception ex){
-                //JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
-                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
-                Object[] options = {b.getString("Ok")};
-                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
+            try {
+                target.getImage().apply(new FlipVertical());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                // JOptionPane.showMessageDialog(target,"No image selected", "Error",
+                // JOptionPane.ERROR_MESSAGE);
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
             }
         }
 
     }
 
+    /**
+     * <p>
+     * Action to crop an image
+     * </p>
+     */
+    public class CropAction extends ImageAction {
+        /**
+         * <p>
+         * Create a Crop action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the Crop action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the Crop is triggered.
+         * It applies a {@link Crop} action, which crops the image to dimensions
+         * provided from the user through mouse input
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.setDrawingMode(new MouseProcessor(target, MouseProcessor.CROP_OP));
+        }
+
+    }
 
 }

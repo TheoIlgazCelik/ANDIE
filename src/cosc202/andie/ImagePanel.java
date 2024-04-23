@@ -26,6 +26,7 @@ public class ImagePanel extends JPanel {
      * The image to display in the ImagePanel.
      */
     private EditableImage image;
+    private MouseProcessor processor;
 
     /**
      * <p>
@@ -135,7 +136,43 @@ public class ImagePanel extends JPanel {
             Graphics2D g2  = (Graphics2D) g.create();
             g2.scale(scale, scale);
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
+
+            if (processor != null) {
+                processor.paint(g2);
+            }
+
             g2.dispose();
         }
+
+    }
+
+    /**
+     * <p>
+     * Clear the current mouse listener and add new mouse listener for
+     * {@link MouseEvent} triggered actions. Also sets the cursor to "Draw" cursor
+     * </p>
+     * 
+     * @param MouseProcessor The MouseEvent callback to add to this ImagePanel
+     */
+    public boolean setDrawingMode(MouseProcessor processor) {
+        clearDrawingMode();
+        addMouseListener(processor);
+        addMouseMotionListener(processor);
+        this.processor = processor;
+        setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+        return true;
+    }
+
+    /**
+     * <p>
+     * Clear the current mouse listener for {@link MouseEvent} triggered actions.
+     * Also resets the cursor to default.
+     * </p>
+     */
+    public void clearDrawingMode() {
+        removeMouseListener(processor);
+        removeMouseMotionListener(processor);
+        this.processor = null;
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
 }
