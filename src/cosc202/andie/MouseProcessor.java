@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 import java.awt.Color;
-import java.awt.Graphics;
 
 public class MouseProcessor extends MouseAdapter {
   private int x1;
@@ -19,10 +18,19 @@ public class MouseProcessor extends MouseAdapter {
   private boolean selectMode = false;
   private ImagePanel panel;
   private BufferedImage image;
+  private int op;
+  private static final int CROP_OP = 1;
+  private int MIN_X = 0;
+  private int MIN_Y = 0;
+  private int MAX_X = 0;
+  private int MAX_Y = 0;
 
   public MouseProcessor(ImagePanel panel, BufferedImage image) {
     this.panel = panel;
     this.image = image;
+    this.op = CROP_OP;
+    this.MAX_X = image.getWidth() - 1;
+    this.MAX_Y = image.getHeight() - 1;
   }
 
   public void mousePressed(MouseEvent e) {
@@ -37,14 +45,21 @@ public class MouseProcessor extends MouseAdapter {
   public void mouseReleased(MouseEvent e) {
     selectMode = false;
     updateSquare();
+
+    switch (this.op) {
+      case CROP_OP:
+        panel.getImage().apply(new Crop(x3, y3, width, height));
+        panel.clearDrawingMode();
+        break;
+    }
+
+    System.out.println("released");
   }
 
   public void mouseDragged(MouseEvent e) {
     x2 = e.getX();
     y2 = e.getY();
     updateSquare();
-    paintShape();
-    panel.repaint();
   }
 
   private void updateSquare() {
@@ -63,11 +78,25 @@ public class MouseProcessor extends MouseAdapter {
       y3 = y2;
       height = y1 - y2;
     }
+
+    if (x3 < MIN_X) x3 = MIN_X;
+    if (x3 > MAX_X) x3 = MAX_X;
+    if (y3 < MIN_Y) y3 = MIN_Y;
+    if (y3 > MAX_Y) y3 = MAX_Y;
+    if (x3 + width > MAX_X) {
+      width = MAX_X - x3;
+    }
+    if (y3 + height > MAX_Y) {
+      height = MAX_Y - y3;
+    }
+
+    panel.repaint();
   }
 
-  private void paintShape() {
-    Graphics2D g = (Graphics2D) panel.getGraphics();
-    g.setColor(new Color(150, 150, 150, 127));
-    g.fillRect(x3, y3, width, height);
+  public void paint(Graphics2D g2d) {
+    if (selectMode) {
+      g2d.setColor(new Color(255, 0, 0));
+      g2d.drawRect(x3, y3, width, height);
+    }
   }
 }

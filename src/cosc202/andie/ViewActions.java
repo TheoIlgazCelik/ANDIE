@@ -46,6 +46,7 @@ public class ViewActions {
         actions.add(new FlipHorizontalAction("Flip Horizontally", null, "Flip image horizontally", Integer.valueOf(KeyEvent.VK_5)));
         actions.add(new FlipVerticalAction("Flip Vertically", null, "Flip image vertically", Integer.valueOf(KeyEvent.VK_6)));
         actions.add(new ResizeAction("Resize Image", null, "Resize Image", Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new CropAction("Crop Image", null, "Crop Image", Integer.valueOf(KeyEvent.VK_P)));
     }
 
     /**
@@ -517,6 +518,19 @@ public class ViewActions {
                 Object[] options = {b.getString("Ok")};
                 JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
             }
+        }
+
+    }
+
+    public class CropAction extends ImageAction {
+        
+        CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        
+        public void actionPerformed(ActionEvent e) {
+            target.setDrawingMode(new MouseProcessor(target, target.getImage().getCurrentImage()));
         }
 
     }

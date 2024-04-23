@@ -26,6 +26,7 @@ public class ImagePanel extends JPanel {
      * The image to display in the ImagePanel.
      */
     private EditableImage image;
+    private MouseProcessor processor;
 
     /**
      * <p>
@@ -130,12 +131,39 @@ public class ImagePanel extends JPanel {
      */
     @Override
     public void paintComponent(Graphics g) {
+        System.out.println("paint component");
         super.paintComponent(g);
         if (image.hasImage()) {
             Graphics2D g2  = (Graphics2D) g.create();
             g2.scale(scale, scale);
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
+
+            if (processor != null) {
+                processor.paint(g2);
+                System.out.println("paint called");
+            }
+
             g2.dispose();
         }
+
+    }
+
+    public boolean setDrawingMode(MouseProcessor processor) {
+        if (this.processor != null) {
+            return false;
+        }
+
+        this.processor = processor;
+        addMouseListener(processor);
+        addMouseMotionListener(processor);
+        setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+        return true;
+    }
+
+    public void clearDrawingMode() {
+        removeMouseListener(processor);
+        removeMouseMotionListener(processor);
+        setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        this.processor = null;
     }
 }
