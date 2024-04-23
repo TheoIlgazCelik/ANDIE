@@ -29,6 +29,7 @@ public class FilterActions {
 
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
+    protected ArrayList<Action> embossActions;
 
     /**
      * <p>
@@ -43,12 +44,15 @@ public class FilterActions {
         actions.add(new GaussianBlurAction("Gaussian Blur", null, "Apply a Gaussian Blur", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new BlockAverageAction("Block Average",null,"Apply a block averaging filter",Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new RandomScatteringAction("Random Scattering",null,"Apply a random scattering filter",Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new EmbossFilterEastAction("Emboss Filter East", null, "Apply a emboss filter", null));
-        actions.add(new EmbossFilterNorthEastAction("Emboss Filter North East", null, "Apply an emboss filter north east", null));
-        actions.add(new EmbossFilterNorthAction("Emboss Filter North", null, "Apply a emboss filter north", null));        
-        actions.add(new EmbossFilterNorthWestAction("Emboss Filter North West", null, "Apply an emboss filter north west", null));
-        actions.add(new EmbossFilterWestAction("Emboss Filter West", null, "Apply an emboss filter west", null));
-        actions.add(new EmbossFilterSouthWestAction("Emboss Filter South West", null, "Apply an emboss filter south west", null));
+        embossActions = new ArrayList<Action>();
+        embossActions.add(new EmbossFilterEastAction("East", null, "Apply a emboss filter", null));
+        embossActions.add(new EmbossFilterNorthEastAction("North East", null, "Apply an emboss filter north east", null));
+        embossActions.add(new EmbossFilterNorthAction("North", null, "Apply a emboss filter north", null));        
+        embossActions.add(new EmbossFilterNorthWestAction("North West", null, "Apply an emboss filter north west", null));
+        embossActions.add(new EmbossFilterWestAction("West", null, "Apply an emboss filter west", null));
+        embossActions.add(new EmbossFilterSouthWestAction("South West", null, "Apply an emboss filter south west", null));
+        embossActions.add(new EmbossFilterSouthAction("South", null, "Apply an emboss filter south", null));
+        embossActions.add(new EmbossFilterSouthEastAction("South East", null, "Apply an emboss filter south east", null));
 
     }
 
@@ -61,10 +65,15 @@ public class FilterActions {
      */
     public JMenu createMenu() {
         JMenu fileMenu = new JMenu("Filter");
-
+        JMenu embossMenu = new JMenu("Emboss Filter");
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
         }
+        for (Action embossAction : embossActions){
+            embossMenu.add(new JMenuItem(embossAction));
+        }
+        fileMenu.add(embossMenu);
+
 
         return fileMenu;
     }
@@ -538,6 +547,68 @@ public class FilterActions {
         public void actionPerformed(ActionEvent e) {
             try {
                 target.getImage().apply(new EmbossFilterNorthEast());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
+            }
+        }
+    }
+
+    public class EmbossFilterSouthAction extends ImageAction {
+        EmbossFilterSouthAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the Emboss-east filter action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the EmbossFilterEastAction is triggered.
+         * {@link EmbossFilterEast}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            try {
+                target.getImage().apply(new EmbossFilterSouth());
+                target.repaint();
+                target.getParent().revalidate();
+            } catch (Exception ex) {
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                Object[] options = { b.getString("Ok") };
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, options, null);
+            }
+        }
+    }
+
+    public class EmbossFilterSouthEastAction extends ImageAction {
+        EmbossFilterSouthEastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the Emboss-east filter action is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the EmbossFilterEastAction is triggered.
+         * {@link EmbossFilterEast}.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            try {
+                target.getImage().apply(new EmbossFilterSouthEast());
                 target.repaint();
                 target.getParent().revalidate();
             } catch (Exception ex) {
