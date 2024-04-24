@@ -47,6 +47,8 @@ class EditableImage {
     private String opsFilename;
 
     private String exportFileName;
+    /** Default format when writing the image to a file*/
+    private final static String DEFAULT_EXPORT_FORMAT = "png";
 
     /**
      * <p>
@@ -212,7 +214,7 @@ class EditableImage {
             editedImage = op.apply(editedImage);
 
         }
-        ImageIO.write(editedImage, "jpg", new File(imageFileName));
+        ImageIO.write(editedImage, DEFAULT_EXPORT_FORMAT, new File(imageFileName));
         
         
     }
