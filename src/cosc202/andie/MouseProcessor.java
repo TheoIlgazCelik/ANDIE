@@ -8,12 +8,12 @@ import java.awt.Color;
 /**
  * <p>
  * Extended {@link MouseAdapter} to get coordinates via mouse input to
- * apply operations on {@link BufferedImage}.
+ * apply operations on BufferedImage.
  * </p>
  * 
  * <p>
  * This {@link MouseAdapter} is utilised by many operations that require
- * "drawing" on the {@link ImagePanel} or {@link BufferedImage} by tracking
+ * "drawing" on the {@link ImagePanel} or BufferedImage by tracking
  * mouse coordinates and drawing with it's paint() method. It can call the
  * {@link EditableImage} apply method to apply an {@link ImageOperation} when
  * required.
