@@ -67,7 +67,7 @@ public class MouseProcessor extends MouseAdapter {
    * Callback for a mouse click
    * </p>
    * 
-   * @param MouseEvent e the triggered MouseEvent
+   * @param e the triggered MouseEvent
    */
   public void mousePressed(MouseEvent e) {
     x1 = e.getX();
@@ -84,7 +84,7 @@ public class MouseProcessor extends MouseAdapter {
    * Callback for a mouse release
    * </p>
    * 
-   * @param MouseEvent e the triggered MouseEvent
+   * @param e the triggered MouseEvent
    */
   public void mouseReleased(MouseEvent e) {
     selectMode = false;
@@ -107,7 +107,7 @@ public class MouseProcessor extends MouseAdapter {
    * Callback for a mouse Drag
    * </p>
    * 
-   * @param MouseEvent e the triggered MouseEvent
+   * @param e the triggered MouseEvent
    */
   public void mouseDragged(MouseEvent e) {
     x2 = e.getX();
@@ -169,7 +169,7 @@ public class MouseProcessor extends MouseAdapter {
    * changes to the images/
    * </p>
    * 
-   * @param Graphics2D g2d Graphics object supplied by the {@link ImagePanel}
+   * @param g2d Graphics object supplied by the {@link ImagePanel}
    */
   public void paint(Graphics2D g2d) {
     if (selectMode) {
