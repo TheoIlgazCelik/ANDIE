@@ -97,7 +97,7 @@ public class RandomScattering implements ImageOperation, java.io.Serializable {
                     ny = height - 1;
                 }
                 int argb = input.getRGB(nx, ny);
-                int a = (argb & 0xFF000000) >> 24;
+                int a = (argb >> 24) & 0xFF;;
                 int r = (argb & 0x00FF0000) >> 16;
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
