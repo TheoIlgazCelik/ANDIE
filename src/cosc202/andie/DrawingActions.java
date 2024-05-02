@@ -69,6 +69,13 @@ public class DrawingActions {
         JSpinner greenSpinner = new JSpinner(greenModel);
         JSpinner blueSpinner = new JSpinner(blueModel);
 
+        redModel.setValue(red);
+        greenModel.setValue(green);
+        blueModel.setValue(blue);
+        if(fill)fillButton.doClick();
+        if(outline)outlineButton.doClick();
+
+
         JComponent[] spinners = new JComponent[]{redLabel, redSpinner, greenLabel, greenSpinner, blueLabel, blueSpinner, fillButton, outlineButton};
 
         //(((JSpinner.DefaultEditor)redSpinner.getEditor()).getTextField()).setColumns(35);
