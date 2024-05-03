@@ -182,17 +182,18 @@ public class LangActions {
         String[][] m = { { "File", "Open", "Save", "Save_as", "Exit", "Export" },
                 { "Edit", "Undo", "Redo" },
                 { "View", "Zoom_in", "Zoom_out", "Zoom_full", "Rotate_right", "Rotate_left", "Rotate_180",
-                        "Flip_horizontal", "Flip_vertical", "Resize" },
-                { "Filter", "Mean_filter", "Sharpen", "Median", "Gaussian_blur","Block_average","Random_scattering"},
-                { "Colour", "Greyscale", "Invert_color","Colour_cycle"},
+                        "Flip_horizontal", "Flip_vertical", "Resize", "Crop_image" },
+                { "Filter", "Mean_filter", "Sharpen", "Median", "Gaussian_blur","Block_average","Random_scattering","Emboss_filter"},
+                { "Colour", "Greyscale", "Invert_color","Colour_cycle", "Brightness_contrast"},
                 { "Language", "English", "Spanish", "Maori" } };
         String[][] descs = { { "Open_desc", "Save_desc", "Save_as_desc", "Exit_desc", "Export_desc" },
                 { "Undo_desc", "Redo_desc" },
                 { "Zoom_in_desc", "Zoom_out_desc", "Zoom_full_desc", "Rotate_right_desc", "Rotate_left_desc",
-                        "Rotate_180_desc", "Flip_horizontal_desc", "Flip_vertical_desc", "Resize_desc" },
-                { "Mean_filter_desc", "Sharpen_desc", "Median_desc", "Gaussian_blur_desc","Block_average_desc","Random_scattering_desc" },
-                { "Greyscale_desc", "Invert_color_desc","Colour_cycle_desc" },
+                        "Rotate_180_desc", "Flip_horizontal_desc", "Flip_vertical_desc", "Resize_desc", "Crop_image" },
+                { "Mean_filter_desc", "Sharpen_desc", "Median_desc", "Gaussian_blur_desc","Block_average_desc","Random_scattering_desc", "Emboss_apply_desc" },
+                { "Greyscale_desc", "Invert_color_desc","Colour_cycle_desc","Brightness_contrast_desc" },
                 { "English_desc", "Spanish_desc", "Maori_desc" } }; 
+        String[] embossTime = {"East","North_east","North","North_west","West","South_west","South","South_east"};
 
         for (int i = 0; i < m.length/* Andie.menuBar.getMenuCount() */; i++) {
             JMenu menu1 = Andie.menuBar.getMenu(i);
@@ -206,6 +207,15 @@ public class LangActions {
                     if (j + 1 < m[i].length) {
                         menuItem1.setText(b.getString(m[i][j + 1]));
                         menuItem1.setToolTipText(b.getString(descs[i][j]));
+                        if (m[i][j+1].equals("Emboss_filter")) {
+                            MenuElement[] sub = menuItem1.getSubElements();
+                            JPopupMenu f = (JPopupMenu)sub[0];
+                            for (int k=0; k<embossTime.length; k++) {
+                               JMenuItem g = (JMenuItem)f.getComponent(k);
+                               g.setText(b.getString(embossTime[k]));
+                               g.setToolTipText(b.getString("Emboss_apply_desc") + " " + b.getString(embossTime[k]));
+                            }
+                        }
                     }
 
                 }
