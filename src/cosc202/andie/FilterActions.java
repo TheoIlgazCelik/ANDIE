@@ -39,8 +39,8 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SharpenFilterAction("Sharpen filter", null, "Apply a sharpen filter", Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new MedianFilterAction("Median Filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new SharpenFilterAction("Sharpen filter", null, "Apply a sharpen filter", Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new GaussianBlurAction("Gaussian Blur", null, "Apply a Gaussian Blur", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new BlockAverageAction("Block Average",null,"Apply a block averaging filter",Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new RandomScatteringAction("Random Scattering",null,"Apply a random scattering filter",Integer.valueOf(KeyEvent.VK_M)));
@@ -178,6 +178,7 @@ public class FilterActions {
          */
         MedianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
             
         }
 
@@ -196,6 +197,7 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
             int radius = getRadiusFromUser(this.MIN_VALUE, this.MAX_VALUE);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
 
             if (radius <= 0) {
                 return;
@@ -236,6 +238,7 @@ public class FilterActions {
          */
         GaussianBlurAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK | InputEvent.ALT_DOWN_MASK));
         }
 
         /**
@@ -295,6 +298,7 @@ public class FilterActions {
          */
         MeanFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK));
         }
 
         /**
@@ -642,6 +646,7 @@ public class FilterActions {
          */
         BlockAverageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         }
 
         /**
@@ -700,6 +705,7 @@ public class FilterActions {
          */
         RandomScatteringAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         }
 
         /**

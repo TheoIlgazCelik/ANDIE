@@ -43,8 +43,12 @@ class EditableImage {
     private Stack<ImageOperation> redoOps;
     /** The file where the original image is stored/ */
     private String imageFilename;
+    /** The recorded macro */
+    private Stack<ImageOperation> macro;
     /** The file where the operation sequence is stored. */
     private String opsFilename;
+    /** To check if a macro is being recorded */
+    private boolean isRecording = false;
 
     private String exportFileName;
     /** Default format when writing the image to a file*/
@@ -198,6 +202,20 @@ class EditableImage {
         fileOut.close();
     }
 
+    /**
+     * Save a set of operations to a file for the macros
+     */
+
+     public void saveMacro(String imageFileName) throws Exception{
+        this.opsFilename = imageFilename + ".ops";
+        FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
+        ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+        objOut.writeObject(this.ops);
+        objOut.close();
+        fileOut.close();
+
+     }
+
 
     /**
      * Export an image as a 'jpg'
@@ -253,6 +271,9 @@ class EditableImage {
     public void apply(ImageOperation op) {
         current = op.apply(current);
         ops.add(op);
+        if(isRecording){
+            macro.add(op);
+        }
     }
 
     /**
@@ -272,8 +293,22 @@ class EditableImage {
      */
     public void redo()  {
         apply(redoOps.pop());
+        
     }
 
+    /**
+     * Sets the recording variable to true for the macro
+     */
+    public void setRecordingTrue(){
+        this.isRecording = true;
+    }
+
+    /**
+     * Sets the recording variable to false for the macro
+     */
+    public void setRecordingFalse(){
+        this.isRecording = false;
+    }
     /**
      * <p>
      * Get the current image after the operations have been applied.

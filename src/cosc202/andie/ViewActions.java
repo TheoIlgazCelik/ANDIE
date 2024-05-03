@@ -412,7 +412,7 @@ public class ViewActions {
         RotateFullAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
             putValue(ACCELERATOR_KEY,
-                    KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
+                    KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         }
 
         /**
@@ -570,6 +570,7 @@ public class ViewActions {
          */
         CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
         }
 
         /**
