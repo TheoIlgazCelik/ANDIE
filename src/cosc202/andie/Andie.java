@@ -128,6 +128,10 @@ public class Andie {
         ColourActions colourActions = new ColourActions();
         menuBar.add(colourActions.createMenu());
 
+        // Actions that affect the macro recording
+        MacroActions macroActions = new MacroActions();
+        menuBar.add(macroActions.createMenu());
+
         LangActions langActions = new LangActions();
         menuBar.add(langActions.createMenu());
 
