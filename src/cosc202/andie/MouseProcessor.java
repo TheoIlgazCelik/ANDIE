@@ -149,6 +149,10 @@ public class MouseProcessor extends MouseAdapter {
    * </p>
    */
   private void updateSquare() {
+    if (selectedShape == 2 && op == DRAWING_OP) {
+      return;
+    }
+    
     // enforce x1 is the lesser x coordinate
     if (x1 < x2) {
       x3 = x1;
@@ -216,7 +220,7 @@ public class MouseProcessor extends MouseAdapter {
               if (outline)g2d.drawOval(x3,y3,width,height);
               break;
             case 2:
-              g2d.drawLine(x3, y3, x3+width, y3+height);
+              g2d.drawLine(x1, y1, x2, y2);
               break;
           }
           break;
