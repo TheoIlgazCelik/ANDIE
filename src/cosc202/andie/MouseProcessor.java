@@ -52,6 +52,13 @@ public class MouseProcessor extends MouseAdapter {
   private final int op;
   // Possible operations
   public static final int CROP_OP = 1;
+  public static final int DRAWING_OP = 2;
+
+  // Drawing Variables
+  Color col;
+  int selectedShape;
+  boolean outline;
+  boolean fill;
 
   public MouseProcessor(ImagePanel panel, int op) {
     this.panel = panel;
@@ -60,6 +67,18 @@ public class MouseProcessor extends MouseAdapter {
     this.MIN_Y = 0;
     this.MAX_X = panel.getImage().getCurrentImage().getWidth() - 1;
     this.MAX_Y = panel.getImage().getCurrentImage().getHeight() - 1;
+  }
+  public void setCol(Color col){
+    this.col = col;
+  }
+  public void setSelectedShape(int shape){
+    this.selectedShape = shape;
+  }
+  public void setOutline(boolean outline){
+    this.outline = outline;
+  }
+  public void setFill(boolean fill){
+    this.fill = fill;
   }
 
   /**
@@ -95,6 +114,13 @@ public class MouseProcessor extends MouseAdapter {
     switch (this.op) {
       case CROP_OP:
         panel.getImage().apply(new Crop(x3, y3, width, height));
+        break;
+      case DRAWING_OP:
+          if(selectedShape!=2){
+            panel.getImage().apply(new DrawShape(col, selectedShape, outline, fill, width, height, x3, y3));
+          }else {
+            panel.getImage().apply(new DrawLine(col, x3,y3, width, height));
+          }
         break;
     }
 
@@ -177,6 +203,22 @@ public class MouseProcessor extends MouseAdapter {
         case CROP_OP:
           g2d.setColor(new Color(255, 0, 0));
           g2d.drawRect(x3, y3, width, height);
+          break;
+        case DRAWING_OP:
+          g2d.setColor(col);
+          switch (selectedShape){
+            case 0:
+              if (fill)g2d.fillRect(x3,y3,width,height);
+              if (outline)g2d.drawRect(x3,y3,width,height);
+              break;
+            case 1:
+              if (fill)g2d.fillOval(x3,y3,width,height);
+              if (outline)g2d.drawOval(x3,y3,width,height);
+              break;
+            case 2:
+              g2d.drawLine(x3, y3, x3+width, y3+height);
+              break;
+          }
           break;
       }
     }
