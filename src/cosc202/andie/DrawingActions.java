@@ -24,7 +24,7 @@ public class DrawingActions {
     private Color col = new Color(0,0,0);
     private boolean outline = true;
     private boolean fill = false;
-    private int selectedShape = 0; // 0 = rectangle, 1 = circle, 2 = line
+    private int selectedShape = 0; // 0 = rectangle, 1 = oval, 2 = line
 
 
     private Color getColor(){
@@ -67,21 +67,12 @@ public class DrawingActions {
         return drawMenu;
     }
     private void getValuesFromUser() {
+        JColorChooser jc = new JColorChooser(this.col);
+        col=JColorChooser.showDialog(jc, null, col);
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
-        // JSpinner with range (MIN_VALUE - MAX_VALUE) inclusive
-        SpinnerNumberModel redModel = new SpinnerNumberModel(col.getRed(), 0, 255, 1);
-        SpinnerNumberModel greenModel = new SpinnerNumberModel(col.getGreen(), 0, 255, 1);
-        SpinnerNumberModel blueModel = new SpinnerNumberModel(col.getBlue(), 0, 255, 1);
+
         JToggleButton fillButton = new JToggleButton(b.getString("Fill"));
         JToggleButton outlineButton = new JToggleButton(b.getString("Outline"));
-
-        JLabel redLabel = new JLabel(b.getString("Red"));
-        JLabel greenLabel = new JLabel(b.getString("Green"));
-        JLabel blueLabel = new JLabel(b.getString("Blue"));
-
-        JSpinner redSpinner = new JSpinner(redModel);
-        JSpinner greenSpinner = new JSpinner(greenModel);
-        JSpinner blueSpinner = new JSpinner(blueModel);
 
         if(fill)fillButton.doClick();
         if(outline)outlineButton.doClick();
@@ -89,11 +80,11 @@ public class DrawingActions {
         ButtonGroup bg = new ButtonGroup();
 
         JRadioButton rect = new JRadioButton("Rectangle");
-        JRadioButton circle = new JRadioButton("Circle");
+        JRadioButton oval = new JRadioButton("Oval");
         JRadioButton line = new JRadioButton("Line");
 
         bg.add(rect);
-        bg.add(circle);
+        bg.add(oval);
         bg.add(line);
 
         switch (selectedShape){
@@ -101,23 +92,20 @@ public class DrawingActions {
                 rect.setSelected(true);
                 break;
             case 1:
-                circle.setSelected(true);
+                oval.setSelected(true);
                 break;
             case 2:
                 line.setSelected(true);
                 break;
         }
 
-        JComponent[] spinners = new JComponent[]{redLabel, redSpinner, greenLabel, greenSpinner, blueLabel, blueSpinner, fillButton, outlineButton, rect, circle, line};
-
-        //(((JSpinner.DefaultEditor)redSpinner.getEditor()).getTextField()).setColumns(35);
+        JComponent[] spinners = new JComponent[]{fillButton, outlineButton, rect, oval, line};
 
         Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
         String optionMessage = b.getString("Drawing_Option_Pane");
         int option;
         boolean firstTry = true;
         do {
-        // Pop-up dialog box to ask for the radius value.
         if (!firstTry){
             if (line.isSelected() && (outlineButton.isSelected() || !fillButton.isSelected())){
                 JOptionPane.showOptionDialog(null, b.getString("Line_Outline"), "Error", JOptionPane.CANCEL_OPTION,
@@ -135,11 +123,10 @@ public class DrawingActions {
         // Check the return value from the dialog box.
         // Ok = 0, Cancel = 1, Exit = -1
         if (option == 0) {
-            col = new Color(redModel.getNumber().intValue(),greenModel.getNumber().intValue(),blueModel.getNumber().intValue());
             fill = fillButton.isSelected();
             outline = outlineButton.isSelected();
             if (rect.isSelected())selectedShape = 0;
-            if (circle.isSelected())selectedShape = 1;
+            if (oval.isSelected())selectedShape = 1;
             if (line.isSelected())selectedShape = 2;
         }
     }
