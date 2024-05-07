@@ -17,6 +17,14 @@ import java.awt.image.BufferedImage;
  */
 public class RotateFull implements ImageOperation, java.io.Serializable {
 
+    /**
+     * <p>
+     * Apply a 180 degree rotation to an image.
+     * </p>
+     * 
+     * @param input The image to apply the rotation to.
+     * @return The resulting (rotated) image.
+     */
     public BufferedImage apply(BufferedImage input) {
         // set output image dimensions to same as input image
         int outputWidth = input.getWidth();

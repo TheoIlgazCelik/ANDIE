@@ -13,7 +13,8 @@ import java.awt.image.Kernel;
  * <p>
  * In Java's ConvolveOp class, the borders of an image (of width kernel-radius)
  * are either ignored during the convolution or filled in black. This class
- * handles the image edges by using the "nearest valid pixel" in the convolution when
+ * handles the image edges by using the "nearest valid pixel" in the convolution
+ * when
  * the kernel hangs over the edge.
  * </p>
  * 
@@ -21,12 +22,19 @@ import java.awt.image.Kernel;
  * @version 1.0
  */
 public class Convolution {
+  /** Kernel matrix for convolution operation. */
   private final Kernel KERNEL;
+  /** Data from kernel. */
   private final float[] KERNEL_DATA;
+  /** Radius of kernel. */
   private final int RADIUS;
+  /** Flag to apply an offset to handle negative ARGB values. */
   private final boolean ARGB_OFFSET;
+  /** Offset to handle filters with negative values. */
   private final int OFFSET_VAL = 127;
+  /** Minimum ARGB values. */
   private final int ARGB_MIN_VALUE = 0;
+  /** Maximum ARGB values. */
   private final int ARGB_MAX_VALUE = 255;
 
   /**
@@ -37,6 +45,8 @@ public class Convolution {
    * <p>
    * Default convolution has no offset
    * </p>
+   * 
+   * @param kernel Kernel matrix for convolution operation
    */
   public Convolution(Kernel kernel) {
     this(kernel, false);
@@ -46,6 +56,9 @@ public class Convolution {
    * <p>
    * Create a new Convolution operation with offset option
    * </p>
+   * 
+   * @param kernel Kernel matrix for convolution operation
+   * @param offset Flag to handle filters with negative values
    */
   public Convolution(Kernel kernel, boolean offset) {
     this.KERNEL = kernel;
@@ -61,8 +74,6 @@ public class Convolution {
    * 
    * @param input  Original image to be filtered via convolution kernel
    * @param output Image to write the "filtered" pixels to
-   * 
-   * return The filtered image - Ilgaz here, simply removed the @ because it was giving a pipeline error
    */
   public void filter(BufferedImage input, BufferedImage output) {
     if (input == null) {
@@ -86,7 +97,7 @@ public class Convolution {
     // iterate each pixel
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
-        float[] argb = {0, 0, 0, 0};
+        float[] argb = { 0, 0, 0, 0 };
 
         // KERNEL_DATA index
         int ki = 0;
@@ -130,10 +141,10 @@ public class Convolution {
         }
 
         int[] intARGB = {
-          Math.round(argb[0]),
-          Math.round(argb[1]),
-          Math.round(argb[2]),
-          Math.round(argb[3])
+            Math.round(argb[0]),
+            Math.round(argb[1]),
+            Math.round(argb[2]),
+            Math.round(argb[3])
         };
 
         for (int i = 0; i < intARGB.length; i++) {
@@ -149,7 +160,7 @@ public class Convolution {
             intARGB[i] = ARGB_MAX_VALUE;
           }
         }
- 
+
         if (!hasAlpha) {
           intARGB[0] = ARGB_MAX_VALUE;
         }

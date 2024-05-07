@@ -17,16 +17,24 @@ import java.awt.Graphics2D;
  * @version 1.0
  */
 public class Crop implements ImageOperation {
-  // x, y, width, height of original image to be cropped
+  /** Top left x coordinate of crop area. */
   private final int x;
+  /** Top left y coordinate of crop area. */
   private final int y;
+  /** Width of crop area. */
   private final int width;
+  /** Height of crop area. */
   private final int height;
 
   /**
    * <p>
-   * Construct a Crop with the given coordinates and size
+   * Construct a Crop with the given coordinates and size.
    * </p>
+   * 
+   * @param x Top left x coordinate of crop area
+   * @param y Top left y coordinate of crop area
+   * @param width Width of crop area
+   * @param height Height of crop area
    */
   public Crop(int x, int y, int width, int height) {
     this.x = x;

@@ -17,6 +17,14 @@ import java.awt.image.BufferedImage;
  */
 public class RotateRight implements ImageOperation, java.io.Serializable {
 
+    /**
+     * <p>
+     * Apply a 90 degree right rotation to an image.
+     * </p>
+     * 
+     * @param input The image to apply the rotation to.
+     * @return The resulting (rotated) image.
+     */
     public BufferedImage apply(BufferedImage input) {
         // set output image dimensions to opposite of input image
         int outputWidth = input.getHeight();
