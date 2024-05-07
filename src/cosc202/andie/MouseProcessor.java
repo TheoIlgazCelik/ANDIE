@@ -154,9 +154,8 @@ public class MouseProcessor extends MouseAdapter {
     y1 = Math.max(MIN_Y, Math.min(MAX_Y, y1));
     y2 = Math.max(MIN_Y, Math.min(MAX_Y, y2));
 
-    // ensure x3/y3 represent lesser coordinate and width/height represent greater
-    // coordinate as java graphics cant fill shapes with negative width/height for
-    // when mouse input flips axes
+    // ensure x3/y3 represent lesser coordinate and width/height are calculated from
+    // greater coordinate
     x3 = Math.min(x1, x2);
     y3 = Math.min(y1, y2);
 
