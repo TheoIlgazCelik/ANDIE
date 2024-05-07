@@ -82,8 +82,8 @@ public class MouseProcessor extends MouseAdapter {
     this.OP = op;
     this.MIN_X = 0;
     this.MIN_Y = 0;
-    this.MAX_X = panel.getImage().getCurrentImage().getWidth() - 1;
-    this.MAX_Y = panel.getImage().getCurrentImage().getHeight() - 1;
+    this.MAX_X = panel.getImage().getCurrentImage().getWidth();
+    this.MAX_Y = panel.getImage().getCurrentImage().getHeight();
     this.selectMode = false;
   }
 
