@@ -99,7 +99,6 @@ public class MouseProcessor extends MouseAdapter {
     y1 = e.getY();
     x2 = x1;
     y2 = y1;
-    selectMode = true;
     updateSquare();
     panel.repaint();
   }
@@ -112,15 +111,16 @@ public class MouseProcessor extends MouseAdapter {
    * @param e the triggered MouseEvent
    */
   public void mouseReleased(MouseEvent e) {
-    selectMode = false;
     updateSquare();
     panel.repaint();
 
-    // perform operation on image
-    switch (this.OP) {
-      case CROP_OP:
-        panel.getImage().apply(new Crop(x3, y3, width, height));
-        break;
+    if (selectMode) {
+      // perform operation on image
+      switch (this.OP) {
+        case CROP_OP:
+          panel.getImage().apply(new Crop(x3, y3, width, height));
+          break;
+      }
     }
 
     // exit drawing mode
@@ -135,6 +135,7 @@ public class MouseProcessor extends MouseAdapter {
    * @param e the triggered MouseEvent
    */
   public void mouseDragged(MouseEvent e) {
+    selectMode = true;
     x2 = e.getX();
     y2 = e.getY();
     updateSquare();
