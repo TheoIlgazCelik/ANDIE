@@ -1,11 +1,8 @@
 package cosc202.andie;
 
 import java.awt.image.*;
-import java.util.*;
 
 public class EmbossFilterSouth implements ImageOperation, java.io.Serializable{
-
-    EmbossFilterSouth(){}
 
     public BufferedImage apply(BufferedImage input){
         float[] array = {0,-1,0,0,0,0,0,1,0};
