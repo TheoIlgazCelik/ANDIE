@@ -19,47 +19,72 @@ import java.awt.Color;
  * required.
  * </p>
  * 
- * @author Matthew RaeW
+ * @author Matthew Rae
  * @version 1.0
  */
 public class MouseProcessor extends MouseAdapter {
-  // x - y for top left corner of mouse
+  /** Top-left x coordinate. */
   private int x1;
+  /** Top-left y coordinate. */
   private int y1;
-  // x - y for bottom right corner of mouse
+
+  /** Bottom-right x coordinate. */
   private int x2;
+  /** Bottom-right y coordinate. */
   private int y2;
 
-  // x - y for final coordinate to operate on
+  /** Final x coordinate used for operation. */
   private int x3;
+  /** Final y coordinate used for operation. */
   private int y3;
 
-  // width and height for operation
+  /** Width for operation. */
   private int width;
+
+  /** Height for operation. */
   private int height;
 
-  // true if mouse is pressed or dragged
-  private boolean selectMode = false;
+  /** True if mouse is pressed or dragged. */
+  private boolean selectMode;
 
-  // panel to draw "select mode" indicators onto - e.g. red rectangle for crop
-  // operation
+  /**
+   * Panel to draw "select mode" indicators onto - e.g. red rectangle for crop
+   * operation.
+   */
   private final ImagePanel panel;
+
+  /** Minimum x bound of image. */
   private final int MIN_X;
+  /** Minimum y bound of image. */
   private final int MIN_Y;
+  /** Maximum x bound of image. */
   private final int MAX_X;
+  /** Maximum y bound of image. */
   private final int MAX_Y;
 
-  private final int op;
-  // Possible operations
+  /** Current draw operation. */
+  private final int OP;
+
+  /** Crop operation. See {@link Crop}. */
   public static final int CROP_OP = 1;
 
+  /**
+   * <p>
+   * Construct a MouseProcessor to act as a {@link MouseAdapter} for drawing
+   * actions.
+   * </p>
+   * 
+   * @param panel The ImagePanel to apply this MouseProcessor to
+   * @param op    The current drawing operation
+   */
   public MouseProcessor(ImagePanel panel, int op) {
     this.panel = panel;
-    this.op = op;
+    this.OP = op;
     this.MIN_X = 0;
     this.MIN_Y = 0;
     this.MAX_X = panel.getImage().getCurrentImage().getWidth() - 1;
     this.MAX_Y = panel.getImage().getCurrentImage().getHeight() - 1;
+    this.selectMode = false;
   }
 
   /**
@@ -92,7 +117,7 @@ public class MouseProcessor extends MouseAdapter {
     panel.repaint();
 
     // perform operation on image
-    switch (this.op) {
+    switch (this.OP) {
       case CROP_OP:
         panel.getImage().apply(new Crop(x3, y3, width, height));
         break;
@@ -123,42 +148,20 @@ public class MouseProcessor extends MouseAdapter {
    * </p>
    */
   private void updateSquare() {
-    // enforce x1 is the lesser x coordinate
-    if (x1 < x2) {
-      x3 = x1;
-      width = x2 - x1;
-    } else {
-      x3 = x2;
-      width = x1 - x2;
-    }
+    // x y bounds check (between MIN and MAX)
+    x1 = Math.max(MIN_X, Math.min(MAX_X, x1));
+    x2 = Math.max(MIN_X, Math.min(MAX_X, x2));
+    y1 = Math.max(MIN_Y, Math.min(MAX_Y, y1));
+    y2 = Math.max(MIN_Y, Math.min(MAX_Y, y2));
 
-    // enforce y1 is the lesser y coordinate
-    if (y1 < y2) {
-      y3 = y1;
-      height = y2 - y1;
-    } else {
-      y3 = y2;
-      height = y1 - y2;
-    }
+    // ensure x3/y3 represent lesser coordinate and width/height represent greater
+    // coordinate as java graphics cant fill shapes with negative width/height for
+    // when mouse input flips axes
+    x3 = Math.min(x1, x2);
+    y3 = Math.min(y1, y2);
 
-    // x and y bounds checks
-    if (x3 < MIN_X) {
-      x3 = MIN_X;
-    } else if (x3 > MAX_X) {
-      x3 = MAX_X;
-    }
-    if (y3 < MIN_Y) {
-      y3 = MIN_Y;
-    } else if (y3 > MAX_Y) {
-      y3 = MAX_Y;
-    }
-
-    if (x3 + width > MAX_X) {
-      width = MAX_X - x3;
-    }
-    if (y3 + height > MAX_Y) {
-      height = MAX_Y - y3;
-    }
+    width = Math.max(x1, x2) - x3;
+    height = Math.max(y1, y2) - y3;
 
   }
 
@@ -173,7 +176,7 @@ public class MouseProcessor extends MouseAdapter {
    */
   public void paint(Graphics2D g2d) {
     if (selectMode) {
-      switch (this.op) {
+      switch (OP) {
         case CROP_OP:
           g2d.setColor(new Color(255, 0, 0));
           g2d.drawRect(x3, y3, width, height);
