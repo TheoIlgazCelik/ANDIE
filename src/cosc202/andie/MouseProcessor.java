@@ -63,7 +63,7 @@ public class MouseProcessor extends MouseAdapter {
   private final int MAX_Y;
 
   /** Current draw operation. */
-  private final int OP;
+  private int op;
 
   /** Crop operation. See {@link Crop}. */
   public static final int CROP_OP = 1;
@@ -86,24 +86,12 @@ public class MouseProcessor extends MouseAdapter {
    */
   public MouseProcessor(ImagePanel panel, int op) {
     this.panel = panel;
-    this.OP = op;
+    this.op = op;
     this.MIN_X = 0;
     this.MIN_Y = 0;
     this.MAX_X = panel.getImage().getCurrentImage().getWidth()-1;
     this.MAX_Y = panel.getImage().getCurrentImage().getHeight()-1;
     this.selectMode = false;
-  }
-  public void setCol(Color col){
-    this.col = col;
-  }
-  public void setSelectedShape(int shape){
-    this.selectedShape = shape;
-  }
-  public void setOutline(boolean outline){
-    this.outline = outline;
-  }
-  public void setFill(boolean fill){
-    this.fill = fill;
   }
   public void setCol(Color col){
     this.col = col;
@@ -256,7 +244,7 @@ height = Math.max(y1, y2) - y3;
    */
   public void paint(Graphics2D g2d) {
     if (selectMode) {
-      switch (OP) {
+      switch (op) {
         case CROP_OP:
           g2d.setColor(new Color(255, 0, 0));
           g2d.drawRect(x3, y3, width, height);
