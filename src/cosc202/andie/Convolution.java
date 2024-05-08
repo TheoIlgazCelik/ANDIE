@@ -107,19 +107,9 @@ public class Convolution {
             int dy = y + yOffset;
             int dx = x + xOffset;
 
-            // y edge check
-            if (dy < 0) {
-              dy = 0;
-            } else if (dy >= height) {
-              dy = height - 1;
-            }
-
-            // x edge check
-            if (dx < 0) {
-              dx = 0;
-            } else if (dx >= width) {
-              dx = width - 1;
-            }
+            // edge check
+            dx = Math.max(0, Math.min(dx, width - 1));
+            dy = Math.max(0, Math.min(dy, height - 1));
 
             // kernel-pixel index
             int kpi = (dy * width) + dx;
@@ -148,17 +138,12 @@ public class Convolution {
         };
 
         for (int i = 0; i < intARGB.length; i++) {
-          // offset if required
           if (ARGB_OFFSET) {
             intARGB[i] += OFFSET_VAL;
           }
 
           // clamp values (0 - 255)
-          if (intARGB[i] < ARGB_MIN_VALUE) {
-            intARGB[i] = ARGB_MIN_VALUE;
-          } else if (intARGB[i] > ARGB_MAX_VALUE) {
-            intARGB[i] = ARGB_MAX_VALUE;
-          }
+          intARGB[i] = Math.max(ARGB_MIN_VALUE, Math.min(intARGB[i], ARGB_MAX_VALUE));
         }
 
         if (!hasAlpha) {
