@@ -67,6 +67,13 @@ public class MouseProcessor extends MouseAdapter {
 
   /** Crop operation. See {@link Crop}. */
   public static final int CROP_OP = 1;
+  public static final int DRAWING_OP = 2;
+
+  // Drawing Variables
+  Color col;
+  int selectedShape;
+  boolean outline;
+  boolean fill;
 
   /**
    * <p>
@@ -82,9 +89,33 @@ public class MouseProcessor extends MouseAdapter {
     this.OP = op;
     this.MIN_X = 0;
     this.MIN_Y = 0;
-    this.MAX_X = panel.getImage().getCurrentImage().getWidth();
-    this.MAX_Y = panel.getImage().getCurrentImage().getHeight();
+    this.MAX_X = panel.getImage().getCurrentImage().getWidth()-1;
+    this.MAX_Y = panel.getImage().getCurrentImage().getHeight()-1;
     this.selectMode = false;
+  }
+  public void setCol(Color col){
+    this.col = col;
+  }
+  public void setSelectedShape(int shape){
+    this.selectedShape = shape;
+  }
+  public void setOutline(boolean outline){
+    this.outline = outline;
+  }
+  public void setFill(boolean fill){
+    this.fill = fill;
+  }
+  public void setCol(Color col){
+    this.col = col;
+  }
+  public void setSelectedShape(int shape){
+    this.selectedShape = shape;
+  }
+  public void setOutline(boolean outline){
+    this.outline = outline;
+  }
+  public void setFill(boolean fill){
+    this.fill = fill;
   }
 
   /**
@@ -113,15 +144,22 @@ public class MouseProcessor extends MouseAdapter {
   public void mouseReleased(MouseEvent e) {
     updateSquare();
     panel.repaint();
+    if (selectMode){
 
-    if (selectMode) {
-      // perform operation on image
-      switch (this.OP) {
-        case CROP_OP:
-          panel.getImage().apply(new Crop(x3, y3, width, height));
-          break;
-      }
+    // perform operation on image
+    switch (this.op) {
+      case CROP_OP:
+        panel.getImage().apply(new Crop(x3, y3, width, height));
+        break;
+      case DRAWING_OP:
+          if(selectedShape!=2){
+            panel.getImage().apply(new DrawShape(col, selectedShape, outline, fill, width, height, x3, y3));
+          }else {
+            panel.getImage().apply(new DrawLine(col, x1,y1, x2, y2));
+          }
+        break;
     }
+  }
 
     // exit drawing mode
     panel.clearDrawingMode();
@@ -149,19 +187,61 @@ public class MouseProcessor extends MouseAdapter {
    * </p>
    */
   private void updateSquare() {
-    // x y bounds check (between MIN and MAX)
-    x1 = Math.max(MIN_X, Math.min(MAX_X, x1));
-    x2 = Math.max(MIN_X, Math.min(MAX_X, x2));
-    y1 = Math.max(MIN_Y, Math.min(MAX_Y, y1));
-    y2 = Math.max(MIN_Y, Math.min(MAX_Y, y2));
+    if (selectedShape == 2 && op == DRAWING_OP) {
+      return;
+    }
+    
+    // enforce x1 is the lesser x coordinate
+    if (x1 < x2) {
+      x3 = x1;
+      width = x2 - x1;
+    } else {
+      x3 = x2;
+      width = x1 - x2;
+    }
 
-    // ensure x3/y3 represent lesser coordinate and width/height are calculated from
-    // greater coordinate
-    x3 = Math.min(x1, x2);
-    y3 = Math.min(y1, y2);
+    // enforce y1 is the lesser y coordinate
+    if (y1 < y2) {
+      y3 = y1;
+      height = y2 - y1;
+    } else {
+      y3 = y2;
+      height = y1 - y2;
+    }
 
-    width = Math.max(x1, x2) - x3;
-    height = Math.max(y1, y2) - y3;
+    // x and y bounds checks
+    if (x3 < MIN_X) {
+      x3 = MIN_X;
+    } else if (x3 > MAX_X) {
+      x3 = MAX_X;
+    }
+    if (y3 < MIN_Y) {
+      y3 = MIN_Y;
+    } else if (y3 > MAX_Y) {
+      y3 = MAX_Y;
+    }
+
+    if (x3 + width > MAX_X) {
+      width = MAX_X - x3;
+    }
+    if (y3 + height > MAX_Y) {
+      height = MAX_Y - y3;
+    }
+/* 
+// x y bounds check (between MIN and MAX)
+x1 = Math.max(MIN_X, Math.min(MAX_X, x1));
+x2 = Math.max(MIN_X, Math.min(MAX_X, x2));
+y1 = Math.max(MIN_Y, Math.min(MAX_Y, y1));
+y2 = Math.max(MIN_Y, Math.min(MAX_Y, y2));
+
+// ensure x3/y3 represent lesser coordinate and width/height are calculated from
+// greater coordinate
+x3 = Math.min(x1, x2);
+y3 = Math.min(y1, y2);
+
+width = Math.max(x1, x2) - x3;
+height = Math.max(y1, y2) - y3;
+*/
 
   }
 
@@ -180,6 +260,22 @@ public class MouseProcessor extends MouseAdapter {
         case CROP_OP:
           g2d.setColor(new Color(255, 0, 0));
           g2d.drawRect(x3, y3, width, height);
+          break;
+        case DRAWING_OP:
+          g2d.setColor(col);
+          switch (selectedShape){
+            case 0:
+              if (fill)g2d.fillRect(x3,y3,width,height);
+              if (outline)g2d.drawRect(x3,y3,width,height);
+              break;
+            case 1:
+              if (fill)g2d.fillOval(x3,y3,width,height);
+              if (outline)g2d.drawOval(x3,y3,width,height);
+              break;
+            case 2:
+              g2d.drawLine(x1, y1, x2, y2);
+              break;
+          }
           break;
       }
     }

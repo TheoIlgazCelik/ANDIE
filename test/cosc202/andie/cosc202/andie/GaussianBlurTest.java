@@ -3,7 +3,7 @@ package cosc202.andie.cosc202.andie;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import java.awt.image.*;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 

@@ -132,6 +132,8 @@ public class Andie {
         LangActions langActions = new LangActions();
         menuBar.add(langActions.createMenu());
 
+        DrawingActions drawActions = new DrawingActions();
+        menuBar.add(drawActions.createMenu());
 
         // Adding a save icon and button
         ImageIcon saveIcon = new ImageIcon("src/SaveIcon.png");
