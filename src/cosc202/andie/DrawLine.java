@@ -18,12 +18,12 @@ public class DrawLine implements ImageOperation{
     private int y1;
     private int x2;
     private int y2;
-    public DrawLine(Color col, int x1, int y1, int width, int height){
+    public DrawLine(Color col, int x1, int y1, int x2, int y2){
         this.col = col;
         this.x1 = x1;
         this.y1 = y1;
-        this.y2 = y1+height;
-        this.x2 = x1+width;
+        this.y2 = y2;
+        this.x2 = x2;
     }
     /**
    * <p>
