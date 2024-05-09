@@ -3,7 +3,6 @@ package cosc202.andie;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.Color;
 
 /**
@@ -122,12 +121,17 @@ public class MouseProcessor extends MouseAdapter {
    * @param e the triggered MouseEvent
    */
   public void mousePressed(MouseEvent e) {
+    // if (e.getButton() != MouseEvent.BUTTON1) {
+    //   return;
+    // }
+
+    selectMode = false;
+    // set first mouse coordinate
     x1 = e.getX();
     y1 = e.getY();
     x2 = x1;
     y2 = y1;
     updateSquare();
-    panel.repaint();
   }
 
   /**
@@ -138,6 +142,9 @@ public class MouseProcessor extends MouseAdapter {
    * @param e the triggered MouseEvent
    */
   public void mouseDragged(MouseEvent e) {
+    // if (e.getButton() != MouseEvent.BUTTON1) {
+    //   return;
+    // }
     selectMode = true;
     x2 = e.getX();
     y2 = e.getY();
@@ -153,30 +160,22 @@ public class MouseProcessor extends MouseAdapter {
    * @param e the triggered MouseEvent
    */
   public void mouseReleased(MouseEvent e) {
-    updateSquare();
-    // remove current graphics on panel before applying onto image
-    panel.repaint();
-
-    // only operates on image if mouse was dragged before being released
+    // if (e.getButton() == MouseEvent.BUTTON3) {
+    //   panel.clearDrawingMode();
+    //   return;
+    // }
     if (selectMode) {
+      updateSquare();
+      panel.repaint();
+      applyToBufferedImage();
 
-      // perform operation on image
-      switch (this.op) {
-        case CROP_OP:
-          panel.getImage().apply(new Crop(x3, y3, width, height));
-          break;
-        case DRAWING_OP:
-          if (selectedShape != 2) {
-            panel.getImage().apply(new DrawShape(col, selectedShape, outline, fill, width, height, x3, y3));
-          } else {
-            panel.getImage().apply(new DrawLine(col, x1, y1, x2, y2));
-          }
-          break;
+      if (op == CROP_OP) {
+        panel.clearDrawingMode();
       }
-    }
 
-    // exit drawing mode
-    panel.clearDrawingMode();
+    } else {
+      panel.clearDrawingMode();
+    }
   }
 
   /**
@@ -213,36 +212,58 @@ public class MouseProcessor extends MouseAdapter {
    * 
    * @param g2d Graphics object supplied by the {@link ImagePanel}
    */
-  public void paint(Graphics2D g2d) {
-    // only paints on panel when mouse is being dragged
-    if (selectMode) {
-      switch (op) {
-        case CROP_OP:
-          g2d.setColor(new Color(255, 0, 0));
-          g2d.drawRect(x3, y3, width, height);
-          break;
-        case DRAWING_OP:
-          g2d.setColor(col);
-          switch (selectedShape) {
-            case 0:
-              g2d.drawRect(x3, y3, width, height);
+  public void applyOnImagePanel(Graphics2D g2d) {
+    switch (op) {
+      case CROP_OP:
+        g2d.setColor(new Color(255, 0, 0));
+        g2d.drawRect(x3, y3, width, height);
+        break;
+      case DRAWING_OP:
+        g2d.setColor(col);
+        switch (selectedShape) {
+          case 0:
+            g2d.drawRect(x3, y3, width, height);
 
-              if (fill)
-                g2d.fillRect(x3, y3, width, height);
-              break;
+            if (fill)
+              g2d.fillRect(x3, y3, width, height);
+            break;
 
-            case 1:
-              g2d.drawOval(x3, y3, width, height);
+          case 1:
+            g2d.drawOval(x3, y3, width, height);
 
-              if (fill)
-                g2d.fillOval(x3, y3, width, height);
-              break;
+            if (fill)
+              g2d.fillOval(x3, y3, width, height);
+            break;
 
-            case 2:
-              g2d.drawLine(x1, y1, x2, y2);
-              break;
-          }
-      }
+          case 2:
+            g2d.drawLine(x1, y1, x2, y2);
+            break;
+        }
+    }
+
+  }
+
+  /**
+   * <p>
+   * Support method to draw shapes on imagel.
+   * </p>
+   * 
+   */
+  public void applyToBufferedImage() {
+
+    // perform operation on image
+    switch (this.op) {
+      case CROP_OP:
+        panel.getImage().apply(new Crop(x3, y3, width, height));
+        break;
+      case DRAWING_OP:
+        if (selectedShape != 2) {
+          panel.getImage().apply(new DrawShape(col, selectedShape, outline, fill, width, height, x3, y3));
+        } else {
+          panel.getImage().apply(new DrawLine(col, x1, y1, x2, y2));
+        }
+        break;
     }
   }
+
 }

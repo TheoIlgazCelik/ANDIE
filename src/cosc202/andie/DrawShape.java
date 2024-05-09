@@ -49,12 +49,12 @@ public class DrawShape implements ImageOperation{
     switch (selectedShape){
         case 0:
           g.drawRect(x,y,width,height);
-          if (fill)g.fillRect(x,y,width,height);
+          if (fill) g.fillRect(x,y,width,height);
           break;
 
         case 1:
           g.drawOval(x,y,width,height);
-          if (fill)g.fillOval(x,y,width,height);
+          if (fill) g.fillOval(x,y,width,height);
           break;
       }
     return output;
