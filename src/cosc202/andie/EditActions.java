@@ -90,6 +90,7 @@ public class EditActions {
          */
         public void actionPerformed(ActionEvent e) {
             try{
+            target.clearDrawingMode();
             target.getImage().undo();
             target.repaint();
             target.getParent().revalidate();
@@ -142,6 +143,7 @@ public class EditActions {
          */
         public void actionPerformed(ActionEvent e) {
             try{
+            target.clearDrawingMode();
             target.getImage().redo();
             target.repaint();
             target.getParent().revalidate();
