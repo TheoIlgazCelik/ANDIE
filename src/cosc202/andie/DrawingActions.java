@@ -79,9 +79,9 @@ public class DrawingActions {
 
         ButtonGroup bg = new ButtonGroup();
 
-        JRadioButton rect = new JRadioButton("Rectangle");
-        JRadioButton oval = new JRadioButton("Oval");
-        JRadioButton line = new JRadioButton("Line");
+        JRadioButton rect = new JRadioButton(b.getString("Rectangle"));
+        JRadioButton oval = new JRadioButton(b.getString("Oval"));
+        JRadioButton line = new JRadioButton(b.getString("Line")); 
 
         bg.add(rect);
         bg.add(oval);
@@ -111,7 +111,7 @@ public class DrawingActions {
                 JOptionPane.showOptionDialog(null, b.getString("Line_Outline"), "Error", JOptionPane.CANCEL_OPTION,
                         JOptionPane.ERROR_MESSAGE, null, new Object[]{b.getString("Ok")}, null);
             }else {
-                JOptionPane.showOptionDialog(null, b.getString("Fill_Outline"), "Error", JOptionPane.CANCEL_OPTION,
+                JOptionPane.showOptionDialog(null, b.getString("Fill_Outline"), b.getString("Error"), JOptionPane.CANCEL_OPTION,
                         JOptionPane.ERROR_MESSAGE, null, new Object[]{b.getString("Ok")}, null);
             }
         }

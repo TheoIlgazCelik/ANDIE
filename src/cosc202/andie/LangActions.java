@@ -233,7 +233,7 @@ public class LangActions {
                 j.setToolTipText(b.getString(tools[i]) + " | Ctrl + U");
             } else if (tools[i] == "Redo") {
                 j.setToolTipText(b.getString(tools[i]) + " | Ctrl + R");
-            } else {
+            } else if (i < 3) {
                 j.setToolTipText(b.getString(tools[i]) + " | Ctrl + " + tools[i].charAt(0));
             }
         }
