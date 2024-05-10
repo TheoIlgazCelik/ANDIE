@@ -57,7 +57,6 @@ public class MacroActions {
         public void actionPerformed(ActionEvent e){
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
-            File fileToSave = fileChooser.getSelectedFile();
             
             if(result == JFileChooser.APPROVE_OPTION){
                 
