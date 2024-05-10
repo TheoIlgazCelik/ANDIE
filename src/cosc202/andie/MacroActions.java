@@ -2,6 +2,10 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -53,12 +57,13 @@ public class MacroActions {
         public void actionPerformed(ActionEvent e){
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
+            File fileToSave = fileChooser.getSelectedFile();
             
             if(result == JFileChooser.APPROVE_OPTION){
-            try{
-                String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                target.getImage().saveMacro(imageFilepath);
-               
+                
+             try{ 
+                String filePath = fileChooser.getSelectedFile().getCanonicalPath();
+               target.getImage().saveMacro(filePath);
             } catch(Exception ex){
                 ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
                 Object[] options = { b.getString("Ok") };

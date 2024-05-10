@@ -239,7 +239,7 @@ class EditableImage {
      */
 
      public void saveMacro(String imageFileName) throws Exception{
-        this.opsFilename = imageFilename + ".ops";
+        this.opsFilename = imageFileName + ".ops";
         FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
         ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
         objOut.writeObject(this.ops);
