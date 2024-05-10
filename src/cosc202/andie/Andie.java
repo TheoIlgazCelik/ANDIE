@@ -142,7 +142,7 @@ public class Andie {
         FileSaveAction saveAction = fileActions.new FileSaveAction(null, new ImageIcon(saveIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), "Save | Ctrl + S", Integer.valueOf(KeyEvent.VK_S));
         saveButton.setAction(saveAction);
         
-        JPanel toolBar = new JPanel();
+        JToolBar toolBar = new JToolBar();
         saveButton.setPreferredSize(new Dimension(40,40));
         toolBar.add(saveButton);
 
