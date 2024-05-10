@@ -182,7 +182,7 @@ public class LangActions {
         String[][] m = { { "File", "Open", "Save", "Save_as", "Exit", "Export" },
                 { "Edit", "Undo", "Redo" },
                 { "View", "Zoom_in", "Zoom_out", "Zoom_full", "Rotate_right", "Rotate_left", "Rotate_180","Flip_horizontal", "Flip_vertical", "Resize", "Crop_image" },
-                { "Filter", "Mean_filter", "Sharpen", "Median", "Gaussian_blur","Block_average","Random_scattering","Emboss_filter"},
+                { "Filter", "Mean_filter", "Sharpen", "Median", "Gaussian_blur","Block_average","Random_scattering","Vertical_sobel","Horizontal_sobel","Emboss_filter"},
                 { "Colour", "Greyscale", "Invert_color","Colour_cycle", "Brightness_contrast"},
                 {"Macro","Macro_start","Macro_stop","Macro_open"},
                 { "Language", "English", "Spanish", "Maori" },
@@ -191,7 +191,7 @@ public class LangActions {
         String[][] descs = { { "Open_desc", "Save_desc", "Save_as_desc", "Exit_desc", "Export_desc" },
                 { "Undo_desc", "Redo_desc" },
                 { "Zoom_in_desc", "Zoom_out_desc", "Zoom_full_desc", "Rotate_right_desc", "Rotate_left_desc","Rotate_180_desc", "Flip_horizontal_desc", "Flip_vertical_desc", "Resize_desc", "Crop_image" },
-                { "Mean_filter_desc", "Sharpen_desc", "Median_desc", "Gaussian_blur_desc","Block_average_desc","Random_scattering_desc", "Emboss_apply_desc" },
+                { "Mean_filter_desc", "Sharpen_desc", "Median_desc", "Gaussian_blur_desc","Block_average_desc","Random_scattering_desc","Vertical_sobel_desc","Horizontal_sobel_desc", "Emboss_apply_desc" },
                 { "Greyscale_desc", "Invert_color_desc","Colour_cycle_desc","Brightness_contrast_desc" },
                 {"Macro_start_desc","Macro_stop_desc","Macro_open_desc"},
                 { "English_desc", "Spanish_desc", "Maori_desc" },
@@ -237,7 +237,7 @@ public class LangActions {
                 j.setToolTipText(b.getString(tools[i]) + " | Ctrl + " + tools[i].charAt(0));
             }
         }
-
+ 
         UIManager.put("FileChooser.openButtonText", b.getString("Open"));
         UIManager.put("FileChooser.cancelButtonText", b.getString("Cancel"));
         UIManager.put("FileChooser.cancelButtonToolTipText", b.getString("Abort_file"));
