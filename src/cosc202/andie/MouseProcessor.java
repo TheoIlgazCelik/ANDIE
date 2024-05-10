@@ -45,12 +45,6 @@ public class MouseProcessor extends MouseAdapter {
   private int height;
 
   /**
-   * True only when mouse is dragged. When the mouse is released, it's used to
-   * decide between applying the operation on the image and cancelling draw mode.
-   */
-  private boolean selectMode;
-
-  /**
    * Panel to draw "select mode" indicators onto - e.g. red rectangle for crop
    * operation.
    */
@@ -78,6 +72,9 @@ public class MouseProcessor extends MouseAdapter {
   boolean outline;
   boolean fill;
 
+  /** Mouse button flag */
+  private boolean leftMouseButtonActive;
+
   /**
    * <p>
    * Construct a MouseProcessor to act as a {@link MouseAdapter} for drawing
@@ -94,7 +91,7 @@ public class MouseProcessor extends MouseAdapter {
     this.MIN_Y = 0;
     this.MAX_X = panel.getImage().getCurrentImage().getWidth() - 1;
     this.MAX_Y = panel.getImage().getCurrentImage().getHeight() - 1;
-    this.selectMode = false;
+    this.leftMouseButtonActive = false;
   }
 
   public void setCol(Color col) {
@@ -121,17 +118,16 @@ public class MouseProcessor extends MouseAdapter {
    * @param e the triggered MouseEvent
    */
   public void mousePressed(MouseEvent e) {
-    // if (e.getButton() != MouseEvent.BUTTON1) {
-    //   return;
-    // }
-
-    selectMode = false;
-    // set first mouse coordinate
+    if (e.getButton() != MouseEvent.BUTTON1) {
+      leftMouseButtonActive = false;
+      return;
+    }
+    leftMouseButtonActive = true;
     x1 = e.getX();
     y1 = e.getY();
     x2 = x1;
     y2 = y1;
-    updateSquare();
+    validateCoordinates();
   }
 
   /**
@@ -142,13 +138,13 @@ public class MouseProcessor extends MouseAdapter {
    * @param e the triggered MouseEvent
    */
   public void mouseDragged(MouseEvent e) {
-    // if (e.getButton() != MouseEvent.BUTTON1) {
-    //   return;
-    // }
-    selectMode = true;
+    if (leftMouseButtonActive == false) {
+      return;
+    }
+
     x2 = e.getX();
     y2 = e.getY();
-    updateSquare();
+    validateCoordinates();
     panel.repaint();
   }
 
@@ -160,22 +156,21 @@ public class MouseProcessor extends MouseAdapter {
    * @param e the triggered MouseEvent
    */
   public void mouseReleased(MouseEvent e) {
-    // if (e.getButton() == MouseEvent.BUTTON3) {
-    //   panel.clearDrawingMode();
-    //   return;
-    // }
-    if (selectMode) {
-      updateSquare();
+    if (e.getButton() == MouseEvent.BUTTON3) {
       panel.repaint();
-      applyToBufferedImage();
+      panel.clearDrawingMode();
+      return;
+    }
 
-      if (op == CROP_OP) {
-        panel.clearDrawingMode();
-      }
+    validateCoordinates();
+    panel.repaint();
+    applyToBufferedImage();
 
-    } else {
+    if (op == CROP_OP) {
       panel.clearDrawingMode();
     }
+
+    leftMouseButtonActive = false;
   }
 
   /**
@@ -184,7 +179,7 @@ public class MouseProcessor extends MouseAdapter {
    * fields.
    * </p>
    */
-  private void updateSquare() {
+  private void validateCoordinates() {
     x1 = Math.max(MIN_X, Math.min(MAX_X, x1));
     x2 = Math.max(MIN_X, Math.min(MAX_X, x2));
     y1 = Math.max(MIN_Y, Math.min(MAX_Y, y1));
@@ -250,8 +245,6 @@ public class MouseProcessor extends MouseAdapter {
    * 
    */
   public void applyToBufferedImage() {
-
-    // perform operation on image
     switch (this.op) {
       case CROP_OP:
         panel.getImage().apply(new Crop(x3, y3, width, height));
