@@ -10,6 +10,7 @@ import cosc202.andie.EditActions.UndoAction;
 import cosc202.andie.FileActions.FileExportAction;
 import cosc202.andie.FileActions.FileOpenAction;
 import cosc202.andie.FileActions.FileSaveAction;
+import cosc202.andie.MacroActions.*;
 
 import javax.imageio.*;
 import java.util.*;
@@ -185,6 +186,27 @@ public class Andie {
 
         redoButton.setPreferredSize(new Dimension(40,40));
         toolBar.add(redoButton);
+
+        // Adding a record macro icon and button
+        ImageIcon recordIcon = new ImageIcon("src/StartRecordingIcon.png");
+
+        JButton recordButton = new JButton();
+        StartRecordingAction recordAction = macroActions.new StartRecordingAction(null, new ImageIcon(recordIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), null, null);
+        recordButton.setAction(recordAction);
+
+        recordButton.setPreferredSize(new Dimension(40,40));
+        toolBar.add(recordButton);
+
+
+        // Adding a stop record macro icon and button
+        ImageIcon stopRecordIcon = new ImageIcon("src/StopRecordingIcon.png");
+
+        JButton stopRecordButton = new JButton();
+        StopRecordingAction stopAction = macroActions.new StopRecordingAction(null, new ImageIcon(stopRecordIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), null, null);
+        stopRecordButton.setAction(stopAction);
+
+        stopRecordButton.setPreferredSize(new Dimension(40,40));
+        toolBar.add(stopRecordButton);
 
 
 
