@@ -79,7 +79,6 @@ public class ResizeImage implements ImageOperation, java.io.Serializable {
 
         // creating a new image with new size
         Image resizedImage = input.getScaledInstance((int)(input.getWidth() *percentageIncrease), (int)(input.getHeight() * (percentageIncrease)), operation);//gets scaled version of image
-        System.out.println(resizedImage.getHeight(null) + " --- " + resizedImage.getHeight(null));
         BufferedImage resizedBufferedImage = new BufferedImage(resizedImage.getWidth(null), resizedImage.getHeight(null), input.getType());
         
 

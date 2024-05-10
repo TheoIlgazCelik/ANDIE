@@ -18,7 +18,7 @@ public class MacroActions {
         actions = new ArrayList<Action>();
         actions.add(new StartRecordingAction("Start Recording", null, "Start recording your macro", null));
         actions.add(new StopRecordingAction("Stop Recording", null, "Stop recording your macro", null));
-        actions.add(new OpenMacroAction("Open Macro", null, "Open you macro", null));
+        actions.add(new OpenMacroAction("Open Macro", null, "Open your macro", null));
     }
     
     public JMenu createMenu() {

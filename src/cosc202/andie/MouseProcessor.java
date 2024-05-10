@@ -122,11 +122,12 @@ public class MouseProcessor extends MouseAdapter {
       leftMouseButtonActive = false;
       return;
     }
-    leftMouseButtonActive = true;
+
     x1 = e.getX();
     y1 = e.getY();
     x2 = x1;
     y2 = y1;
+    leftMouseButtonActive = true;
     validateCoordinates();
   }
 
@@ -156,7 +157,7 @@ public class MouseProcessor extends MouseAdapter {
    * @param e the triggered MouseEvent
    */
   public void mouseReleased(MouseEvent e) {
-    if (e.getButton() == MouseEvent.BUTTON3) {
+    if (leftMouseButtonActive == false) {
       panel.repaint();
       panel.clearDrawingMode();
       return;

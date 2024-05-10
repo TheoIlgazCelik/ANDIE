@@ -14,7 +14,6 @@ public class ResizeImageTest {
         int testPercentage = 80;
         ResizeImage testResize = new ResizeImage(testPercentage);
         BufferedImage result = testResize.apply(tester);
-        System.out.println(">>"+result.getWidth()*result.getHeight()/Math.pow(((double)(testPercentage)/100),2)+"<<");
         Assertions.assertEquals(Math.round(result.getWidth()*result.getHeight()/Math.pow(((double)(testPercentage)/100),2)), 10000);
     }
 }

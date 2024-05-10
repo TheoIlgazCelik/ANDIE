@@ -181,18 +181,22 @@ public class LangActions {
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
         String[][] m = { { "File", "Open", "Save", "Save_as", "Exit", "Export" },
                 { "Edit", "Undo", "Redo" },
-                { "View", "Zoom_in", "Zoom_out", "Zoom_full", "Rotate_right", "Rotate_left", "Rotate_180",
-                        "Flip_horizontal", "Flip_vertical", "Resize", "Crop_image" },
+                { "View", "Zoom_in", "Zoom_out", "Zoom_full", "Rotate_right", "Rotate_left", "Rotate_180","Flip_horizontal", "Flip_vertical", "Resize", "Crop_image" },
                 { "Filter", "Mean_filter", "Sharpen", "Median", "Gaussian_blur","Block_average","Random_scattering","Emboss_filter"},
                 { "Colour", "Greyscale", "Invert_color","Colour_cycle", "Brightness_contrast"},
-                { "Language", "English", "Spanish", "Maori" } };
+                {"Macro","Macro_start","Macro_stop","Macro_open"},
+                { "Language", "English", "Spanish", "Maori" },
+                {"Drawing", "Draw_option","Draw"}
+            };
         String[][] descs = { { "Open_desc", "Save_desc", "Save_as_desc", "Exit_desc", "Export_desc" },
                 { "Undo_desc", "Redo_desc" },
-                { "Zoom_in_desc", "Zoom_out_desc", "Zoom_full_desc", "Rotate_right_desc", "Rotate_left_desc",
-                        "Rotate_180_desc", "Flip_horizontal_desc", "Flip_vertical_desc", "Resize_desc", "Crop_image" },
+                { "Zoom_in_desc", "Zoom_out_desc", "Zoom_full_desc", "Rotate_right_desc", "Rotate_left_desc","Rotate_180_desc", "Flip_horizontal_desc", "Flip_vertical_desc", "Resize_desc", "Crop_image" },
                 { "Mean_filter_desc", "Sharpen_desc", "Median_desc", "Gaussian_blur_desc","Block_average_desc","Random_scattering_desc", "Emboss_apply_desc" },
                 { "Greyscale_desc", "Invert_color_desc","Colour_cycle_desc","Brightness_contrast_desc" },
-                { "English_desc", "Spanish_desc", "Maori_desc" } }; 
+                {"Macro_start_desc","Macro_stop_desc","Macro_open_desc"},
+                { "English_desc", "Spanish_desc", "Maori_desc" },
+                {"Draw_option_desc","Draw_desc"}
+            }; 
         String[] embossTime = {"East","North_east","North","North_west","West","South_west","South","South_east"};
 
         for (int i = 0; i < m.length/* Andie.menuBar.getMenuCount() */; i++) {
