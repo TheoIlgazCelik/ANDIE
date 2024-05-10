@@ -225,6 +225,18 @@ public class LangActions {
                 }
             }
         }
+        String[] tools = {"Save","Export","Open_desc","Undo","Redo"};
+        
+        for (int i=0; i<tools.length; i++) {
+            JComponent j = (JComponent)Andie.toolBar.getComponentAtIndex(i);
+            if (tools[i] == "Undo") {
+                j.setToolTipText(b.getString(tools[i]) + " | Ctrl + U");
+            } else if (tools[i] == "Redo") {
+                j.setToolTipText(b.getString(tools[i]) + " | Ctrl + R");
+            } else {
+                j.setToolTipText(b.getString(tools[i]) + " | Ctrl + " + tools[i].charAt(0));
+            }
+        }
 
         UIManager.put("FileChooser.openButtonText", b.getString("Open"));
         UIManager.put("FileChooser.cancelButtonText", b.getString("Cancel"));
