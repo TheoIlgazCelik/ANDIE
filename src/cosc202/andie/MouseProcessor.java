@@ -156,7 +156,7 @@ public class MouseProcessor extends MouseAdapter {
    * @param e the triggered MouseEvent
    */
   public void mouseReleased(MouseEvent e) {
-    if (e.getButton() == MouseEvent.BUTTON3) {
+    if (leftMouseButtonActive == false) {
       panel.repaint();
       panel.clearDrawingMode();
       return;
