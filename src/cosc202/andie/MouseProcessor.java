@@ -236,23 +236,31 @@ public class MouseProcessor extends MouseAdapter {
         g2d.drawRect(x3, y3, width, height);
         break;
       case DRAWING_OP:
-        g2d.setColor(fillCol);
         switch (selectedShape) {
           case 0:
-            g2d.drawRect(x3, y3, width, height);
-
-            if (fill)
-              g2d.fillRect(x3, y3, width, height);
-            break;
-
+          if (fill) {
+            g2d.setColor(fillCol);
+            g2d.drawRect(x3,y3,width,height);
+            g2d.fillRect(x3,y3,width,height);
+          }
+          if (outline){
+            g2d.setColor(outlineCol);
+            g2d.drawRect(x3,y3,width,height);
+          }
+          break;
           case 1:
-            g2d.drawOval(x3, y3, width, height);
-
-            if (fill)
-              g2d.fillOval(x3, y3, width, height);
-            break;
-
+          if (fill) {
+            g2d.setColor(fillCol);
+            g2d.drawOval(x3,y3,width,height);
+            g2d.fillOval(x3,y3,width,height);
+          }
+          if (outline){
+            g2d.setColor(outlineCol);
+            g2d.drawOval(x3,y3,width,height);
+          }
+          break;
           case 2:
+            g2d.setColor(fillCol);
             g2d.drawLine(x1, y1, x2, y2);
             break;
         }

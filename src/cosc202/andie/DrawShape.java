@@ -24,6 +24,7 @@ public class DrawShape implements ImageOperation{
     private int width;
     public DrawShape(Color fillCol, Color outlineCol, int selectedShape, boolean outline, boolean fill, int width, int height, int x, int y){
         this.fillCol = fillCol;
+        this.outlineCol = outlineCol;
         this.selectedShape = selectedShape;
         this.outline = outline;
         this.fill = fill;
