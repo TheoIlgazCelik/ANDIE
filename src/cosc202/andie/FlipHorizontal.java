@@ -17,6 +17,14 @@ import java.awt.image.BufferedImage;
  */
 public class FlipHorizontal implements ImageOperation, java.io.Serializable {
 
+    /**
+     * <p>
+     * Apply a horizontal flip to an image.
+     * </p>
+     * 
+     * @param input The image to apply the rotation to.
+     * @return The resulting (horizontally flipped) image.
+     */
     public BufferedImage apply(BufferedImage input) {
         // iterate through each pixel of left half of image (excluding center pixel if width is odd)
         for (int y = 0; y < input.getHeight(); y++) {

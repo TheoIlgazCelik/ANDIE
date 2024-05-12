@@ -71,6 +71,7 @@ class EditableImage {
         imageFilename = null;
         opsFilename = null;
         exportFileName = null;
+        macro = new Stack<ImageOperation>();
     }
 
     /**
@@ -174,6 +175,37 @@ class EditableImage {
     }
 
     /**
+     * Open Macro file and then apply the ops to the image
+     * @throws Exception
+     */
+    public void openMacro(String filePath) throws Exception {
+        opsFilename = filePath;
+        try {
+            FileInputStream fileIn = new FileInputStream(this.opsFilename);
+            ObjectInputStream objIn = new ObjectInputStream(fileIn);
+
+            // Silence the Java compiler warning about type casting.
+            // Understanding the cause of the warning is way beyond
+            // the scope of COSC202, but if you're interested, it has
+            // to do with "type erasure" in Java: the compiler cannot
+            // produce code that fails at this point in all cases in
+            // which there is actually a type mismatch for one of the
+            // elements within the Stack, i.e., a non-ImageOperation.
+            @SuppressWarnings("unchecked")
+            Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
+            ops = opsFromFile;
+            redoOps.clear();
+            objIn.close();
+            fileIn.close();
+        } catch (Exception ex) {
+            // Could be no file or something else. Carry on for now.
+            ops.clear();
+            redoOps.clear();
+        }
+        this.refresh();
+    }
+
+    /**
      * <p>
      * Save an image to file.
      * </p>
@@ -207,7 +239,7 @@ class EditableImage {
      */
 
      public void saveMacro(String imageFileName) throws Exception{
-        this.opsFilename = imageFilename + ".ops";
+        this.opsFilename = imageFileName + ".ops";
         FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
         ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
         objOut.writeObject(this.ops);
@@ -339,4 +371,5 @@ class EditableImage {
         }
     }
 
+    
 }

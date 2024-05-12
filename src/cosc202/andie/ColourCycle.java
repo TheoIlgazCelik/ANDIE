@@ -21,7 +21,6 @@ import java.awt.image.*;
 
 public class ColourCycle implements ImageOperation, java.io.Serializable {
 
-    private int argb;
     /**
      * <p>
      * Apply a colour channel cycle to an image

@@ -181,18 +181,23 @@ public class LangActions {
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
         String[][] m = { { "File", "Open", "Save", "Save_as", "Exit", "Export" },
                 { "Edit", "Undo", "Redo" },
-                { "View", "Zoom_in", "Zoom_out", "Zoom_full", "Rotate_right", "Rotate_left", "Rotate_180",
-                        "Flip_horizontal", "Flip_vertical", "Resize" },
-                { "Filter", "Mean_filter", "Sharpen", "Median", "Gaussian_blur","Block_average","Random_scattering"},
-                { "Colour", "Greyscale", "Invert_color","Colour_cycle"},
-                { "Language", "English", "Spanish", "Maori" } };
+                { "View", "Zoom_in", "Zoom_out", "Zoom_full", "Rotate_right", "Rotate_left", "Rotate_180","Flip_horizontal", "Flip_vertical", "Resize", "Crop_image" },
+                { "Filter", "Mean_filter", "Sharpen", "Median", "Gaussian_blur","Block_average","Random_scattering","Vertical_sobel","Horizontal_sobel","Emboss_filter"},
+                { "Colour", "Greyscale", "Invert_color","Colour_cycle", "Brightness_contrast"},
+                {"Macro","Macro_start","Macro_stop","Macro_open"},
+                { "Language", "English", "Spanish", "Maori" },
+                {"Drawing", "Draw_option","Draw"}
+            };
         String[][] descs = { { "Open_desc", "Save_desc", "Save_as_desc", "Exit_desc", "Export_desc" },
                 { "Undo_desc", "Redo_desc" },
-                { "Zoom_in_desc", "Zoom_out_desc", "Zoom_full_desc", "Rotate_right_desc", "Rotate_left_desc",
-                        "Rotate_180_desc", "Flip_horizontal_desc", "Flip_vertical_desc", "Resize_desc" },
-                { "Mean_filter_desc", "Sharpen_desc", "Median_desc", "Gaussian_blur_desc","Block_average_desc","Random_scattering_desc" },
-                { "Greyscale_desc", "Invert_color_desc","Colour_cycle_desc" },
-                { "English_desc", "Spanish_desc", "Maori_desc" } };
+                { "Zoom_in_desc", "Zoom_out_desc", "Zoom_full_desc", "Rotate_right_desc", "Rotate_left_desc","Rotate_180_desc", "Flip_horizontal_desc", "Flip_vertical_desc", "Resize_desc", "Crop_image" },
+                { "Mean_filter_desc", "Sharpen_desc", "Median_desc", "Gaussian_blur_desc","Block_average_desc","Random_scattering_desc","Vertical_sobel_desc","Horizontal_sobel_desc", "Emboss_apply_desc" },
+                { "Greyscale_desc", "Invert_color_desc","Colour_cycle_desc","Brightness_contrast_desc" },
+                {"Macro_start_desc","Macro_stop_desc","Macro_open_desc"},
+                { "English_desc", "Spanish_desc", "Maori_desc" },
+                {"Draw_option_desc","Draw_desc"}
+            }; 
+        String[] embossTime = {"East","North_east","North","North_west","West","South_west","South","South_east"};
 
         for (int i = 0; i < m.length/* Andie.menuBar.getMenuCount() */; i++) {
             JMenu menu1 = Andie.menuBar.getMenu(i);
@@ -206,12 +211,33 @@ public class LangActions {
                     if (j + 1 < m[i].length) {
                         menuItem1.setText(b.getString(m[i][j + 1]));
                         menuItem1.setToolTipText(b.getString(descs[i][j]));
+                        if (m[i][j+1].equals("Emboss_filter")) {
+                            MenuElement[] sub = menuItem1.getSubElements();
+                            JPopupMenu f = (JPopupMenu)sub[0];
+                            for (int k=0; k<embossTime.length; k++) {
+                               JMenuItem g = (JMenuItem)f.getComponent(k);
+                               g.setText(b.getString(embossTime[k]));
+                               g.setToolTipText(b.getString("Emboss_apply_desc") + " " + b.getString(embossTime[k]));
+                            }
+                        }
                     }
 
                 }
             }
         }
-
+        String[] tools = {"Save","Export","Open_desc","Undo","Redo"};
+        
+        for (int i=0; i<tools.length; i++) {
+            JComponent j = (JComponent)Andie.toolBar.getComponentAtIndex(i);
+            if (tools[i] == "Undo") {
+                j.setToolTipText(b.getString(tools[i]) + " | Ctrl + U");
+            } else if (tools[i] == "Redo") {
+                j.setToolTipText(b.getString(tools[i]) + " | Ctrl + R");
+            } else if (i < 3) {
+                j.setToolTipText(b.getString(tools[i]) + " | Ctrl + " + tools[i].charAt(0));
+            }
+        }
+ 
         UIManager.put("FileChooser.openButtonText", b.getString("Open"));
         UIManager.put("FileChooser.cancelButtonText", b.getString("Cancel"));
         UIManager.put("FileChooser.cancelButtonToolTipText", b.getString("Abort_file"));

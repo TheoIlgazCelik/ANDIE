@@ -138,7 +138,7 @@ public class ImagePanel extends JPanel {
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
 
             if (processor != null) {
-                processor.paint(g2);
+                processor.applyOnImagePanel(g2);
             }
 
             g2.dispose();
