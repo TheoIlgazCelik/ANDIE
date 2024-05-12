@@ -1,5 +1,6 @@
 package cosc202.andie;
 
+import java.awt.image.BufferedImage;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Graphics2D;
@@ -261,7 +262,7 @@ public class MouseProcessor extends MouseAdapter {
    * </p>
    * 
    */
-  public void applyToBufferedImage() {
+  private void applyToBufferedImage() {
     switch (this.op) {
       case CROP_OP:
         panel.getImage().apply(new Crop(x3, y3, width, height));
