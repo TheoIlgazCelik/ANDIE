@@ -55,7 +55,8 @@ public class MouseProcessor extends MouseAdapter {
   public static final int DRAWING_OP = 2;
 
   // Drawing Variables
-  Color col;
+  Color fillCol;
+  Color outlineCol;
   int selectedShape;
   boolean outline;
   boolean fill;
@@ -68,8 +69,11 @@ public class MouseProcessor extends MouseAdapter {
     this.MAX_X = panel.getImage().getCurrentImage().getWidth() - 1;
     this.MAX_Y = panel.getImage().getCurrentImage().getHeight() - 1;
   }
-  public void setCol(Color col){
-    this.col = col;
+  public void setFillCol(Color fillCol){
+    this.fillCol = fillCol;
+  }
+  public void setOutlineCol(Color outlineCol){
+    this.outlineCol = outlineCol;
   }
   public void setSelectedShape(int shape){
     this.selectedShape = shape;
@@ -117,9 +121,9 @@ public class MouseProcessor extends MouseAdapter {
         break;
       case DRAWING_OP:
           if(selectedShape!=2){
-            panel.getImage().apply(new DrawShape(col, selectedShape, outline, fill, width, height, x3, y3));
+            panel.getImage().apply(new DrawShape(fillCol, selectedShape, outline, fill, width, height, x3, y3));
           }else {
-            panel.getImage().apply(new DrawLine(col, x1,y1, x2, y2));
+            panel.getImage().apply(new DrawLine(fillCol, x1,y1, x2, y2));
           }
         break;
     }
@@ -209,7 +213,7 @@ public class MouseProcessor extends MouseAdapter {
           g2d.drawRect(x3, y3, width, height);
           break;
         case DRAWING_OP:
-          g2d.setColor(col);
+          g2d.setColor(fillCol);
           switch (selectedShape){
             case 0:
               if (fill)g2d.fillRect(x3,y3,width,height);

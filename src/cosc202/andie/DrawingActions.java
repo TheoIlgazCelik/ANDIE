@@ -21,14 +21,18 @@ public class DrawingActions {
     
     /** A list of actions for the Draw menu. */
     protected ArrayList<Action> actions;
-    private Color col = new Color(0,0,0);
+    private Color fillCol = new Color(0,0,0);
+    private Color outlineCol = new Color(0,0,0);
     private boolean outline = true;
     private boolean fill = false;
     private int selectedShape = 0; // 0 = rectangle, 1 = oval, 2 = line
 
 
-    private Color getColor(){
-        return col;
+    private Color getFillColor(){
+        return fillCol;
+    }
+    private Color getOutlineColor(){
+        return outlineCol;
     }
     private boolean getOutline(){
         return outline;
@@ -67,8 +71,6 @@ public class DrawingActions {
         return drawMenu;
     }
     private void getValuesFromUser() {
-        JColorChooser jc = new JColorChooser(this.col);
-        col=JColorChooser.showDialog(jc, null, col);
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
 
         JToggleButton fillButton = new JToggleButton(b.getString("Fill"));
@@ -129,6 +131,15 @@ public class DrawingActions {
             if (oval.isSelected())selectedShape = 1;
             if (line.isSelected())selectedShape = 2;
         }
+        if (fill){
+            JColorChooser jc = new JColorChooser(this.fillCol);
+            fillCol=JColorChooser.showDialog(jc, b.getString("Color_Of")+" "+b.getString("Fill"), fillCol);
+        }
+        if (outline){
+            JColorChooser jc = new JColorChooser(this.outlineCol);
+            outlineCol=JColorChooser.showDialog(jc, b.getString("Color_Of")+" "+b.getString("Outline"), outlineCol);
+        }
+        
     }
 
     /**
@@ -209,7 +220,8 @@ public class DrawingActions {
          */
         public void actionPerformed(ActionEvent e) {
             MouseProcessor mp = new MouseProcessor(target, 2);
-            mp.setCol(getColor());
+            mp.setFillCol(getFillColor());
+            mp.setOutlineCol(getOutlineColor());
             mp.setFill(getFill());
             mp.setOutline(getOutline());
             mp.setSelectedShape(getSelectedShape());
