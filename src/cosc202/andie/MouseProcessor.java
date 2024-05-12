@@ -273,9 +273,9 @@ public class MouseProcessor extends MouseAdapter {
         break;
       case DRAWING_OP:
         if (selectedShape != 2) {
-          panel.getImage().apply(new DrawShape(col, selectedShape, outline, fill, width, height, x3, y3));
+          panel.getImage().apply(new DrawShape(fillCol, outlineCol, selectedShape, outline, fill, width, height, x3, y3));
         } else {
-          panel.getImage().apply(new DrawLine(col, x1, y1, x2, y2));
+          panel.getImage().apply(new DrawLine(fillCol, x1, y1, x2, y2));
         }
         break;
     }
