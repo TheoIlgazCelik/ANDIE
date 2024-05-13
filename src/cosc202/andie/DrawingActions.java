@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.*;
@@ -26,8 +27,11 @@ public class DrawingActions {
     private boolean outline = true;
     private boolean fill = false;
     private int selectedShape = 0; // 0 = rectangle, 1 = oval, 2 = line
+    private BasicStroke lineBs = new BasicStroke();
 
-
+    private BasicStroke getLineBs(){
+        return lineBs;
+    }
     private Color getFillColor(){
         return fillCol;
     }
@@ -92,7 +96,7 @@ public class DrawingActions {
         // Adding shape buttons
         JRadioButton rect = new JRadioButton(b.getString("Rectangle"));
         JRadioButton oval = new JRadioButton(b.getString("Oval"));
-        JRadioButton line = new JRadioButton(b.getString("Line")); 
+        JRadioButton line = new JRadioButton(b.getString("Line"));
 
         bg.add(rect);
         bg.add(oval);
@@ -110,7 +114,25 @@ public class DrawingActions {
                 break;
         }
 
-        JComponent[] spinners = new JComponent[]{fillButton, outlineButton, rect, oval, line};
+        JButton editLineWidth = new JButton(b.getString("Edit_Line_Width"));
+        editLineWidth.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                SpinnerNumberModel lineWidthModel = new SpinnerNumberModel(1, 1, 10, 1);
+                JSpinner lineWidthSpinner = new JSpinner(lineWidthModel);
+                Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
+                int option = JOptionPane.showOptionDialog(null, lineWidthSpinner, b.getString("Enter_Line_Width"),
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
+                int widthValue= 0;
+                // Check the return value from the dialog box.
+                 // Ok = 0, Cancel = 1, Exit = -1
+                if (option == 0) {
+                    widthValue = lineWidthModel.getNumber().intValue();
+                }
+                lineBs = new BasicStroke(widthValue, lineBs.getEndCap(), lineBs.getLineJoin());
+
+            }
+        });
+        JComponent[] spinners = new JComponent[]{fillButton, outlineButton, rect, oval, line, editLineWidth};
 
         Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
         String optionMessage = b.getString("Drawing_Option_Pane");
@@ -235,6 +257,7 @@ public class DrawingActions {
             mp.setFill(getFill());
             mp.setOutline(getOutline());
             mp.setSelectedShape(getSelectedShape());
+            mp.setLineBs(getLineBs());
             target.setDrawingMode(mp);
         }
     }
