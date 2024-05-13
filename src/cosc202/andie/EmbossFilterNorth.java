@@ -9,7 +9,7 @@ import java.awt.image.*;
  * 
  * 
  * @see java.awt.image.ConvolveOp
- * @author 
+ * @author Finn Rimmer
  * @version 1.0
  */
 
