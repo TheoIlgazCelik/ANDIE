@@ -60,6 +60,19 @@ public class ColourActions {
         return fileMenu;
     }
 
+    /**
+     * <p>
+     * Obtains two percentage values from the user using a spinner model
+     * Supporting method for brightness and contrast colour action
+     * </p>
+     * 
+     * @param MIN_VALUE minimum bound for radius (inclusive)
+     * @param MAX_VALUE maximum bound for radius (inclusive)
+     * @param text1 text to label value1
+     * @param text2 text to label value2
+     * 
+     * @return An array of the two percentage values
+     */
     private int[] getTwoPercentagesFromUser(int MIN_VALUE, int MAX_VALUE, String text1, String text2) {
         int percentageOne = 0;
         int percentageTwo = 0;
