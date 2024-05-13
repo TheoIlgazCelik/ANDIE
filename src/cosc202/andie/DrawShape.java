@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  * @author Ilgaz Celik
  * @version 1.0
  */
-public class DrawShape implements ImageOperation{
+public class DrawShape implements ImageOperation, java.io.Serializable{
     private Color fillCol;
     private Color outlineCol;
     private int selectedShape;

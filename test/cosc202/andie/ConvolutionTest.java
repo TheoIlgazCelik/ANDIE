@@ -10,11 +10,17 @@ import javax.imageio.ImageIO;
 
 // JUnit
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
 import static org.junit.jupiter.api.Assertions.*;
 
 import cosc202.andie.Convolution;
 
 public class ConvolutionTest {
+
+    // @BeforeAll
+    // void setUp() {
+
+    // }
 
     @Test
     void TestMeanFilter() {
