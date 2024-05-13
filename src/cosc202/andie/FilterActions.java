@@ -47,6 +47,7 @@ public class FilterActions {
         actions.add(new VerticalSobelFilterAction("Vertical Sobel Filter", null, "Apply a vertical sobel filter", null));
         actions.add(new HorizontalSobelFilterAction("Horizontal Sobel Filter", null, "Apply a horizontal sobel filter", null));
 
+        // create a new set of filter menu actions for emboss
         embossActions = new ArrayList<Action>();
         embossActions.add(new EmbossFilterEastAction("East", null, "Apply a emboss filter", null));
         embossActions.add(new EmbossFilterNorthEastAction("North East", null, "Apply an emboss filter north east", null));

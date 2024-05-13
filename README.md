@@ -1,7 +1,8 @@
 #  **ANDIE**
 
 ## Instructions
-- Build and run program via Gradle
+* Build and run program via Gradle. Gradle for java is a sophisticated build tool that when used, results in faster run times and less error prone compilation of code. This is important for this project specifically as otherwise Visual Studio code may have issues in locating the language bundle files required for the multilingual feature. 
+* Have fun utilizing this image editor.
 
 ## About the project:
 
@@ -20,6 +21,20 @@ This was built with java, within the VS code integrated development environment.
 * Image rotations
 * Export image
 * Image flipping
+* Extended filters
+* Filters with negative results
+* Emboss and edge detection filters
+* Brightness adjustment
+* Contrast adjustment
+* Block averaging
+* Random scattering
+* Toolbar for common operations
+* Keyboard shortcuts
+* Mouse selection of rectangular regions
+* Crop to selection
+* Drawing functions – rectangle, ellipse, line
+* Macros for record and replay of operations
+
 
 ## **Folder Structure**
 
@@ -39,57 +54,82 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 ## Who has worked on each feature
 
 ### Finn
-Sharpen Filter
+* Sharpen Filter
 
-Exception Handling
+* Exception Handling
 
-Image Export
+* Image Export
 
-Error Avoidance/prevention
+* Emboss filters
 
-General Support on other features
+* Macros for record and replay operations
+
+* Toolbar for common operations
+
+* Error Avoidance/prevention
+
+* General Support on other features
 
 ### Ilgaz
-Gaussian Blur Filter
+* Gaussian Blur Filter
 
-Image Resize
+* Image Resize
 
-Error Avoidance/prevention
+* Brightness and contrast
 
-General Support on other features
+* Drawing functions
+
+* Error Avoidance/prevention
+
+* General Support on other features
 
 ### Josh
-Median Filter
+* Median Filter
 
-Colour channel cycling
+* Colour channel cycling
 
-Error Avoidance/prevention
+* Filters with negative results
 
-General Support on other features
+* Crop to selection
+
+* Error Avoidance/prevention
+
+* General Support on other features
 
 ### Aiden
-Image Inversion
+* Image Inversion
 
-Multi-Lingual Support
+* Multi-Lingual Support, including keeping it up to date with new feature additions
 
-Error Avoidance/prevention
+* Random scattering
 
-General Support on other features
+* Block averaging
+
+* Error Avoidance/prevention
+
+* General Support on other features
 
 ### Matt
-Image Rotations
+* Image Rotations
 
-Image flip
+* Image flip
 
-Median Filter
+* Median Filter
 
-Error Avoidance/prevention
+* Extended filters
 
-General Support on other features
+* Mouse selection of rectangular regions
+
+* Crop to selection
+
+* Error Avoidance/prevention
+
+* General Support on other features
 
 ## How our code was tested
-* J-Unit testing
+* Unit testing via the J-Unit5 framework for java
 * Print line Testing
+* Continuous integration 
 
 ## Known issues and future improvements
 ### Unsaved Changes

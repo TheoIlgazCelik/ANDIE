@@ -74,9 +74,17 @@ public class DrawingActions {
 
         return drawMenu;
     }
+
+    /**
+     * <p>
+     * Method is to set up the values of draw options
+     * set of operations to obtain values for 
+     * shape, fill/outline, colour
+     */
     private void getValuesFromUser() {
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
 
+        // Adding fill and outline button
         JToggleButton fillButton = new JToggleButton(b.getString("Fill"));
         JToggleButton outlineButton = new JToggleButton(b.getString("Outline"));
 
@@ -85,6 +93,7 @@ public class DrawingActions {
 
         ButtonGroup bg = new ButtonGroup();
 
+        // Adding shape buttons
         JRadioButton rect = new JRadioButton(b.getString("Rectangle"));
         JRadioButton oval = new JRadioButton(b.getString("Oval"));
         JRadioButton line = new JRadioButton(b.getString("Line"));
@@ -207,6 +216,7 @@ public class DrawingActions {
             getValuesFromUser();
         }
     }
+
     public class Draw extends ImageAction {
 
         /**

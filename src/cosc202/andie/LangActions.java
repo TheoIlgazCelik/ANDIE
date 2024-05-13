@@ -224,8 +224,8 @@ public class LangActions {
 
                 }
             }
-        }
-        String[] tools = {"Save","Export","Open_desc","Undo","Redo"};
+        } 
+        String[] tools = {"Save","Export","Open_desc","Undo","Redo","Record_macro","Stop_macro"};
         
         for (int i=0; i<tools.length; i++) {
             JComponent j = (JComponent)Andie.toolBar.getComponentAtIndex(i);
@@ -233,6 +233,10 @@ public class LangActions {
                 j.setToolTipText(b.getString(tools[i]) + " | Ctrl + U");
             } else if (tools[i] == "Redo") {
                 j.setToolTipText(b.getString(tools[i]) + " | Ctrl + R");
+            } else if (tools[i] == "Record_macro") {
+                j.setToolTipText(b.getString(tools[i]) + " | Ctrl + P");
+            } else if (tools[i] == "Stop_macro") {
+                j.setToolTipText(b.getString(tools[i]) + " | Ctrl + Shift + P");
             } else if (i < 3) {
                 j.setToolTipText(b.getString(tools[i]) + " | Ctrl + " + tools[i].charAt(0));
             }

@@ -190,9 +190,9 @@ public class Andie {
 
         // Adding a record macro icon and button
         ImageIcon recordIcon = new ImageIcon("src/StartRecordingIcon.png");
-
+ 
         JButton recordButton = new JButton();
-        StartRecordingAction recordAction = macroActions.new StartRecordingAction(null, new ImageIcon(recordIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), null, null);
+        StartRecordingAction recordAction = macroActions.new StartRecordingAction(null, new ImageIcon(recordIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), "Record Macros | Ctrl + P", null);
         recordButton.setAction(recordAction);
 
         recordButton.setPreferredSize(new Dimension(40,40));
@@ -203,7 +203,7 @@ public class Andie {
         ImageIcon stopRecordIcon = new ImageIcon("src/StopRecordingIcon.png");
 
         JButton stopRecordButton = new JButton();
-        StopRecordingAction stopAction = macroActions.new StopRecordingAction(null, new ImageIcon(stopRecordIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), null, null);
+        StopRecordingAction stopAction = macroActions.new StopRecordingAction(null, new ImageIcon(stopRecordIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), "Stop Recording | Ctrl + Shft + P", null);
         stopRecordButton.setAction(stopAction);
 
         stopRecordButton.setPreferredSize(new Dimension(40,40));
