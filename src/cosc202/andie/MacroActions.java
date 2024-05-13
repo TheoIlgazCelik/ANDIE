@@ -33,6 +33,7 @@ public class MacroActions {
     public class StartRecordingAction extends ImageAction {
         StartRecordingAction(String name, ImageIcon icon, String desc, Integer mnemonic){
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK));
         }
 
         public void actionPerformed(ActionEvent e){
@@ -51,6 +52,7 @@ public class MacroActions {
     public class StopRecordingAction extends ImageAction {
         StopRecordingAction(String name, ImageIcon icon, String desc, Integer mnemonic){
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         }
 
 
@@ -76,6 +78,7 @@ public class MacroActions {
     public class OpenMacroAction extends ImageAction {
         OpenMacroAction(String name, ImageIcon icon, String desc, Integer mnemonic){
             super(name, icon, desc, mnemonic);
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         }
 
         public void actionPerformed(ActionEvent e){
