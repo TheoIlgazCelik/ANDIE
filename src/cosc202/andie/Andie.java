@@ -190,7 +190,7 @@ public class Andie {
 
         // Adding a record macro icon and button
         ImageIcon recordIcon = new ImageIcon("src/StartRecordingIcon.png");
-
+ 
         JButton recordButton = new JButton();
         StartRecordingAction recordAction = macroActions.new StartRecordingAction(null, new ImageIcon(recordIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), "Record Macros | Ctrl + P", null);
         recordButton.setAction(recordAction);
