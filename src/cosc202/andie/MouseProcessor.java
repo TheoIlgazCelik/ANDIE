@@ -3,6 +3,7 @@ package cosc202.andie;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Graphics2D;
+import java.awt.BasicStroke;
 import java.awt.Color;
 
 /**
@@ -72,6 +73,7 @@ public class MouseProcessor extends MouseAdapter {
   int selectedShape;
   boolean outline;
   boolean fill;
+  BasicStroke lineBs;
 
   /** Mouse button flag */
   private boolean leftMouseButtonActive;
@@ -93,6 +95,9 @@ public class MouseProcessor extends MouseAdapter {
     this.MAX_X = panel.getImage().getCurrentImage().getWidth() - 1;
     this.MAX_Y = panel.getImage().getCurrentImage().getHeight() - 1;
     this.leftMouseButtonActive = false;
+  }
+  public void setLineBs(BasicStroke lineBs) {
+      this.lineBs = lineBs;
   }
   public void setFillCol(Color fillCol){
     this.fillCol = fillCol;
@@ -260,6 +265,7 @@ public class MouseProcessor extends MouseAdapter {
           }
           break;
           case 2:
+            g2d.setStroke(lineBs);
             g2d.setColor(fillCol);
             g2d.drawLine(x1, y1, x2, y2);
             break;
@@ -283,7 +289,7 @@ public class MouseProcessor extends MouseAdapter {
         if (selectedShape != 2) {
           panel.getImage().apply(new DrawShape(fillCol, outlineCol, selectedShape, outline, fill, width, height, x3, y3));
         } else {
-          panel.getImage().apply(new DrawLine(fillCol, x1, y1, x2, y2));
+          panel.getImage().apply(new DrawLine(fillCol, x1, y1, x2, y2, lineBs));
         }
         break;
     }
