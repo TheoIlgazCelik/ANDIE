@@ -291,7 +291,9 @@ class EditableImage {
         save();
     }
 
-
+    public Stack<ImageOperation> getMacroStack(){
+        return macro;
+    }
     
     /**
      * <p>
