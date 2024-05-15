@@ -174,8 +174,6 @@ public class MouseProcessor extends MouseAdapter {
    */
   public void mouseReleased(MouseEvent e) {
     if (leftMouseButtonActive == false) {
-      panel.repaint();
-      panel.clearDrawingMode();
       return;
     }
 
@@ -183,9 +181,7 @@ public class MouseProcessor extends MouseAdapter {
     panel.repaint();
     applyToBufferedImage();
 
-    if (op == CROP_OP) {
-      panel.clearDrawingMode();
-    }
+    panel.clearDrawingMode();
 
     leftMouseButtonActive = false;
   }
