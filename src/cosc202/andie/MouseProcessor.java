@@ -173,6 +173,13 @@ public class MouseProcessor extends MouseAdapter {
    * @param e the triggered MouseEvent
    */
   public void mouseReleased(MouseEvent e) {
+    // right click cancels draw mode
+    if (e.getButton() == MouseEvent.BUTTON3) {
+      panel.repaint();
+      panel.clearDrawingMode();
+      return;
+    }
+
     if (leftMouseButtonActive == false) {
       return;
     }
