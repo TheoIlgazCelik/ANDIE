@@ -28,9 +28,13 @@ public class DrawingActions {
     private boolean fill = false;
     private int selectedShape = 0; // 0 = rectangle, 1 = oval, 2 = line
     private BasicStroke lineBs = new BasicStroke();
+    private BasicStroke outlineBs = new BasicStroke();
 
     private BasicStroke getLineBs(){
         return lineBs;
+    }
+    private BasicStroke getOutlineBs(){
+        return outlineBs;
     }
     private Color getFillColor(){
         return fillCol;
@@ -86,7 +90,26 @@ public class DrawingActions {
 
         // Adding fill and outline button
         JToggleButton fillButton = new JToggleButton(b.getString("Fill"));
+
         JToggleButton outlineButton = new JToggleButton(b.getString("Outline"));
+        JButton editOutlineWidth = new JButton(b.getString("Edit_Outine_Width"));
+        editOutlineWidth.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                float widthValue= outlineBs.getLineWidth();
+                SpinnerNumberModel outlineWidthModel = new SpinnerNumberModel(widthValue, 1, 10, 1);
+                JSpinner outlineWidthSpinner = new JSpinner(outlineWidthModel);
+                Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
+                int option = JOptionPane.showOptionDialog(null, outlineWidthSpinner, b.getString("Enter_Outine_Width"),
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
+                // Check the return value from the dialog box.
+                 // Ok = 0, Cancel = 1, Exit = -1
+                if (option == 0) {
+                    widthValue = outlineWidthModel.getNumber().intValue();
+                }
+                outlineBs = new BasicStroke(widthValue, outlineBs.getEndCap(), outlineBs.getLineJoin());
+
+            }
+        });
 
         if(fill)fillButton.doClick();
         if(outline)outlineButton.doClick();
@@ -117,12 +140,12 @@ public class DrawingActions {
         JButton editLineWidth = new JButton(b.getString("Edit_Line_Width"));
         editLineWidth.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                SpinnerNumberModel lineWidthModel = new SpinnerNumberModel(1, 1, 10, 1);
+                float widthValue= lineBs.getLineWidth();
+                SpinnerNumberModel lineWidthModel = new SpinnerNumberModel(widthValue, 1, 10, 1);
                 JSpinner lineWidthSpinner = new JSpinner(lineWidthModel);
                 Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
                 int option = JOptionPane.showOptionDialog(null, lineWidthSpinner, b.getString("Enter_Line_Width"),
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
-                int widthValue= 0;
                 // Check the return value from the dialog box.
                  // Ok = 0, Cancel = 1, Exit = -1
                 if (option == 0) {
@@ -132,7 +155,7 @@ public class DrawingActions {
 
             }
         });
-        JComponent[] spinners = new JComponent[]{fillButton, outlineButton, rect, oval, line, editLineWidth};
+        JComponent[] spinners = new JComponent[]{fillButton, outlineButton, editOutlineWidth, rect, oval, line, editLineWidth};
 
         Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
         String optionMessage = b.getString("Drawing_Option_Pane");
@@ -258,6 +281,7 @@ public class DrawingActions {
             mp.setOutline(getOutline());
             mp.setSelectedShape(getSelectedShape());
             mp.setLineBs(getLineBs());
+            mp.setOutlineBs(getOutlineBs());
             target.setDrawingMode(mp);
         }
     }

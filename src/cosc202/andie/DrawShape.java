@@ -1,5 +1,6 @@
 package cosc202.andie;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -22,7 +23,8 @@ public class DrawShape implements ImageOperation, java.io.Serializable{
     private int y;
     private int height;
     private int width;
-    public DrawShape(Color fillCol, Color outlineCol, int selectedShape, boolean outline, boolean fill, int width, int height, int x, int y){
+    private BasicStroke outlineBs;
+    public DrawShape(Color fillCol, Color outlineCol, int selectedShape, boolean outline, boolean fill, int width, int height, int x, int y, BasicStroke outlineBs){
         this.fillCol = fillCol;
         this.outlineCol = outlineCol;
         this.selectedShape = selectedShape;
@@ -32,6 +34,7 @@ public class DrawShape implements ImageOperation, java.io.Serializable{
         this.height = height;
         this.x=x;
         this.y=y;
+        this.outlineBs=outlineBs;
     }
     /**
    * <p>
@@ -47,6 +50,7 @@ public class DrawShape implements ImageOperation, java.io.Serializable{
     BufferedImage output = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());
     output.setData(input.getData());
     Graphics2D g = (Graphics2D) output.createGraphics();
+    g.setStroke(outlineBs);
     switch (selectedShape){
         case 0:
           if (fill) {

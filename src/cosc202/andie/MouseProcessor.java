@@ -78,6 +78,7 @@ public class MouseProcessor extends MouseAdapter {
   boolean outline;
   boolean fill;
   BasicStroke lineBs;
+  BasicStroke outlineBs;
 
   /** Mouse button flag */
   private boolean leftMouseButtonActive;
@@ -102,6 +103,9 @@ public class MouseProcessor extends MouseAdapter {
   }
   public void setLineBs(BasicStroke lineBs) {
       this.lineBs = lineBs;
+  }
+  public void setOutlineBs(BasicStroke outlineBs) {
+      this.outlineBs = outlineBs;
   }
   public void setFillCol(Color fillCol){
     this.fillCol = fillCol;
@@ -231,6 +235,7 @@ public class MouseProcessor extends MouseAdapter {
       case DRAWING_OP:
         switch (selectedShape) {
           case 0:
+          g2d.setStroke(outlineBs);
           if (fill) {
             g2d.setColor(fillCol);
             g2d.drawRect(x3,y3,width,height);
@@ -242,6 +247,7 @@ public class MouseProcessor extends MouseAdapter {
           }
           break;
           case 1:
+          g2d.setStroke(outlineBs);
           if (fill) {
             g2d.setColor(fillCol);
             g2d.drawOval(x3,y3,width,height);
@@ -275,7 +281,7 @@ public class MouseProcessor extends MouseAdapter {
         break;
       case DRAWING_OP:
         if (selectedShape != 2) {
-          panel.getImage().apply(new DrawShape(fillCol, outlineCol, selectedShape, outline, fill, width, height, x3, y3));
+          panel.getImage().apply(new DrawShape(fillCol, outlineCol, selectedShape, outline, fill, width, height, x3, y3, outlineBs));
         } else {
           panel.getImage().apply(new DrawLine(fillCol, x1, y1, x2, y2, lineBs));
         }
