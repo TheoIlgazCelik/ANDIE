@@ -211,10 +211,6 @@ public class Andie {
         // prompt user to save any changes before exiting application
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                // ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",
-                // Andie.locale);
-                // Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
-
                 if (imagePanel.getImage().hasUnsavedChanges()) {
                     ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
                     Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
