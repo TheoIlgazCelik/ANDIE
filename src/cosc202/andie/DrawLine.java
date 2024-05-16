@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
  * @author Ilgaz Celik
  * @version 1.0
  */
-public class DrawLine implements ImageOperation{
+public class DrawLine implements ImageOperation, java.io.Serializable{
     private Color col;
     private int x1;
     private int y1;
