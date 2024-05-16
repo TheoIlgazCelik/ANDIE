@@ -27,13 +27,13 @@ public class DrawingActions {
     private boolean outline = true;
     private boolean fill = false;
     private int selectedShape = 0; // 0 = rectangle, 1 = oval, 2 = line
-    private BasicStroke lineBs = new BasicStroke();
-    private BasicStroke outlineBs = new BasicStroke();
+    private float lineBs = new BasicStroke().getLineWidth();
+    private float outlineBs = new BasicStroke().getLineWidth();
 
-    private BasicStroke getLineBs(){
+    private float getLineBs(){
         return lineBs;
     }
-    private BasicStroke getOutlineBs(){
+    private float getOutlineBs(){
         return outlineBs;
     }
     private Color getFillColor(){
@@ -95,7 +95,7 @@ public class DrawingActions {
         JButton editOutlineWidth = new JButton(b.getString("Edit_Outine_Width"));
         editOutlineWidth.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                float widthValue= outlineBs.getLineWidth();
+                float widthValue= outlineBs;
                 SpinnerNumberModel outlineWidthModel = new SpinnerNumberModel(widthValue, 1, 10, 1);
                 JSpinner outlineWidthSpinner = new JSpinner(outlineWidthModel);
                 Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
@@ -106,7 +106,7 @@ public class DrawingActions {
                 if (option == 0) {
                     widthValue = outlineWidthModel.getNumber().intValue();
                 }
-                outlineBs = new BasicStroke(widthValue, outlineBs.getEndCap(), outlineBs.getLineJoin());
+                outlineBs = widthValue;
 
             }
         });
@@ -140,7 +140,7 @@ public class DrawingActions {
         JButton editLineWidth = new JButton(b.getString("Edit_Line_Width"));
         editLineWidth.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                float widthValue= lineBs.getLineWidth();
+                float widthValue= lineBs;
                 SpinnerNumberModel lineWidthModel = new SpinnerNumberModel(widthValue, 1, 10, 1);
                 JSpinner lineWidthSpinner = new JSpinner(lineWidthModel);
                 Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
@@ -151,7 +151,7 @@ public class DrawingActions {
                 if (option == 0) {
                     widthValue = lineWidthModel.getNumber().intValue();
                 }
-                lineBs = new BasicStroke(widthValue, lineBs.getEndCap(), lineBs.getLineJoin());
+                lineBs = widthValue;
 
             }
         });

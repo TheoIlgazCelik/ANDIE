@@ -23,8 +23,8 @@ public class DrawShape implements ImageOperation, java.io.Serializable{
     private int y;
     private int height;
     private int width;
-    private BasicStroke outlineBs;
-    public DrawShape(Color fillCol, Color outlineCol, int selectedShape, boolean outline, boolean fill, int width, int height, int x, int y, BasicStroke outlineBs){
+    private float outlineBs;
+    public DrawShape(Color fillCol, Color outlineCol, int selectedShape, boolean outline, boolean fill, int width, int height, int x, int y, float outlineBs){
         this.fillCol = fillCol;
         this.outlineCol = outlineCol;
         this.selectedShape = selectedShape;
@@ -50,7 +50,7 @@ public class DrawShape implements ImageOperation, java.io.Serializable{
     BufferedImage output = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());
     output.setData(input.getData());
     Graphics2D g = (Graphics2D) output.createGraphics();
-    g.setStroke(outlineBs);
+    g.setStroke(new BasicStroke(outlineBs));
     switch (selectedShape){
         case 0:
           if (fill) {

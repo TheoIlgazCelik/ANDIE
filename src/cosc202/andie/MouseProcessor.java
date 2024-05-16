@@ -77,8 +77,8 @@ public class MouseProcessor extends MouseAdapter {
   int selectedShape;
   boolean outline;
   boolean fill;
-  BasicStroke lineBs;
-  BasicStroke outlineBs;
+  float lineBs;
+  float outlineBs;
 
   /** Mouse button flag */
   private boolean leftMouseButtonActive;
@@ -101,10 +101,10 @@ public class MouseProcessor extends MouseAdapter {
     this.MAX_Y = panel.getImage().getCurrentImage().getHeight() - 1;
     this.leftMouseButtonActive = false;
   }
-  public void setLineBs(BasicStroke lineBs) {
+  public void setLineBs(float lineBs) {
       this.lineBs = lineBs;
   }
-  public void setOutlineBs(BasicStroke outlineBs) {
+  public void setOutlineBs(float outlineBs) {
       this.outlineBs = outlineBs;
   }
   public void setFillCol(Color fillCol){
@@ -238,7 +238,7 @@ public class MouseProcessor extends MouseAdapter {
       case DRAWING_OP:
         switch (selectedShape) {
           case 0:
-          g2d.setStroke(outlineBs);
+          g2d.setStroke(new BasicStroke(outlineBs));
           if (fill) {
             g2d.setColor(fillCol);
             g2d.drawRect(x3,y3,width,height);
@@ -250,7 +250,7 @@ public class MouseProcessor extends MouseAdapter {
           }
           break;
           case 1:
-          g2d.setStroke(outlineBs);
+          g2d.setStroke(new BasicStroke(outlineBs));
           if (fill) {
             g2d.setColor(fillCol);
             g2d.drawOval(x3,y3,width,height);
@@ -262,7 +262,7 @@ public class MouseProcessor extends MouseAdapter {
           }
           break;
           case 2:
-            g2d.setStroke(lineBs);
+            g2d.setStroke(new BasicStroke(lineBs));
             g2d.setColor(fillCol);
             g2d.drawLine(x1, y1, x2, y2);
             break;
