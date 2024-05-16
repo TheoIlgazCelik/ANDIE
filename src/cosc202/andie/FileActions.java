@@ -113,6 +113,7 @@ public class FileActions {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open(imageFilepath);
+                    target.clearDrawingMode();
                 } catch (Exception ex) {
                     Object[] options = {b.getString("Ok")};
                     JOptionPane.showOptionDialog(fileChooser, b.getString("Choose_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
