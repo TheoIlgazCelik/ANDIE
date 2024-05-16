@@ -185,11 +185,11 @@ public class DrawingActions {
             if (oval.isSelected())selectedShape = 1;
             if (line.isSelected())selectedShape = 2;
         }
-        if (fill){
+        if (fill && option ==0){
             JColorChooser jc = new JColorChooser(this.fillCol);
             fillCol=JColorChooser.showDialog(jc, b.getString("Color_Of")+" "+b.getString("Fill"), fillCol);
         }
-        if (outline){
+        if (outline && option ==0){
             JColorChooser jc = new JColorChooser(this.outlineCol);
             outlineCol=JColorChooser.showDialog(jc, b.getString("Color_Of")+" "+b.getString("Outline"), outlineCol);
         }
