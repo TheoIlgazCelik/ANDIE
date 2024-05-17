@@ -30,7 +30,7 @@ build-job:       # This job runs in the build stage, which runs first.
 unit-test-job:   # This job runs in the test stage.
   tags:
     - docker
-  image: eclipse-temurin:17
+  image: gradle:8-jdk17-alpine
   stage: test
   script:
     - echo "Attemting to run unit test..."
