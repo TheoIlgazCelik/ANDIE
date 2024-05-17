@@ -36,6 +36,14 @@ dependencies {
 
 }
 
+jar {
+    manifest {
+        attributes(
+            'Main-Class': defaultMainClassName
+        )
+    }
+}
+
 test {
     useJUnitPlatform();
 

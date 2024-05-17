@@ -202,8 +202,7 @@ class EditableImage {
             // elements within the Stack, i.e., a non-ImageOperation.
             @SuppressWarnings("unchecked")
             Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
-            ops = opsFromFile;
-            redoOps.clear();
+            ops.addAll(opsFromFile);
             objIn.close();
             fileIn.close();
             hasUnsavedChanges = true;

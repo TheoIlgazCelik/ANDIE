@@ -170,5 +170,6 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 ### Unsaved Changes
 - Closing the window always prompts the user to save their changes if they haven't done so, rather than checking if there are unsaved changes to save.
 ### Colour Cycling
-- Colour channels can't yet be specified by the user. Currently they are shifted one place to the right when the cycle colour channel function is triggered.
-### 
+- Colour channels can't yet be specified by the user. Currently they are shifted one place to the right when the cycle colour channel function is triggered. 
+## Documentation
+https://cosc202-jit.cspages.otago.ac.nz/andie/docs/cosc202/andie/package-summary.html

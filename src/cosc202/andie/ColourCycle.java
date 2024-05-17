@@ -54,3 +54,4 @@ public class ColourCycle implements ImageOperation, java.io.Serializable {
         return input;
     }
 }
+ 
