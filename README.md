@@ -1,7 +1,7 @@
 #  **ANDIE**
 
 ## Instructions
-* Build and run program via Gradle. Gradle for java is a sophisticated build tool that when used, results in faster run times and less error prone compilation of code. This is important for this project specifically as otherwise Visual Studio code may have issues in locating the language bundle files required for the multilingual feature. 
+* To run the program open Gradle tab to the side of VSC and naviagte through tasks to the application folder, then execute the run file to start the program via Gradle. Gradle for java is a sophisticated build tool that when used, results in faster run times and less error prone compilation of code. This is important for this project specifically as otherwise Visual Studio code may have issues in locating the language bundle files required for the multilingual feature. 
 * Have fun utilizing this image editor.
 
 ## About the project:
@@ -11,6 +11,18 @@
 This was built with java, within the VS code integrated development environment.
 
 ## **Features:**
+## Given Features:
+* Save action
+* Open action
+* SaveAs action
+* Exit action 
+* Zoom actions
+* Undo action
+* Redo action
+* Mean filter 
+* Convert to grey 
+
+## Part 1 Features:
 * Sharpen filter
 * Gaussian blur filter
 * Median filter
@@ -21,6 +33,8 @@ This was built with java, within the VS code integrated development environment.
 * Image rotations
 * Export image
 * Image flipping
+
+# Part 2 Features:
 * Extended filters
 * Filters with negative results
 * Emboss and edge detection filters
@@ -35,6 +49,11 @@ This was built with java, within the VS code integrated development environment.
 * Drawing functions – rectangle, ellipse, line
 * Macros for record and replay of operations
 
+# Extension features:
+* Colour options for draw function on outline and fill
+* Edit line/outline width in draw function
+* Convert alpha values to checkerboard upon opening image with transparency
+
 
 ## **Folder Structure**
 
@@ -44,6 +63,8 @@ The workspace contains two folders by default, where:
 - `gradle`: the folder to maintain build dependencies
 
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+
+The unit test files are generated and ran through the `test` folder
 
 > If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
 
@@ -68,6 +89,10 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 * Error Avoidance/prevention
 
+* Continuous Integration handling
+
+* Unit tests 
+
 * General Support on other features
 
 ### Ilgaz
@@ -88,9 +113,11 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 * Colour channel cycling
 
-* Filters with negative results
+* Keyboard shortcuts, including keeping it up to date with new feature additions
 
-* Crop to selection
+* Documentation checking and handling
+
+* README file handling
 
 * Error Avoidance/prevention
 
@@ -105,6 +132,10 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 * Block averaging
 
+* Documentation checking and handling
+
+* README file handling
+
 * Error Avoidance/prevention
 
 * General Support on other features
@@ -116,7 +147,7 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 * Median Filter
 
-* Extended filters
+* Extended filters / Filter with negative results
 
 * Mouse selection of rectangular regions
 
@@ -124,15 +155,20 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 * Error Avoidance/prevention
 
+* Unit tests 
+
 * General Support on other features
 
 ## How our code was tested
-* Unit testing via the J-Unit5 framework for java
 * Print line Testing
-* Continuous integration 
+### JUnit 5
+- Through utilising the JUnit 5 framework for java, we created test cases for chosen features and compared the expected values to the output values determining if they equal each other 
+### Continuous Integration
+- We have implemented continuous integration within our project, by utulising this framework we are able to determine if the tests still pass with each commit
 
 ## Known issues and future improvements
 ### Unsaved Changes
 - Closing the window always prompts the user to save their changes if they haven't done so, rather than checking if there are unsaved changes to save.
 ### Colour Cycling
 - Colour channels can't yet be specified by the user. Currently they are shifted one place to the right when the cycle colour channel function is triggered.
+### 
