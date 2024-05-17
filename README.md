@@ -104,6 +104,8 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 * Drawing functions
 
+* Unit tests
+
 * Error Avoidance/prevention
 
 * General Support on other features
