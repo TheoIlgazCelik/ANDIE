@@ -310,9 +310,17 @@ public class ColourActions {
          * @param e The event triggering this callback
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(colourCycle);
-            target.repaint();
-            target.getParent().revalidate();
+            try{
+                target.getImage().apply(colourCycle);
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                //JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
+                Object[] options = {b.getString("Ok")};
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
+            }
+            
         }
     }
 }
