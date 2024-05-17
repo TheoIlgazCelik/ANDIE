@@ -68,5 +68,8 @@ pages: # publish Javadoc website
       - public
   only:
   - main
+
+  baseurl:
+  - "/blog"
   
 
