@@ -36,7 +36,7 @@ import java.util.*;
  */
 public class Andie {
     /** File path for main ANDIE icon. */
-    private static final String iconFilePath = "icon.png";
+    private static final String iconFilePath = "src/cosc202/andie/icon.png";
 
     /**
      * <p>
