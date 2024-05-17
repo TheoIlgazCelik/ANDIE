@@ -16,7 +16,7 @@ import java.awt.Graphics2D;
  * @author Matthew Rae
  * @version 1.0
  */
-public class Crop implements ImageOperation. java.io.Serializable {
+public class Crop implements ImageOperation, java.io.Serializable {
   /** Top left x coordinate of crop area. */
   private final int x;
   /** Top left y coordinate of crop area. */
