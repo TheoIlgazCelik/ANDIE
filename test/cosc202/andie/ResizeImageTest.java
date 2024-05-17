@@ -6,8 +6,24 @@ import java.awt.image.*;
 
 import cosc202.andie.ResizeImage;
 
+
+/**
+ * <p>
+ * Test class to test the image resize function. To assure that the resized output image 
+ * has the correct dimensions
+ * </p>
+ * 
+ * @author Ilgaz Celik
+ * @version 1.0
+ */
 public class ResizeImageTest {
     
+    /**
+     * <p>
+     * Has test percentage value and checks to see if the outputted image has the correct
+     * dimensions when resized to the percentage value
+     * </p>
+     */
     @Test
     void getResizeImageValues(){
         BufferedImage tester = new BufferedImage(100,100,10);
