@@ -134,7 +134,7 @@ public class Andie {
         toolBar.add(saveButton);
 
         // Adding a export icon and button
-        ImageIcon exportIcon = new ImageIcon("src/cosc202/andie/ExportIcon.png");
+        ImageIcon exportIcon = new ImageIcon(Andie.class.getResource("src/cosc202/andie/ExportIcon.png"));
 
         JButton exportButton = new JButton();
         FileExportAction exportAction = fileActions.new FileExportAction(null,
