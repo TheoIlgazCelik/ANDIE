@@ -188,9 +188,9 @@ class EditableImage {
      * @throws Exception
      */
     public void openMacro(String filePath) throws Exception {
-        opsFilename = filePath;
+        // opsFilename = filePath;
         try {
-            FileInputStream fileIn = new FileInputStream(this.opsFilename);
+            FileInputStream fileIn = new FileInputStream(filePath);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
 
             // Silence the Java compiler warning about type casting.
