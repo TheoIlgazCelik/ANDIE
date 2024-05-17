@@ -121,7 +121,7 @@ public class Andie {
         menuBar.add(drawActions.createMenu());
 
         // Adding a save icon and button
-        ImageIcon saveIcon = new ImageIcon("src/SaveIcon.png");
+        ImageIcon saveIcon = new ImageIcon("src/cosc202/andie/SaveIcon.png");
 
         JButton saveButton = new JButton();
         FileSaveAction saveAction = fileActions.new FileSaveAction(null,
@@ -134,7 +134,7 @@ public class Andie {
         toolBar.add(saveButton);
 
         // Adding a export icon and button
-        ImageIcon exportIcon = new ImageIcon("src/ExportIcon.png");
+        ImageIcon exportIcon = new ImageIcon(Andie.class.getResource("src/cosc202/andie/ExportIcon.png"));
 
         JButton exportButton = new JButton();
         FileExportAction exportAction = fileActions.new FileExportAction(null,
@@ -146,7 +146,7 @@ public class Andie {
         toolBar.add(exportButton);
 
         // Adding a open icon and button
-        ImageIcon openIcon = new ImageIcon("src/OpenIcon.png");
+        ImageIcon openIcon = new ImageIcon("src/cosc202/andie/OpenIcon.png");
 
         JButton openButton = new JButton();
         FileOpenAction openAction = fileActions.new FileOpenAction(null,
@@ -158,7 +158,7 @@ public class Andie {
         toolBar.add(openButton);
 
         // Adding a undo icon and button
-        ImageIcon undoIcon = new ImageIcon("src/UndoIcon.png");
+        ImageIcon undoIcon = new ImageIcon("src/cosc202/andie/UndoIcon.png");
 
         JButton undoButton = new JButton();
         UndoAction undoAction = editActions.new UndoAction(null,
@@ -170,7 +170,7 @@ public class Andie {
         toolBar.add(undoButton);
 
         // Adding a redo icon and button
-        ImageIcon redoIcon = new ImageIcon("src/redoIcon.png");
+        ImageIcon redoIcon = new ImageIcon("src/cosc202/andie/redoIcon.png");
 
         JButton redoButton = new JButton(
                 new ImageIcon(redoIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)));
@@ -183,7 +183,7 @@ public class Andie {
         toolBar.add(redoButton);
 
         // Adding a record macro icon and button
-        ImageIcon recordIcon = new ImageIcon("src/StartRecordingIcon.png");
+        ImageIcon recordIcon = new ImageIcon("src/cosc202/andie/StartRecordingIcon.png");
 
         JButton recordButton = new JButton();
         StartRecordingAction recordAction = macroActions.new StartRecordingAction(null,
@@ -195,7 +195,7 @@ public class Andie {
         toolBar.add(recordButton);
 
         // Adding a stop record macro icon and button
-        ImageIcon stopRecordIcon = new ImageIcon("src/StopRecordingIcon.png");
+        ImageIcon stopRecordIcon = new ImageIcon("src/cosc202/andie/StopRecordingIcon.png");
 
         JButton stopRecordButton = new JButton();
         StopRecordingAction stopAction = macroActions.new StopRecordingAction(null,
