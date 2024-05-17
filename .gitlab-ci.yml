@@ -35,6 +35,9 @@ compile-code:
   script:
     - echo 'Attempting to compile the code...'
     - gradle -Dorg.gradle.welcome=never --no-daemon compileJava
+    - echo 'Copying image files...'
+    - mkdir -p build/resources/main/images  # Create directory for images
+    - cp src/cosc202/andie/*.png build/resources/main/images/  # Copy image files
     - echo 'Done.'
   artifacts:
     paths:
