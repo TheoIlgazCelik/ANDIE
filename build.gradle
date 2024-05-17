@@ -16,7 +16,7 @@ repositories {
 sourceSets {
     main {
         resources {
-            srcDirs = ['src']
+            srcDirs = ['src/cosc202/andie']
         }
         java{
             srcDirs = ['src']
