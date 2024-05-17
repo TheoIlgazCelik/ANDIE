@@ -34,8 +34,7 @@ unit-test-job:   # This job runs in the test stage.
   stage: test
   script:
     - echo "Attemting to run unit test..."
-    - chmod u+x gradlew
-    - ./gradlew test
+    - gradle --no-daemon test
 
 lint-test-job:   # This job also runs in the test stage.
   stage: test    # It can run at the same time as unit-test-job (in parallel).
