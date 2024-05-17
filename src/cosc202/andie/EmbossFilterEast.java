@@ -24,7 +24,7 @@ public class EmbossFilterEast implements ImageOperation, java.io.Serializable{
      * </p>
      * 
      * @param input The image to apply the emboss filter to.
-     * @return The resulting (blurred)) image.
+     * @return The resulting image.
      */
     public BufferedImage apply(BufferedImage input){
         float[] array = {0,0,0,1,0,-1,0,0,0};
