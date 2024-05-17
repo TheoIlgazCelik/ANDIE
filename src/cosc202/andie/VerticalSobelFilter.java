@@ -2,8 +2,30 @@ package cosc202.andie;
 
 import java.awt.image.*;
 
+/**
+ * <p>
+ * ImageOperation to apply a vertical sobel filter.
+ * </p>
+ * 
+ * 
+ * @see java.awt.image.ConvolveOp
+ * @author Finn Rimmer
+ * @version 1.0
+ */
 public class VerticalSobelFilter implements ImageOperation, java.io.Serializable{
 
+    /**
+     * <p>
+     * Apply an sobel filter to an image.
+     * </p>
+     * 
+     * <p>
+     * As with many filters, the sobel filter is implemented via convolution.
+     * </p>
+     * 
+     * @param input The image to apply the sobel filter to.
+     * @return The resulting image.
+     */
     public BufferedImage apply(BufferedImage input){
         float[] array = {-0.5f,-1,-0.5f,0,0,0,0.5f,1,0.5f};
         Kernel kernel = new Kernel(3,3,array);

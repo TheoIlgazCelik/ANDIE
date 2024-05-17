@@ -60,6 +60,19 @@ public class ColourActions {
         return fileMenu;
     }
 
+    /**
+     * <p>
+     * Obtains two percentage values from the user using a spinner model
+     * Supporting method for brightness and contrast colour action
+     * </p>
+     * 
+     * @param MIN_VALUE minimum bound for radius (inclusive)
+     * @param MAX_VALUE maximum bound for radius (inclusive)
+     * @param text1 text to label value1
+     * @param text2 text to label value2
+     * 
+     * @return An array of the two percentage values
+     */
     private int[] getTwoPercentagesFromUser(int MIN_VALUE, int MAX_VALUE, String text1, String text2) {
         int percentageOne = 0;
         int percentageTwo = 0;
@@ -297,9 +310,17 @@ public class ColourActions {
          * @param e The event triggering this callback
          */
         public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(colourCycle);
-            target.repaint();
-            target.getParent().revalidate();
+            try{
+                target.getImage().apply(colourCycle);
+                target.repaint();
+                target.getParent().revalidate();
+            } catch(Exception ex){
+                //JOptionPane.showMessageDialog(target,"No image selected", "Error", JOptionPane.ERROR_MESSAGE);
+                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle",Andie.locale);
+                Object[] options = {b.getString("Ok")};
+                JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION, JOptionPane.ERROR_MESSAGE,null,options,null);
+            }
+            
         }
     }
 }

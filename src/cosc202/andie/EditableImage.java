@@ -54,6 +54,9 @@ class EditableImage {
     /** Default format when writing the image to a file*/
     private final static String DEFAULT_EXPORT_FORMAT = "png";
 
+    /** Flag for unsaved changes on the current image. */
+    private boolean hasUnsavedChanges;
+
     /**
      * <p>
      * Create a new EditableImage.
@@ -72,6 +75,7 @@ class EditableImage {
         opsFilename = null;
         exportFileName = null;
         macro = new Stack<ImageOperation>();
+        hasUnsavedChanges = false;
     }
 
     /**
@@ -83,6 +87,10 @@ class EditableImage {
      */
     public boolean hasImage() {
         return current != null;
+    }
+
+    public boolean hasUnsavedChanges() {
+        return hasUnsavedChanges;
     }
 
     /**
@@ -166,6 +174,7 @@ class EditableImage {
             redoOps.clear();
             objIn.close();
             fileIn.close();
+            hasUnsavedChanges = false;
         } catch (Exception ex) {
             // Could be no file or something else. Carry on for now.
             ops.clear();
@@ -179,9 +188,9 @@ class EditableImage {
      * @throws Exception
      */
     public void openMacro(String filePath) throws Exception {
-        opsFilename = filePath;
+        // opsFilename = filePath;
         try {
-            FileInputStream fileIn = new FileInputStream(this.opsFilename);
+            FileInputStream fileIn = new FileInputStream(filePath);
             ObjectInputStream objIn = new ObjectInputStream(fileIn);
 
             // Silence the Java compiler warning about type casting.
@@ -193,10 +202,10 @@ class EditableImage {
             // elements within the Stack, i.e., a non-ImageOperation.
             @SuppressWarnings("unchecked")
             Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
-            ops = opsFromFile;
-            redoOps.clear();
+            ops.addAll(opsFromFile);
             objIn.close();
             fileIn.close();
+            hasUnsavedChanges = true;
         } catch (Exception ex) {
             // Could be no file or something else. Carry on for now.
             ops.clear();
@@ -232,6 +241,7 @@ class EditableImage {
         objOut.writeObject(this.ops);
         objOut.close();
         fileOut.close();
+        hasUnsavedChanges = false;
     }
 
     /**
@@ -291,7 +301,9 @@ class EditableImage {
         save();
     }
 
-
+    public Stack<ImageOperation> getMacroStack(){
+        return macro;
+    }
     
     /**
      * <p>
@@ -306,6 +318,7 @@ class EditableImage {
         if(isRecording){
             macro.add(op);
         }
+        hasUnsavedChanges = true;
     }
 
     /**
@@ -316,6 +329,7 @@ class EditableImage {
     public void undo() {
         redoOps.push(ops.pop());
         refresh();
+        hasUnsavedChanges = true;
     }
 
     /**
@@ -325,7 +339,7 @@ class EditableImage {
      */
     public void redo()  {
         apply(redoOps.pop());
-        
+        hasUnsavedChanges = true;
     }
 
     /**

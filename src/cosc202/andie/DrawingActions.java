@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.*;
@@ -21,14 +22,25 @@ public class DrawingActions {
     
     /** A list of actions for the Draw menu. */
     protected ArrayList<Action> actions;
-    private Color col = new Color(0,0,0);
+    private Color fillCol = new Color(0,0,0);
+    private Color outlineCol = new Color(0,0,0);
     private boolean outline = true;
     private boolean fill = false;
     private int selectedShape = 0; // 0 = rectangle, 1 = oval, 2 = line
+    private float lineBs = new BasicStroke().getLineWidth();
+    private float outlineBs = new BasicStroke().getLineWidth();
 
-
-    private Color getColor(){
-        return col;
+    private float getLineBs(){
+        return lineBs;
+    }
+    private float getOutlineBs(){
+        return outlineBs;
+    }
+    private Color getFillColor(){
+        return fillCol;
+    }
+    private Color getOutlineColor(){
+        return outlineCol;
     }
     private boolean getOutline(){
         return outline;
@@ -66,22 +78,48 @@ public class DrawingActions {
 
         return drawMenu;
     }
+
+    /**
+     * <p>
+     * Method is to set up the values of draw options
+     * set of operations to obtain values for 
+     * shape, fill/outline, colour
+     */
     private void getValuesFromUser() {
-        JColorChooser jc = new JColorChooser(this.col);
-        col=JColorChooser.showDialog(jc, null, col);
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
 
+        // Adding fill and outline button
         JToggleButton fillButton = new JToggleButton(b.getString("Fill"));
+
         JToggleButton outlineButton = new JToggleButton(b.getString("Outline"));
+        JButton editOutlineWidth = new JButton(b.getString("Edit_Outine_Width"));
+        editOutlineWidth.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                float widthValue= outlineBs;
+                SpinnerNumberModel outlineWidthModel = new SpinnerNumberModel(widthValue, 1, 10, 1);
+                JSpinner outlineWidthSpinner = new JSpinner(outlineWidthModel);
+                Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
+                int option = JOptionPane.showOptionDialog(null, outlineWidthSpinner, b.getString("Enter_Outine_Width"),
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
+                // Check the return value from the dialog box.
+                 // Ok = 0, Cancel = 1, Exit = -1
+                if (option == 0) {
+                    widthValue = outlineWidthModel.getNumber().intValue();
+                }
+                outlineBs = widthValue;
+
+            }
+        });
 
         if(fill)fillButton.doClick();
         if(outline)outlineButton.doClick();
 
         ButtonGroup bg = new ButtonGroup();
 
-        JRadioButton rect = new JRadioButton("Rectangle");
-        JRadioButton oval = new JRadioButton("Oval");
-        JRadioButton line = new JRadioButton("Line");
+        // Adding shape buttons
+        JRadioButton rect = new JRadioButton(b.getString("Rectangle"));
+        JRadioButton oval = new JRadioButton(b.getString("Oval"));
+        JRadioButton line = new JRadioButton(b.getString("Line"));
 
         bg.add(rect);
         bg.add(oval);
@@ -99,7 +137,25 @@ public class DrawingActions {
                 break;
         }
 
-        JComponent[] spinners = new JComponent[]{fillButton, outlineButton, rect, oval, line};
+        JButton editLineWidth = new JButton(b.getString("Edit_Line_Width"));
+        editLineWidth.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                float widthValue= lineBs;
+                SpinnerNumberModel lineWidthModel = new SpinnerNumberModel(widthValue, 1, 10, 1);
+                JSpinner lineWidthSpinner = new JSpinner(lineWidthModel);
+                Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
+                int option = JOptionPane.showOptionDialog(null, lineWidthSpinner, b.getString("Enter_Line_Width"),
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
+                // Check the return value from the dialog box.
+                 // Ok = 0, Cancel = 1, Exit = -1
+                if (option == 0) {
+                    widthValue = lineWidthModel.getNumber().intValue();
+                }
+                lineBs = widthValue;
+
+            }
+        });
+        JComponent[] spinners = new JComponent[]{fillButton, outlineButton, editOutlineWidth, rect, oval, line, editLineWidth};
 
         Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
         String optionMessage = b.getString("Drawing_Option_Pane");
@@ -111,7 +167,7 @@ public class DrawingActions {
                 JOptionPane.showOptionDialog(null, b.getString("Line_Outline"), "Error", JOptionPane.CANCEL_OPTION,
                         JOptionPane.ERROR_MESSAGE, null, new Object[]{b.getString("Ok")}, null);
             }else {
-                JOptionPane.showOptionDialog(null, b.getString("Fill_Outline"), "Error", JOptionPane.CANCEL_OPTION,
+                JOptionPane.showOptionDialog(null, b.getString("Fill_Outline"), b.getString("Error"), JOptionPane.CANCEL_OPTION,
                         JOptionPane.ERROR_MESSAGE, null, new Object[]{b.getString("Ok")}, null);
             }
         }
@@ -129,6 +185,15 @@ public class DrawingActions {
             if (oval.isSelected())selectedShape = 1;
             if (line.isSelected())selectedShape = 2;
         }
+        if (fill && option ==0){
+            JColorChooser jc = new JColorChooser(this.fillCol);
+            fillCol=JColorChooser.showDialog(jc, b.getString("Color_Of")+" "+b.getString("Fill"), fillCol);
+        }
+        if (outline && option ==0){
+            JColorChooser jc = new JColorChooser(this.outlineCol);
+            outlineCol=JColorChooser.showDialog(jc, b.getString("Color_Of")+" "+b.getString("Outline"), outlineCol);
+        }
+        
     }
 
     /**
@@ -174,6 +239,7 @@ public class DrawingActions {
             getValuesFromUser();
         }
     }
+
     public class Draw extends ImageAction {
 
         /**
@@ -209,10 +275,13 @@ public class DrawingActions {
          */
         public void actionPerformed(ActionEvent e) {
             MouseProcessor mp = new MouseProcessor(target, 2);
-            mp.setCol(getColor());
+            mp.setFillCol(getFillColor());
+            mp.setOutlineCol(getOutlineColor());
             mp.setFill(getFill());
             mp.setOutline(getOutline());
             mp.setSelectedShape(getSelectedShape());
+            mp.setLineBs(getLineBs());
+            mp.setOutlineBs(getOutlineBs());
             target.setDrawingMode(mp);
         }
     }

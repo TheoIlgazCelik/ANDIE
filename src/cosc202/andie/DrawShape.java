@@ -1,5 +1,6 @@
 package cosc202.andie;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -12,8 +13,9 @@ import java.awt.image.BufferedImage;
  * @author Ilgaz Celik
  * @version 1.0
  */
-public class DrawShape implements ImageOperation{
-    private Color col;
+public class DrawShape implements ImageOperation, java.io.Serializable{
+    private Color fillCol;
+    private Color outlineCol;
     private int selectedShape;
     private boolean outline;
     private boolean fill;
@@ -21,8 +23,10 @@ public class DrawShape implements ImageOperation{
     private int y;
     private int height;
     private int width;
-    public DrawShape(Color col, int selectedShape, boolean outline, boolean fill, int width, int height, int x, int y){
-        this.col = col;
+    private float outlineBs;
+    public DrawShape(Color fillCol, Color outlineCol, int selectedShape, boolean outline, boolean fill, int width, int height, int x, int y, float outlineBs){
+        this.fillCol = fillCol;
+        this.outlineCol = outlineCol;
         this.selectedShape = selectedShape;
         this.outline = outline;
         this.fill = fill;
@@ -30,6 +34,7 @@ public class DrawShape implements ImageOperation{
         this.height = height;
         this.x=x;
         this.y=y;
+        this.outlineBs=outlineBs;
     }
     /**
    * <p>
@@ -45,17 +50,30 @@ public class DrawShape implements ImageOperation{
     BufferedImage output = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());
     output.setData(input.getData());
     Graphics2D g = (Graphics2D) output.createGraphics();
-    g.setColor(col);
+    g.setStroke(new BasicStroke(outlineBs));
     switch (selectedShape){
         case 0:
-          g.drawRect(x,y,width,height);
-          if (fill) g.fillRect(x,y,width,height);
+          if (fill) {
+            g.setColor(fillCol);
+            g.drawRect(x,y,width,height);
+            g.fillRect(x,y,width,height);
+          }
+          if (outline){
+            g.setColor(outlineCol);
+            g.drawRect(x,y,width,height);
+          }
           break;
 
         case 1:
+        if (fill) {
+          g.setColor(fillCol);
           g.drawOval(x,y,width,height);
-          if (fill) g.fillOval(x,y,width,height);
-          break;
+          g.fillOval(x,y,width,height);
+        }
+        if (outline){
+          g.setColor(outlineCol);
+          g.drawOval(x,y,width,height);
+        }
       }
     return output;
   }

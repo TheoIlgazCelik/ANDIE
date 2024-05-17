@@ -1,8 +1,10 @@
 package cosc202.andie;
 
+import java.awt.image.BufferedImage;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Graphics2D;
+import java.awt.BasicStroke;
 import java.awt.Color;
 
 /**
@@ -20,7 +22,7 @@ import java.awt.Color;
  * </p>
  * 
  * @author Matthew Rae
- * @author Iglaz Celik
+ * @author Ilgaz Celik
  * @version 1.0
  */
 public class MouseProcessor extends MouseAdapter {
@@ -66,11 +68,17 @@ public class MouseProcessor extends MouseAdapter {
   /** Draw operation. See {@link DrawShape} and {@link DrawLine}. */
   public static final int DRAWING_OP = 2;
 
+  /** Outline color of {@link Crop} operation */
+  private static final Color CROP_OP_COLOR = new Color(255, 0, 0);
+
   // Drawing Variables
-  Color col;
+  Color fillCol;
+  Color outlineCol;
   int selectedShape;
   boolean outline;
   boolean fill;
+  float lineBs;
+  float outlineBs;
 
   /** Mouse button flag */
   private boolean leftMouseButtonActive;
@@ -93,9 +101,17 @@ public class MouseProcessor extends MouseAdapter {
     this.MAX_Y = panel.getImage().getCurrentImage().getHeight() - 1;
     this.leftMouseButtonActive = false;
   }
-
-  public void setCol(Color col) {
-    this.col = col;
+  public void setLineBs(float lineBs) {
+      this.lineBs = lineBs;
+  }
+  public void setOutlineBs(float outlineBs) {
+      this.outlineBs = outlineBs;
+  }
+  public void setFillCol(Color fillCol){
+    this.fillCol = fillCol;
+  }
+  public void setOutlineCol(Color outlineCol){
+    this.outlineCol = outlineCol;
   }
 
   public void setSelectedShape(int shape) {
@@ -133,7 +149,7 @@ public class MouseProcessor extends MouseAdapter {
 
   /**
    * <p>
-   * Callback for a mouse Drag
+   * Callback for a mouse drag event.
    * </p>
    * 
    * @param e the triggered MouseEvent
@@ -151,15 +167,20 @@ public class MouseProcessor extends MouseAdapter {
 
   /**
    * <p>
-   * Callback for a mouse release
+   * Callback for a mouse release event.
    * </p>
    * 
    * @param e the triggered MouseEvent
    */
   public void mouseReleased(MouseEvent e) {
-    if (leftMouseButtonActive == false) {
+    // right click cancels draw mode
+    if (e.getButton() == MouseEvent.BUTTON3) {
       panel.repaint();
       panel.clearDrawingMode();
+      return;
+    }
+
+    if (leftMouseButtonActive == false) {
       return;
     }
 
@@ -167,9 +188,7 @@ public class MouseProcessor extends MouseAdapter {
     panel.repaint();
     applyToBufferedImage();
 
-    if (op == CROP_OP) {
-      panel.clearDrawingMode();
-    }
+    panel.clearDrawingMode();
 
     leftMouseButtonActive = false;
   }
@@ -186,9 +205,11 @@ public class MouseProcessor extends MouseAdapter {
     y1 = Math.max(MIN_Y, Math.min(MAX_Y, y1));
     y2 = Math.max(MIN_Y, Math.min(MAX_Y, y2));
 
+    // drawing line doesn't use x3/y3 and width/height as below
     if (selectedShape == 2 && op == DRAWING_OP) {
       return;
     }
+
     // ensure x3/y3 represent lesser coordinate and width/height are calculate from
     // greater coordinate
     x3 = Math.min(x1, x2);
@@ -211,27 +232,38 @@ public class MouseProcessor extends MouseAdapter {
   public void applyOnImagePanel(Graphics2D g2d) {
     switch (op) {
       case CROP_OP:
-        g2d.setColor(new Color(255, 0, 0));
+        g2d.setColor(CROP_OP_COLOR);
         g2d.drawRect(x3, y3, width, height);
         break;
       case DRAWING_OP:
-        g2d.setColor(col);
         switch (selectedShape) {
           case 0:
-            g2d.drawRect(x3, y3, width, height);
-
-            if (fill)
-              g2d.fillRect(x3, y3, width, height);
-            break;
-
+          g2d.setStroke(new BasicStroke(outlineBs));
+          if (fill) {
+            g2d.setColor(fillCol);
+            g2d.drawRect(x3,y3,width,height);
+            g2d.fillRect(x3,y3,width,height);
+          }
+          if (outline){
+            g2d.setColor(outlineCol);
+            g2d.drawRect(x3,y3,width,height);
+          }
+          break;
           case 1:
-            g2d.drawOval(x3, y3, width, height);
-
-            if (fill)
-              g2d.fillOval(x3, y3, width, height);
-            break;
-
+          g2d.setStroke(new BasicStroke(outlineBs));
+          if (fill) {
+            g2d.setColor(fillCol);
+            g2d.drawOval(x3,y3,width,height);
+            g2d.fillOval(x3,y3,width,height);
+          }
+          if (outline){
+            g2d.setColor(outlineCol);
+            g2d.drawOval(x3,y3,width,height);
+          }
+          break;
           case 2:
+            g2d.setStroke(new BasicStroke(lineBs));
+            g2d.setColor(fillCol);
             g2d.drawLine(x1, y1, x2, y2);
             break;
         }
@@ -241,23 +273,23 @@ public class MouseProcessor extends MouseAdapter {
 
   /**
    * <p>
-   * Support method to draw shapes on imagel.
+   * Support method to apply {@link ImageOperation} on {@link BufferedImage}.
    * </p>
    * 
    */
-  public void applyToBufferedImage() {
+  private void applyToBufferedImage() {
     switch (this.op) {
       case CROP_OP:
         panel.getImage().apply(new Crop(x3, y3, width, height));
         break;
       case DRAWING_OP:
         if (selectedShape != 2) {
-          panel.getImage().apply(new DrawShape(col, selectedShape, outline, fill, width, height, x3, y3));
+          panel.getImage().apply(new DrawShape(fillCol, outlineCol, selectedShape, outline, fill, width, height, x3, y3, outlineBs));
         } else {
-          panel.getImage().apply(new DrawLine(col, x1, y1, x2, y2));
+          panel.getImage().apply(new DrawLine(fillCol, x1, y1, x2, y2, lineBs));
         }
         break;
     }
   }
-
+  
 }

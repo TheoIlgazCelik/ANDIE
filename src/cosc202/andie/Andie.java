@@ -67,9 +67,7 @@ public class Andie {
     public static JToolBar toolBar;
 
     private static void createAndShowGUI() {
-        
-        
-        
+
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
         try {
@@ -80,34 +78,17 @@ public class Andie {
             System.out.println(e);
         }
 
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-        // prompt user to save any changes before exiting application
-        frame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
-                Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
-
-                int option = JOptionPane.showOptionDialog(null, b.getString("close_dialog"),
-                        null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
-
-                // 0 = OK
-                if (option == 0) {
-                    System.exit(0);
-                }
-            }
-        });
-
         // The main content area is an ImagePanel
         ImagePanel imagePanel = new ImagePanel();
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
-        
+
         // Add in menus for various types of action the user may perform.
         menuBar = new JMenuBar();
 
-        // File menus are pretty standard, so things that usually go in File menus go here.
+        // File menus are pretty standard, so things that usually go in File menus go
+        // here.
         FileActions fileActions = new FileActions();
         menuBar.add(fileActions.createMenu());
 
@@ -115,11 +96,13 @@ public class Andie {
         EditActions editActions = new EditActions();
         menuBar.add(editActions.createMenu());
 
-        // View actions control how the image is displayed, but do not alter its actual content
+        // View actions control how the image is displayed, but do not alter its actual
+        // content
         ViewActions viewActions = new ViewActions();
         menuBar.add(viewActions.createMenu());
 
-        // Filters apply a per-pixel operation to the image, generally based on a local window
+        // Filters apply a per-pixel operation to the image, generally based on a local
+        // window
         FilterActions filterActions = new FilterActions();
         menuBar.add(filterActions.createMenu());
 
@@ -141,76 +124,116 @@ public class Andie {
         ImageIcon saveIcon = new ImageIcon("src/SaveIcon.png");
 
         JButton saveButton = new JButton();
-        FileSaveAction saveAction = fileActions.new FileSaveAction(null, new ImageIcon(saveIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), "Save | Ctrl + S", Integer.valueOf(KeyEvent.VK_S));
+        FileSaveAction saveAction = fileActions.new FileSaveAction(null,
+                new ImageIcon(saveIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)),
+                "Save | Ctrl + S", Integer.valueOf(KeyEvent.VK_S));
         saveButton.setAction(saveAction);
-        
+
         toolBar = new JToolBar();
-        saveButton.setPreferredSize(new Dimension(40,40));
+        saveButton.setPreferredSize(new Dimension(40, 40));
         toolBar.add(saveButton);
 
         // Adding a export icon and button
         ImageIcon exportIcon = new ImageIcon("src/ExportIcon.png");
 
         JButton exportButton = new JButton();
-        FileExportAction exportAction = fileActions.new FileExportAction(null, new ImageIcon(exportIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), "Export | Ctrl + E", Integer.valueOf(0));
+        FileExportAction exportAction = fileActions.new FileExportAction(null,
+                new ImageIcon(exportIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)),
+                "Export | Ctrl + E", Integer.valueOf(0));
         exportButton.setAction(exportAction);
 
-        exportButton.setPreferredSize(new Dimension(40,40));
+        exportButton.setPreferredSize(new Dimension(40, 40));
         toolBar.add(exportButton);
 
         // Adding a open icon and button
         ImageIcon openIcon = new ImageIcon("src/OpenIcon.png");
 
         JButton openButton = new JButton();
-        FileOpenAction openAction = fileActions.new FileOpenAction(null, new ImageIcon(openIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), "Open File | Ctrl + O", Integer.valueOf(KeyEvent.VK_O));
+        FileOpenAction openAction = fileActions.new FileOpenAction(null,
+                new ImageIcon(openIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)),
+                "Open File | Ctrl + O", Integer.valueOf(KeyEvent.VK_O));
         openButton.setAction(openAction);
 
-        openButton.setPreferredSize(new Dimension(40,40));
+        openButton.setPreferredSize(new Dimension(40, 40));
         toolBar.add(openButton);
 
         // Adding a undo icon and button
         ImageIcon undoIcon = new ImageIcon("src/UndoIcon.png");
 
         JButton undoButton = new JButton();
-        UndoAction undoAction = editActions.new UndoAction(null, new ImageIcon(undoIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), "Undo Action | Ctrl + Z", Integer.valueOf(KeyEvent.VK_Z));
+        UndoAction undoAction = editActions.new UndoAction(null,
+                new ImageIcon(undoIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)),
+                "Undo Action | Ctrl + Z", Integer.valueOf(KeyEvent.VK_Z));
         undoButton.setAction(undoAction);
 
-        undoButton.setPreferredSize(new Dimension(40,40));
+        undoButton.setPreferredSize(new Dimension(40, 40));
         toolBar.add(undoButton);
 
         // Adding a redo icon and button
         ImageIcon redoIcon = new ImageIcon("src/redoIcon.png");
 
-        JButton redoButton = new JButton(new ImageIcon(redoIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)));
-        RedoAction redoAction = editActions.new RedoAction(null, new ImageIcon(redoIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), "Redo Action | Ctrl + Y", Integer.valueOf(KeyEvent.VK_Y));
+        JButton redoButton = new JButton(
+                new ImageIcon(redoIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)));
+        RedoAction redoAction = editActions.new RedoAction(null,
+                new ImageIcon(redoIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)),
+                "Redo Action | Ctrl + Y", Integer.valueOf(KeyEvent.VK_Y));
         redoButton.setAction(redoAction);
 
-        redoButton.setPreferredSize(new Dimension(40,40));
+        redoButton.setPreferredSize(new Dimension(40, 40));
         toolBar.add(redoButton);
 
         // Adding a record macro icon and button
         ImageIcon recordIcon = new ImageIcon("src/StartRecordingIcon.png");
 
         JButton recordButton = new JButton();
-        StartRecordingAction recordAction = macroActions.new StartRecordingAction(null, new ImageIcon(recordIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), null, null);
+        StartRecordingAction recordAction = macroActions.new StartRecordingAction(null,
+                new ImageIcon(recordIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)),
+                "Record Macros | Ctrl + P", null);
         recordButton.setAction(recordAction);
 
-        recordButton.setPreferredSize(new Dimension(40,40));
+        recordButton.setPreferredSize(new Dimension(40, 40));
         toolBar.add(recordButton);
-
 
         // Adding a stop record macro icon and button
         ImageIcon stopRecordIcon = new ImageIcon("src/StopRecordingIcon.png");
 
         JButton stopRecordButton = new JButton();
-        StopRecordingAction stopAction = macroActions.new StopRecordingAction(null, new ImageIcon(stopRecordIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)), null, null);
+        StopRecordingAction stopAction = macroActions.new StopRecordingAction(null,
+                new ImageIcon(stopRecordIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)),
+                "Stop Recording | Ctrl + Shft + P", null);
         stopRecordButton.setAction(stopAction);
 
-        stopRecordButton.setPreferredSize(new Dimension(40,40));
+        stopRecordButton.setPreferredSize(new Dimension(40, 40));
         toolBar.add(stopRecordButton);
 
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
+        // prompt user to save any changes before exiting application
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                if (imagePanel.getImage().hasUnsavedChanges()) {
+                    ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+                    Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
 
+                    int option = JOptionPane.showOptionDialog(null, b.getString("close_dialog"),
+                            null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
+
+                    // 0 = OK
+                    if (option == 0) {
+                        try {
+                            imagePanel.getImage().save();
+                        } catch (Exception ex) {
+                            System.out.println(ex);
+                            JOptionPane.showMessageDialog(null, b.getString("No_image"));
+                        }
+                    }
+
+                }
+
+                System.exit(0);
+
+            }
+        });
 
         frame.add(toolBar, BorderLayout.NORTH);
 
