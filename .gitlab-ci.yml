@@ -54,10 +54,10 @@ deploy-job:      # This job runs in the deploy stage.
 pages: # publish Javadoc website
   tags:
     - docker
-  image: eclipse-temurin:17
+  image: gradle:8-jdk17-alpine
   stage: build
   script:
-    - javadoc -d docs src/cosc202/andie/*.java
+    - javadoc -d docs $(find src -name '*.java')
     - mkdir public
     - echo 'test' >public/test.txt
     - mv docs public/
