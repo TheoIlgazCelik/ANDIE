@@ -106,7 +106,7 @@ public class MouseProcessor extends MouseAdapter {
    * <p>
    *  Set line width of draw operation.
    * </p>
-   * @param lineBs
+   * @param lineBs Line width.
    */
   public void setLineBs(float lineBs) {
       this.lineBs = lineBs;
@@ -116,7 +116,7 @@ public class MouseProcessor extends MouseAdapter {
    * <p>
    *  Set line outline width of draw operation.
    * </p>
-   * @param outlineBs
+   * @param outlineBs Outline width.
    */
   public void setOutlineBs(float outlineBs) {
       this.outlineBs = outlineBs;
@@ -126,7 +126,7 @@ public class MouseProcessor extends MouseAdapter {
    * <p>
    *  Set fill color of draw operation.
    * </p>
-   * @param fillCol
+   * @param fillCol Fill {@link Color}
    */
   public void setFillCol(Color fillCol){
     this.fillCol = fillCol;
@@ -136,7 +136,7 @@ public class MouseProcessor extends MouseAdapter {
    * <p>
    *  Set outline color of draw operation.
    * </p>
-   * @param outlineCol
+   * @param outlineCol Outline {@link Color}
    */
   public void setOutlineCol(Color outlineCol){
     this.outlineCol = outlineCol;
@@ -146,7 +146,7 @@ public class MouseProcessor extends MouseAdapter {
    * <p>
    *  Set shape of draw operation.
    * </p>
-   * @param shape
+   * @param shape Shape flag for operation
    */
   public void setSelectedShape(int shape) {
     this.selectedShape = shape;
@@ -156,7 +156,7 @@ public class MouseProcessor extends MouseAdapter {
    * <p>
    *  Outline flag if shape is have an outline.
    * </p>
-   * @param outline
+   * @param outline Has outline.
    */
   public void setOutline(boolean outline) {
     this.outline = outline;
@@ -166,7 +166,7 @@ public class MouseProcessor extends MouseAdapter {
    * <p>
    *  Fill flag if shape is have a filled area.
    * </p>
-   * @param fill
+   * @param fill Has filled area.
    */
   public void setFill(boolean fill) {
     this.fill = fill;
