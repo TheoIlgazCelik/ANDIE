@@ -244,6 +244,7 @@ public class Andie {
         frame.setVisible(true);
     }
 
+    /** Locale object for language handling. */
     public static Locale locale = new Locale("en");
 
     /**
@@ -252,19 +253,15 @@ public class Andie {
      * </p>
      * 
      * <p>
-     * Creates and launches the main GUI in a separate thread.
-     * As a result, this is essentially a wrapper around {@code createAndShowGUI()}.
+     * Creates and launches the main GUI in a separate thread. As a result, this is
+     * essentially a wrapper around {@code createAndShowGUI()}.
      * </p>
      * 
-     *
-     * 
      * @see #createAndShowGUI()
+     * @throws Exception
+     * @param args Command lne arguments.
      */
     public static void main(String[] args) throws Exception {
-        // Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-        // Locale.setDefault(new
-        // Locale(prefs.get("language","en"),prefs.get("country","NZ")));
-        // Locale.setDefault(new Locale("en","NZ"));
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {

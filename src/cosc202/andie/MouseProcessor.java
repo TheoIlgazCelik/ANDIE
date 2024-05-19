@@ -166,7 +166,7 @@ public class MouseProcessor extends MouseAdapter {
    * <p>
    *  Fill flag if shape is have a filled area.
    * </p>
-   * @param outline
+   * @param fill
    */
   public void setFill(boolean fill) {
     this.fill = fill;
