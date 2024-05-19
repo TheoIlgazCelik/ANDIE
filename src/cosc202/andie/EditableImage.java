@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 import java.awt.image.*;
 import javax.imageio.*;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -335,7 +336,9 @@ class EditableImage {
             hasUnsavedChanges = true;
 
         } catch (Exception e) {
-            System.out.println("Couldn't apply operation: " + op.getClass());
+            ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
+            JOptionPane.showOptionDialog(null, b.getString("Op_apply_fail") + ": " + op.getClass(), "Error", JOptionPane.CANCEL_OPTION,
+                        JOptionPane.ERROR_MESSAGE, null, null, null);
         }
     }
 
