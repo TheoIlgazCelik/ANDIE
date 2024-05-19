@@ -2,9 +2,6 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -23,7 +20,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @version 1.0
  */
 public class MacroActions {
-    /*A list of macro actions */
+    /** A list of macro actions. */
     protected ArrayList<Action> actions;
 
      /**

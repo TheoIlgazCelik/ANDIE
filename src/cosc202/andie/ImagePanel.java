@@ -206,10 +206,11 @@ public class ImagePanel extends JPanel {
     /**
      * <p>
      * Clear the current mouse listener and add new mouse listener for
-     * MouseEvent triggered actions. Also sets the cursor to "Draw" cursor
+     * MouseEvent triggered actions. Also sets the cursor to "Draw" cursor.
      * </p>
      * 
-     * @param processor processor The MouseEvent callback to add to this ImagePanel
+     * @param processor processor The MouseEvent callback to add to this ImagePanel.
+     * @return Flag if drawing mode was sucessfully set on this ImagePanel.
      */
     public boolean setDrawingMode(MouseProcessor processor) {
         clearDrawingMode();

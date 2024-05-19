@@ -17,10 +17,9 @@ import java.awt.image.*;
  */
 public class BrightnessAndContrast implements ImageOperation, java.io.Serializable {
     
-    /**
-     * The amount of change for the brightness and contrast
-     */
+    /** Percentage change of brightness */
     private int brightness;
+    /** Percentage change of contrast. */
     private int contrast;
 
     /**

@@ -116,7 +116,9 @@ public class ColourActions {
      * 
      */
     public class BrightnessAndContrastAction extends ImageAction {
+        /** Minimum percentage change for brightness and contrast ops. */
         private final int MIN_VALUE = -100;
+        /** Maximum percentage change for brightness and contrast ops. */
         private final int MAX_VALUE = 100;
 
         /**
@@ -278,9 +280,6 @@ public class ColourActions {
      * @see ColourCycle
      */
     public class ColourCycleAction extends ImageAction {
-        
-        private ColourCycle colourCycle;
-
         /**
          * <p>
          * Create a new colour-cycle action
@@ -293,7 +292,6 @@ public class ColourActions {
          */
         public ColourCycleAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            colourCycle = new ColourCycle();
             putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
 
         }
@@ -301,17 +299,18 @@ public class ColourActions {
         /**
          * <p>
          * Callback for when the colour-cycle action is triggered.
-         * <p>
+         * </p>
          * 
          * <p>
          * This method is called whenever the ColourCycleAction is triggered.
          * It changes the image's colour channels.
+         * </p>
          * 
          * @param e The event triggering this callback
          */
         public void actionPerformed(ActionEvent e) {
             try{
-                target.getImage().apply(colourCycle);
+                target.getImage().apply(new ColourCycle());
                 target.repaint();
                 target.getParent().revalidate();
             } catch(Exception ex){

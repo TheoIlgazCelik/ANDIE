@@ -38,6 +38,11 @@ public class Andie {
     /** File path for main ANDIE icon. */
     private static final String iconFilePath = "icon.png";
 
+    /** Top row of app which holds all parent menus. */
+    public static JMenuBar menuBar;
+    /** Toolbar for commonly used functions. Sits under the menu bar. */
+    public static JToolBar toolBar;
+
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -63,9 +68,6 @@ public class Andie {
      * 
      * 
      */
-    public static JMenuBar menuBar;
-    public static JToolBar toolBar;
-
     private static void createAndShowGUI() {
 
         // Set up the main GUI frame
@@ -242,6 +244,8 @@ public class Andie {
         frame.setVisible(true);
     }
 
+    public static Locale locale = new Locale("en");
+
     /**
      * <p>
      * Main entry point to the ANDIE program.
@@ -256,10 +260,6 @@ public class Andie {
      * 
      * @see #createAndShowGUI()
      */
-    // public static Preferences prefs =
-    // Preferences.userNodeForPackage(Andie.class);
-    public static Locale locale = new Locale("en");
-
     public static void main(String[] args) throws Exception {
         // Preferences prefs = Preferences.userNodeForPackage(Andie.class);
         // Locale.setDefault(new

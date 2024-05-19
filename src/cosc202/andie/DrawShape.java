@@ -14,16 +14,43 @@ import java.awt.image.BufferedImage;
  * @version 1.0
  */
 public class DrawShape implements ImageOperation, java.io.Serializable{
+    /** Fill color of shape.*/
     private Color fillCol;
+    /** Outline color of shape. */
     private Color outlineCol;
+    /** Flag for which shape is to draw. */
     private int selectedShape;
+    /** Flag if the shape includes an outline. */
     private boolean outline;
+    /** Flag if the shape is filled inside the outline. */
     private boolean fill;
+    /** Top-left x co-ordinate of shape. */
     private int x;
+    /** Top-left y co-ordinate of shape. */
     private int y;
+    /** Height of shape to draw. */
     private int height;
+    /** Width of shape to draw. */
     private int width;
+    /** Outline width of shape. */
     private float outlineBs;
+
+    /**
+   * <p>
+   * Construct a DrawShape with multiple custom options.
+   * </p>
+   * 
+   * @param fillCol Fill color of shape.
+   * @param outlineCol Outline color of shape.
+   * @param selectedShape Flag for which shape is to draw.
+   * @param outline Flag if the shape includes an outline.
+   * @param fill Flag if the shape is filled inside the outline.
+   * @param width Width of shape to draw.
+   * @param height Height of shape to draw.
+   * @param x Top-left x co-ordinate of shape.
+   * @param y Top-left y co-ordinate of shape.
+   * @param outlineBs Outline width of shape.
+   */
     public DrawShape(Color fillCol, Color outlineCol, int selectedShape, boolean outline, boolean fill, int width, int height, int x, int y, float outlineBs){
         this.fillCol = fillCol;
         this.outlineCol = outlineCol;

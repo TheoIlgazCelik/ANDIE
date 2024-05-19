@@ -20,7 +20,6 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
      * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
     private int radius;
-    public float[] array;
 
     /**
      * <p>
@@ -64,7 +63,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
         //Initialising and declaring required variables
         int size = (2*radius+1) * (2*radius+1);
-        this.array = new float[size];
+        float[] array = new float[size];
         double sum = 0;
         double sigma = (double)radius/3;
 

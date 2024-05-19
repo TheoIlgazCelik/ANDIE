@@ -1,30 +1,47 @@
 package cosc202.andie;
 
 import java.awt.image.*;
+
 /**
  * <p>
  * ImageOperation to apply a block averaging filter.
  * </p>
  * 
  * <p>
- * A block averaging filter works to provide a pixelated view of an image by taking the average pixel
- * values of pixels in a chosen radius and sets each pixels value to this average.
+ * A block averaging filter works to provide a pixelated view of an image by
+ * taking the average pixel values of pixels in a chosen radius and sets each
+ * pixels value to this average.
  * </p>
  * 
  * @author Aiden O'Brien
  * @version 1.0
  */
 
-public class BlockAverage implements ImageOperation, java.io.Serializable{
+public class BlockAverage implements ImageOperation, java.io.Serializable {
+    /** Radius of block size in x direction. */
     private int x;
+    /** Radius of block size in y direction. */
     private int y;
-     /**
+
+    /**
      * <p>
      * Construct a block averaging filter.
      * </p>
-     * */
-    BlockAverage(){this.x = 1; this.y = 1;};
-    BlockAverage(int x, int y) {this.x = x; this.y = y;}
+     */
+    BlockAverage() {
+        this.x = 1;
+        this.y = 1;
+    };
+
+    /**
+     * <p>
+     * Construct a block averaging filter with given x and y.
+     * </p>
+     */
+    BlockAverage(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
     /**
      * <p>
@@ -32,15 +49,15 @@ public class BlockAverage implements ImageOperation, java.io.Serializable{
      * </p>
      * 
      * <p>
-     * The block averaging filter works by finding the mean of a specified block size and setting each pixel
-     * within that to that average value.
+     * The block averaging filter works by finding the mean of a specified block
+     * size and setting each pixel within that to that average value.
      * </p>
      * 
      * @param input The image to apply the block averaging filter to.
      * @return The resulting image.
-     */ 
+     */
 
-    public BufferedImage apply(BufferedImage input){
+    public BufferedImage apply(BufferedImage input) {
         int width = input.getWidth();
         int height = input.getHeight();
 
@@ -48,8 +65,8 @@ public class BlockAverage implements ImageOperation, java.io.Serializable{
         int size = (2 * x + 1) * (2 * y + 1);
 
         // iterate through each pixel of original image
-        for (int ty = 0; ty < height; ty+=this.y) {
-            for (int tx = 0; tx < width; tx+=this.x) {
+        for (int ty = 0; ty < height; ty += this.y) {
+            for (int tx = 0; tx < width; tx += this.x) {
 
                 int[] neighbourhoodValuesA = new int[size];
                 int[] neighbourhoodValuesR = new int[size];
@@ -90,22 +107,22 @@ public class BlockAverage implements ImageOperation, java.io.Serializable{
                     }
                 }
 
-                //Find the average values
+                // Find the average values
 
                 int meanA = 0;
                 int meanR = 0;
                 int meanG = 0;
                 int meanB = 0;
-                for (int i=0; i<size; i++) {
+                for (int i = 0; i < size; i++) {
                     meanA += neighbourhoodValuesA[i];
                     meanR += neighbourhoodValuesR[i];
                     meanG += neighbourhoodValuesG[i];
                     meanB += neighbourhoodValuesB[i];
                 }
-                meanA = meanA/size;
-                meanR = meanR/size;
-                meanG = meanG/size;
-                meanB = meanB/size;
+                meanA = meanA / size;
+                meanR = meanR / size;
+                meanG = meanG / size;
+                meanB = meanB / size;
 
                 // iterate through neighbourhood once more to set values
                 for (int yOffset = -this.y; yOffset <= this.y; yOffset++) {
@@ -135,9 +152,8 @@ public class BlockAverage implements ImageOperation, java.io.Serializable{
             }
 
         }
-        
+
         return output;
     }
-    
 
 }

@@ -6,54 +6,62 @@ import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.*;
 
- /**
+/**
  * <p>
  * Actions provided by the Drawing menu.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Ilgaz Celik
  * @version 1.0
  */
 public class DrawingActions {
-    
+
     /** A list of actions for the Draw menu. */
     protected ArrayList<Action> actions;
-    private Color fillCol = new Color(0,0,0);
-    private Color outlineCol = new Color(0,0,0);
+    private Color fillCol = new Color(0, 0, 0);
+    private Color outlineCol = new Color(0, 0, 0);
     private boolean outline = true;
     private boolean fill = false;
     private int selectedShape = 0; // 0 = rectangle, 1 = oval, 2 = line
     private float lineBs = new BasicStroke().getLineWidth();
     private float outlineBs = new BasicStroke().getLineWidth();
 
-    private float getLineBs(){
+    private float getLineBs() {
         return lineBs;
     }
-    private float getOutlineBs(){
+
+    private float getOutlineBs() {
         return outlineBs;
     }
-    private Color getFillColor(){
+
+    private Color getFillColor() {
         return fillCol;
     }
-    private Color getOutlineColor(){
+
+    private Color getOutlineColor() {
         return outlineCol;
     }
-    private boolean getOutline(){
+
+    private boolean getOutline() {
         return outline;
     }
-    private boolean getFill(){
+
+    private boolean getFill() {
         return fill;
     }
-    private int getSelectedShape(){
+
+    private int getSelectedShape() {
         return selectedShape;
     }
+
     /**
      * <p>
-     * Create a set of Edit menu actions.
+     * Create a set of Draw menu actions.
      * </p>
      */
     public DrawingActions() {
@@ -72,7 +80,7 @@ public class DrawingActions {
     public JMenu createMenu() {
         JMenu drawMenu = new JMenu("Drawing");
 
-        for (Action action: actions) {
+        for (Action action : actions) {
             drawMenu.add(new JMenuItem(action));
         }
 
@@ -82,7 +90,7 @@ public class DrawingActions {
     /**
      * <p>
      * Method is to set up the values of draw options
-     * set of operations to obtain values for 
+     * set of operations to obtain values for
      * shape, fill/outline, colour
      */
     private void getValuesFromUser() {
@@ -94,15 +102,15 @@ public class DrawingActions {
         JToggleButton outlineButton = new JToggleButton(b.getString("Outline"));
         JButton editOutlineWidth = new JButton(b.getString("Edit_Outine_Width"));
         editOutlineWidth.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                float widthValue= outlineBs;
+            public void actionPerformed(ActionEvent e) {
+                float widthValue = outlineBs;
                 SpinnerNumberModel outlineWidthModel = new SpinnerNumberModel(widthValue, 1, 10, 1);
                 JSpinner outlineWidthSpinner = new JSpinner(outlineWidthModel);
                 Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
                 int option = JOptionPane.showOptionDialog(null, outlineWidthSpinner, b.getString("Enter_Outine_Width"),
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
                 // Check the return value from the dialog box.
-                 // Ok = 0, Cancel = 1, Exit = -1
+                // Ok = 0, Cancel = 1, Exit = -1
                 if (option == 0) {
                     widthValue = outlineWidthModel.getNumber().intValue();
                 }
@@ -111,8 +119,10 @@ public class DrawingActions {
             }
         });
 
-        if(fill)fillButton.doClick();
-        if(outline)outlineButton.doClick();
+        if (fill)
+            fillButton.doClick();
+        if (outline)
+            outlineButton.doClick();
 
         ButtonGroup bg = new ButtonGroup();
 
@@ -125,7 +135,7 @@ public class DrawingActions {
         bg.add(oval);
         bg.add(line);
 
-        switch (selectedShape){
+        switch (selectedShape) {
             case 0:
                 rect.setSelected(true);
                 break;
@@ -139,15 +149,15 @@ public class DrawingActions {
 
         JButton editLineWidth = new JButton(b.getString("Edit_Line_Width"));
         editLineWidth.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                float widthValue= lineBs;
+            public void actionPerformed(ActionEvent e) {
+                float widthValue = lineBs;
                 SpinnerNumberModel lineWidthModel = new SpinnerNumberModel(widthValue, 1, 10, 1);
                 JSpinner lineWidthSpinner = new JSpinner(lineWidthModel);
                 Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
                 int option = JOptionPane.showOptionDialog(null, lineWidthSpinner, b.getString("Enter_Line_Width"),
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
                 // Check the return value from the dialog box.
-                 // Ok = 0, Cancel = 1, Exit = -1
+                // Ok = 0, Cancel = 1, Exit = -1
                 if (option == 0) {
                     widthValue = lineWidthModel.getNumber().intValue();
                 }
@@ -155,45 +165,52 @@ public class DrawingActions {
 
             }
         });
-        JComponent[] spinners = new JComponent[]{fillButton, outlineButton, editOutlineWidth, rect, oval, line, editLineWidth};
+        JComponent[] spinners = new JComponent[] { fillButton, outlineButton, editOutlineWidth, rect, oval, line,
+                editLineWidth };
 
         Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
         String optionMessage = b.getString("Drawing_Option_Pane");
         int option;
         boolean firstTry = true;
         do {
-        if (!firstTry){
-            if (line.isSelected() && (outlineButton.isSelected() || !fillButton.isSelected())){
-                JOptionPane.showOptionDialog(null, b.getString("Line_Outline"), "Error", JOptionPane.CANCEL_OPTION,
-                        JOptionPane.ERROR_MESSAGE, null, new Object[]{b.getString("Ok")}, null);
-            }else {
-                JOptionPane.showOptionDialog(null, b.getString("Fill_Outline"), b.getString("Error"), JOptionPane.CANCEL_OPTION,
-                        JOptionPane.ERROR_MESSAGE, null, new Object[]{b.getString("Ok")}, null);
+            if (!firstTry) {
+                if (line.isSelected() && (outlineButton.isSelected() || !fillButton.isSelected())) {
+                    JOptionPane.showOptionDialog(null, b.getString("Line_Outline"), "Error", JOptionPane.CANCEL_OPTION,
+                            JOptionPane.ERROR_MESSAGE, null, new Object[] { b.getString("Ok") }, null);
+                } else {
+                    JOptionPane.showOptionDialog(null, b.getString("Fill_Outline"), b.getString("Error"),
+                            JOptionPane.CANCEL_OPTION,
+                            JOptionPane.ERROR_MESSAGE, null, new Object[] { b.getString("Ok") }, null);
+                }
             }
-        }
-        option = JOptionPane.showOptionDialog(null, spinners, optionMessage,
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
-        firstTry = false;
-        } while ((!fillButton.isSelected() && !outlineButton.isSelected() && option==0)||(line.isSelected() && (outlineButton.isSelected() || !fillButton.isSelected())));
+            option = JOptionPane.showOptionDialog(null, spinners, optionMessage,
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
+            firstTry = false;
+        } while ((!fillButton.isSelected() && !outlineButton.isSelected() && option == 0)
+                || (line.isSelected() && (outlineButton.isSelected() || !fillButton.isSelected())));
 
         // Check the return value from the dialog box.
         // Ok = 0, Cancel = 1, Exit = -1
         if (option == 0) {
             fill = fillButton.isSelected();
             outline = outlineButton.isSelected();
-            if (rect.isSelected())selectedShape = 0;
-            if (oval.isSelected())selectedShape = 1;
-            if (line.isSelected())selectedShape = 2;
+            if (rect.isSelected())
+                selectedShape = 0;
+            if (oval.isSelected())
+                selectedShape = 1;
+            if (line.isSelected())
+                selectedShape = 2;
         }
-        if (fill && option ==0){
+        if (fill && option == 0) {
             JColorChooser jc = new JColorChooser(this.fillCol);
-            fillCol=JColorChooser.showDialog(jc, b.getString("Color_Of")+" "+b.getString("Fill"), fillCol);
+            fillCol = JColorChooser.showDialog(jc, b.getString("Color_Of") + " " + b.getString("Fill"), fillCol);
         }
-        if (outline && option ==0){
+        if (outline && option == 0) {
             JColorChooser jc = new JColorChooser(this.outlineCol);
-            outlineCol=JColorChooser.showDialog(jc, b.getString("Color_Of")+" "+b.getString("Outline"), outlineCol);
+            outlineCol = JColorChooser.showDialog(jc, b.getString("Color_Of") + " " + b.getString("Outline"),
+                    outlineCol);
         }
-        
+
     }
 
     /**
@@ -201,7 +218,6 @@ public class DrawingActions {
      * Action to undo an {@link ImageOperation}.
      * </p>
      * 
-     * @see EditableImage#undo()
      */
     public class DrawOptions extends ImageAction {
 
@@ -210,18 +226,14 @@ public class DrawingActions {
          * Create a new undo action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         DrawOptions(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
-
-        
-
-
 
         /**
          * <p>
@@ -240,6 +252,12 @@ public class DrawingActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to Draw onto an Image.
+     * </p>
+     * 
+     */
     public class Draw extends ImageAction {
 
         /**
@@ -247,19 +265,15 @@ public class DrawingActions {
          * Create a new undo action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         Draw(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
             putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
         }
-
-        
-
-
 
         /**
          * <p>
