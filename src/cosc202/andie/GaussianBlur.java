@@ -21,6 +21,9 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
      */
     private int radius;
 
+    /** Gaussian blur kernel data. */
+    public float[] array;
+
     /**
      * <p>
      * Construct a Gaussian Blur filter with the given size.
@@ -30,7 +33,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
      * @param radius The radius of the newly constructed Gaussian Blur
      */
     public GaussianBlur(int radius) {
-        this.radius = radius;    
+        this.radius = radius;
     }
 
     /**
@@ -63,7 +66,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
 
         //Initialising and declaring required variables
         int size = (2*radius+1) * (2*radius+1);
-        float[] array = new float[size];
+        this.array = new float[size];
         double sum = 0;
         double sigma = (double)radius/3;
 
