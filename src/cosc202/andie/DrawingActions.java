@@ -21,7 +21,7 @@ import javax.swing.*;
  */
 public class DrawingActions {
 
-    /** A list of actions for the Draw menu. */
+    /** parameters that can be adjusted by draw options */
     protected ArrayList<Action> actions;
     private Color fillCol = new Color(0, 0, 0);
     private Color outlineCol = new Color(0, 0, 0);
@@ -91,16 +91,48 @@ public class DrawingActions {
      * <p>
      * Method is to set up the values of draw options
      * set of operations to obtain values for
-     * shape, fill/outline, colour
+     * shape, fill/outline, colour etc.
      */
     private void getValuesFromUser() {
         ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
 
-        // Adding fill and outline button
+        // Adding all the buttons
         JToggleButton fillButton = new JToggleButton(b.getString("Fill"));
-
         JToggleButton outlineButton = new JToggleButton(b.getString("Outline"));
         JButton editOutlineWidth = new JButton(b.getString("Edit_Outine_Width"));
+        JButton editLineWidth = new JButton(b.getString("Edit_Line_Width"));
+        
+
+        if (fill)
+            fillButton.doClick();
+        if (outline)
+            outlineButton.doClick();
+
+        ButtonGroup bg = new ButtonGroup();
+
+        // Adding shape buttons
+        JRadioButton rect = new JRadioButton(b.getString("Rectangle"));
+        JRadioButton oval = new JRadioButton(b.getString("Oval"));
+        JRadioButton line = new JRadioButton(b.getString("Line"));
+
+        //grouping buttons
+        bg.add(rect);
+        bg.add(oval);
+        bg.add(line);
+
+        switch (selectedShape) {
+            case 0:
+                rect.setSelected(true);
+                break;
+            case 1:
+                oval.setSelected(true);
+                break;
+            case 2:
+                line.setSelected(true);
+                break;
+        }
+
+        // Adding action listeners to buttons
         editOutlineWidth.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 float widthValue = outlineBs;
@@ -118,36 +150,6 @@ public class DrawingActions {
 
             }
         });
-
-        if (fill)
-            fillButton.doClick();
-        if (outline)
-            outlineButton.doClick();
-
-        ButtonGroup bg = new ButtonGroup();
-
-        // Adding shape buttons
-        JRadioButton rect = new JRadioButton(b.getString("Rectangle"));
-        JRadioButton oval = new JRadioButton(b.getString("Oval"));
-        JRadioButton line = new JRadioButton(b.getString("Line"));
-
-        bg.add(rect);
-        bg.add(oval);
-        bg.add(line);
-
-        switch (selectedShape) {
-            case 0:
-                rect.setSelected(true);
-                break;
-            case 1:
-                oval.setSelected(true);
-                break;
-            case 2:
-                line.setSelected(true);
-                break;
-        }
-
-        JButton editLineWidth = new JButton(b.getString("Edit_Line_Width"));
         editLineWidth.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 float widthValue = lineBs;
@@ -165,6 +167,8 @@ public class DrawingActions {
 
             }
         });
+
+        //adding all components to an array of jcomponents
         JComponent[] spinners = new JComponent[] { fillButton, outlineButton, editOutlineWidth, rect, oval, line,
                 editLineWidth };
 
@@ -215,7 +219,7 @@ public class DrawingActions {
 
     /**
      * <p>
-     * Action to undo an {@link ImageOperation}.
+     * Action to edit drawing options
      * </p>
      * 
      */
@@ -223,7 +227,7 @@ public class DrawingActions {
 
         /**
          * <p>
-         * Create a new undo action.
+         * Create a new DrawOptions
          * </p>
          * 
          * @param name     The name of the action (ignored if null).
@@ -237,12 +241,12 @@ public class DrawingActions {
 
         /**
          * <p>
-         * Callback for when the undo action is triggered.
+         * Callback for when the draw options is triggerd
          * </p>
          * 
          * <p>
-         * This method is called whenever the UndoAction is triggered.
-         * It undoes the most recently applied operation.
+         * This method is called whenever the DrawOption is triggered.
+         * It creates a panel to edit variables
          * </p>
          * 
          * @param e The event triggering this callback.
@@ -277,12 +281,12 @@ public class DrawingActions {
 
         /**
          * <p>
-         * Callback for when the undo action is triggered.
+         * Callback for when the draw button is triggered.
          * </p>
          * 
          * <p>
-         * This method is called whenever the UndoAction is triggered.
-         * It undoes the most recently applied operation.
+         * This method is called whenever the Draw is triggered.
+         * it creates a shape with the inputted draw options
          * </p>
          * 
          * @param e The event triggering this callback.

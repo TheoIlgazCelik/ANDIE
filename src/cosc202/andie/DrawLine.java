@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 /**
  * <p>
- * ImageOperation to draw a {@link BufferedImage}.
+ * ImageOperation to draw a line
  * </p>
  * 
  * @author Ilgaz Celik

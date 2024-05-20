@@ -1,17 +1,7 @@
 package cosc202.andie;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
-import java.io.File;
-import java.util.Arrays;
-
-import javax.imageio.ImageIO;
-
 // JUnit
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Stack;
 import java.util.Iterator;
