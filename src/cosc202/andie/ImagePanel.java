@@ -34,9 +34,9 @@ public class ImagePanel extends JPanel {
     private MouseProcessor processor;
 
     /** First checkerboard square {@link Color}. */
-    private static Color color1 = Color.WHITE;
+    private static final Color CHECKERBOARD_COLOR_1 = Color.WHITE;
     /** Second checkerboard square {@link Color}. */
-    private static Color color2 = Color.GRAY;
+    private static final Color CHECKERBOARD_COLOR_2 = Color.GRAY;
     /** Default checkerboard individual square width/height. */
     private final static int CHECKERBOARD_SQUARE_SIZE = 15;
 
@@ -167,7 +167,7 @@ public class ImagePanel extends JPanel {
     private void paintCheckerboard(Graphics2D g2) {
         int endX = getPreferredSize().width;
         int endY = getPreferredSize().height;
-        Color initialColor = color1;
+        Color initialColor = CHECKERBOARD_COLOR_1;
 
         for (int y = 0; y < endY; y += CHECKERBOARD_SQUARE_SIZE) {
             Color color = initialColor;
@@ -175,7 +175,6 @@ public class ImagePanel extends JPanel {
                 // contain checkerboard within image bounds
                 int width = Math.max(0, Math.min(CHECKERBOARD_SQUARE_SIZE, endX - x));
                 int height = Math.max(0, Math.min(CHECKERBOARD_SQUARE_SIZE, endY - y));
-
                 g2.setColor(color);
                 g2.fillRect(x, y, width, height);
 
@@ -195,11 +194,11 @@ public class ImagePanel extends JPanel {
      * @return The alternate color than what was given as parameter.
      */
     private Color swapCheckerboardColor(Color color) {
-        if (color == color1) {
-            return color2;
+        if (color == CHECKERBOARD_COLOR_1) {
+            return CHECKERBOARD_COLOR_2;
         }
 
-        return color1;
+        return CHECKERBOARD_COLOR_1;
 
     }
 
