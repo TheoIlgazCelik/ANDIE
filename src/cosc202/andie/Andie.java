@@ -123,8 +123,7 @@ public class Andie {
         menuBar.add(drawActions.createMenu());
 
         // Adding a save icon and button
-        ImageIcon saveIcon = new ImageIcon("SaveIcon.png");
-        // ImageIcon saveIcon = new ImageIcon(Andie.class.getResource("src/cosc202/andie/SaveIcon.png"));
+        ImageIcon saveIcon = new ImageIcon("src/cosc202/andie/SaveIcon.png");
 
         JButton saveButton = new JButton();
         FileSaveAction saveAction = fileActions.new FileSaveAction(null,
