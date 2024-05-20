@@ -7,7 +7,7 @@ import java.awt.image.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import cosc202.andie.GaussianBlur;
+
 //import cosc202.andie.ImagePanel;
 
 
@@ -18,8 +18,8 @@ import cosc202.andie.GaussianBlur;
  * Test is to ensure that the expected output and test output are identical
  * </p>
  * 
- * @author Finn Rimmer
  * @author Ilgaz Celik
+ * @author Finn Rimmer
  * @version 1.0
  * 
  */

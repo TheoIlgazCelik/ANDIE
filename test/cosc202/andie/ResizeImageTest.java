@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import java.awt.image.*;
 
-import cosc202.andie.ResizeImage;
 
 
 /**

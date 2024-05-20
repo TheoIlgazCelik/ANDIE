@@ -73,17 +73,19 @@ public class BrightnessAndContrast implements ImageOperation, java.io.Serializab
     // iterate through each pixel of input image
     for (int iy = 0; iy < input.getHeight(); iy++) {
         for (int ix = 0; ix < input.getWidth(); ix++) {
+            // retrieving values from current image for each pixel
             int argb = input.getRGB(ix, iy);
             int a = (argb & 0xFF000000) >> 24;
             int r = (argb & 0x00FF0000) >> 16;
             int g = (argb & 0x0000FF00) >> 8;
             int b = (argb & 0x000000FF);
             
-
+            //changing values of each pixel
             int outputR = (int)((1+(double)contrast/100)*((double)r-127.5)+127.5*(1+(double)brightness/100));
             int outputG = (int)((1+(double)contrast/100)*((double)g-127.5)+127.5*(1+(double)brightness/100));
             int outputB = (int)((1+(double)contrast/100)*((double)b-127.5)+127.5*(1+(double)brightness/100));
 
+            //adjusting boundaries
             if (outputR<0){
                 outputR = 0;
             } else if (outputR>255){
@@ -99,10 +101,10 @@ public class BrightnessAndContrast implements ImageOperation, java.io.Serializab
                 outputB = 255;
             }
 
-
+            //outputting values into an int
             int outputRGB = (a << 24) | (outputR << 16) | (outputG << 8) | outputB;
 
-            
+            //setting rgb of image
             output.setRGB(ix, iy, outputRGB);
         }
     }
