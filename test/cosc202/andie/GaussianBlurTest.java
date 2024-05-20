@@ -12,7 +12,7 @@ import java.text.NumberFormat;
 
 
 
-/*
+/**
  * <p>
  * Test class to test the Gaussian Blur filter, has expected output and test output.
  * Test is to ensure that the expected output and test output are identical

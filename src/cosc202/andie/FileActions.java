@@ -175,7 +175,9 @@ public class FileActions {
     }
 
     /**
+     * <p>
      * Action to export your image
+     * </p>
      */
     public class FileExportAction extends ImageAction {
 

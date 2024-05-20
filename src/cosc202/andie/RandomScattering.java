@@ -18,9 +18,7 @@ import java.util.*;
  */
 public class RandomScattering implements ImageOperation, java.io.Serializable {
 
-    /**
-     * The size of filter to apply
-    */
+    /** The size of filter to apply */
     private int radius;
 
     /**

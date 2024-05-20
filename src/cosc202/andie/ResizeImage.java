@@ -19,7 +19,8 @@ import java.awt.image.BufferedImage;
 public class ResizeImage implements ImageOperation, java.io.Serializable {
 
     /**
-     * The percentage change of the resize. A value of 100 is the same size, anything less than 100 is smaller, anything larger than 100 is larger.
+     * The percentage change of the resize. A value of 100 is the same size, 
+     * anything less than 100 is smaller, anything larger than 100 is larger.
      */
     private int percentageIncrease100;
 
