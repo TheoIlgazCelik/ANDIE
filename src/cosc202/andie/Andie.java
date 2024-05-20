@@ -215,21 +215,22 @@ public class Andie {
             public void windowClosing(WindowEvent e) {
                 if (imagePanel.getImage().hasUnsavedChanges()) {
                     ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
-                    Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
 
                     int option = JOptionPane.showOptionDialog(null, b.getString("close_dialog"),
-                            null, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
+                            null, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
-                    // 0 = OK
-                    if (option == 0) {
+                    if (option == JOptionPane.YES_OPTION) {
                         try {
                             imagePanel.getImage().save();
                         } catch (Exception ex) {
                             System.out.println(ex);
                             JOptionPane.showMessageDialog(null, b.getString("No_image"));
+                            return;
                         }
-                    }
 
+                    } else if (option == JOptionPane.CANCEL_OPTION) {
+                        return;
+                    }
                 }
 
                 System.exit(0);
