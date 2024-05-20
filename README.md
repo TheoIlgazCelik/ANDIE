@@ -176,6 +176,7 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 ## How our code was tested
 ### Print line Testing
+- Throughout the development of each features, we tested expected values via Print Line Tests
 ### JUnit 5
 - Through utilising the JUnit 5 framework for java, we created test cases for chosen features and compared the expected values to the output values determining if they equal each other 
 ### Continuous Integration
