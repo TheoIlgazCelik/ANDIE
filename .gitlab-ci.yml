@@ -65,9 +65,7 @@ create-jar:
     stage: package
     script:
       - echo 'Attempting to create JAR file...'
-      # - gradle -Dorg.gradle.welcome=never --no-daemon jar
-      - chmod +x gradlew
-      - ./gradlew jar
+      - gradle -Dorg.gradle.welcome=never --no-daemon jar
       - echo 'Done.'
     artifacts:
       paths:
