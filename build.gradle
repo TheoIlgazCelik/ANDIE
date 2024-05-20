@@ -44,6 +44,14 @@ jar {
     }
 }
 
+processResources {
+    // resources outside of the default 'main' sourceSet are not processed by default
+    from(project.sourceSets.main.resources) {
+        duplicatesStrategy = 'exclude';
+        include "**/*.*";
+    }
+}
+
 test {
     useJUnitPlatform();
 
