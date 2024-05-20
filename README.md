@@ -141,6 +141,8 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 * Error Avoidance/prevention
 
+* Unit testing
+
 * General Support on other features
 
 ### Matt
