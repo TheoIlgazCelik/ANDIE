@@ -1,7 +1,8 @@
 #  **ANDIE**
-
+## Documentation
+https://cosc202-jit.cspages.otago.ac.nz/andie/docs/cosc202/andie/package-summary.html
 ## Instructions
-* To run the program open Gradle tab to the side of VSC and naviagte through tasks to the application folder, then execute the run file to start the program via Gradle. Gradle for java is a sophisticated build tool that when used, results in faster run times and less error prone compilation of code. This is important for this project specifically as otherwise Visual Studio code may have issues in locating the language bundle files required for the multilingual feature. 
+* To run the program open the code with an IDE of your choice that has Gradle support. Gradle for java is a sophisticated build tool that when used, results in faster run times and less error prone compilation of code. This is important for this project specifically as otherwise Visual Studio code may have issues in locating the language bundle files required for the multilingual feature. The project should be run using Gradle's "Run" function found inside the application class.
 * Have fun utilizing this image editor.
 
 
@@ -35,7 +36,7 @@ This was built with java, within the VS code integrated development environment.
 * Export image
 * Image flipping
 
-# Part 2 Features:
+## Part 2 Features:
 * Extended filters
 * Filters with negative results
 * Emboss and edge detection filters
@@ -50,11 +51,12 @@ This was built with java, within the VS code integrated development environment.
 * Drawing functions – rectangle, ellipse, line
 * Macros for record and replay of operations
 
-# Extension features:
+### Extension features:
 * Colour options for draw function on outline and fill
 * Edit line/outline width in draw function
 * Convert alpha values to checkerboard upon opening image with transparency
 
+---
 
 ## **Folder Structure**
 
@@ -72,6 +74,8 @@ The unit test files are generated and ran through the `test` folder
 ## **Dependency Management**
 
 The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+
+---
 
 ## Who has worked on each feature
 
@@ -104,6 +108,8 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 * Brightness and contrast
 
 * Drawing functions
+
+* Extension Features
 
 * Unit tests
 
@@ -158,23 +164,24 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 * Crop to selection
 
+* Extension Features
+
 * Error Avoidance/prevention
 
 * Unit tests 
 
 * General Support on other features
 
+---
+
 ## How our code was tested
 ### Print line Testing
+- Throughout the development of each features, we tested expected values via Print Line Tests
 ### JUnit 5
 - Through utilising the JUnit 5 framework for java, we created test cases for chosen features and compared the expected values to the output values determining if they equal each other 
 ### Continuous Integration
 - We have implemented continuous integration within our project, by utulising this framework we are able to determine if the tests still pass with each commit
-
+---
 ## Known issues and future improvements
-### Unsaved Changes
-- Closing the window always prompts the user to save their changes if they haven't done so, rather than checking if there are unsaved changes to save.
 ### Colour Cycling
 - Colour channels can't yet be specified by the user. Currently they are shifted one place to the right when the cycle colour channel function is triggered. 
-## Documentation
-https://cosc202-jit.cspages.otago.ac.nz/andie/docs/cosc202/andie/package-summary.html

@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 /**
  * <p>
- * ImageOperation to Resize an Immage.
+ * ImageOperation to Resize an Image.
  * </p>
  * <p> 
  * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
