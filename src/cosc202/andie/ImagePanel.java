@@ -165,8 +165,8 @@ public class ImagePanel extends JPanel {
     }
 
     private void paintCheckerboard(Graphics2D g2) {
-        int endX = getPreferredSize().width;
-        int endY = getPreferredSize().height;
+        int endX = (int) (getPreferredSize().width / scale);
+        int endY = (int) (getPreferredSize().height / scale);
         Color initialColor = CHECKERBOARD_COLOR_1;
 
         for (int y = 0; y < endY; y += CHECKERBOARD_SQUARE_SIZE) {
