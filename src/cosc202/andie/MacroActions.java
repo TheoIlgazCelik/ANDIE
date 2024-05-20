@@ -130,6 +130,10 @@ public class MacroActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e){
+            if (target.getImage().isRecordingMacros() == false) {
+                return;
+            }
+            
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showSaveDialog(target);
             

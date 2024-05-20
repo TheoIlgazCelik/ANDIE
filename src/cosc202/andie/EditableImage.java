@@ -337,8 +337,9 @@ class EditableImage {
 
         } catch (Exception e) {
             ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
-            JOptionPane.showOptionDialog(null, b.getString("Op_apply_fail") + ": " + op.getClass(), "Error", JOptionPane.CANCEL_OPTION,
-                        JOptionPane.ERROR_MESSAGE, null, null, null);
+            JOptionPane.showOptionDialog(null, b.getString("Op_apply_fail") + ": " + op.getClass(), "Error",
+                    JOptionPane.CANCEL_OPTION,
+                    JOptionPane.ERROR_MESSAGE, null, null, null);
         }
     }
 
@@ -375,6 +376,13 @@ class EditableImage {
      */
     public void setRecordingFalse() {
         this.isRecording = false;
+    }
+
+    /**
+     * Returns true if macros are currently recording, false otherwise.
+     */
+    public boolean isRecordingMacros() {
+        return this.isRecording;
     }
 
     /**
