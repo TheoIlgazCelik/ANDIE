@@ -58,7 +58,6 @@ public class LangActions {
      * Action to change the language to spanish
      * </p>
      * 
-     * @see EditableImage#open(String)
      */
     public class LangSpanishAction extends ImageAction {
         /**
@@ -99,7 +98,6 @@ public class LangActions {
      * Action to change the language to English
      * </p>
      * 
-     * @see EditableImage#open(String)
      */
     public class LangEnglishAction extends ImageAction {
         /**
@@ -135,6 +133,12 @@ public class LangActions {
 
     }
 
+    /**
+     * <p>
+     * Action to change the language to Te Reo Maori
+     * </p>
+     * 
+     */
     public class LangMaoriAction extends ImageAction {
         /**
          * <p>

@@ -10,8 +10,27 @@ import java.text.NumberFormat;
 import cosc202.andie.GaussianBlur;
 //import cosc202.andie.ImagePanel;
 
+
+
+/*
+ * <p>
+ * Test class to test the Gaussian Blur filter, has expected output and test output.
+ * Test is to ensure that the expected output and test output are identical
+ * </p>
+ * 
+ * @author Finn Rimmer
+ * @author Ilgaz Celik
+ * @version 1.0
+ * 
+ */
 public class GaussianBlurTest {
     
+
+    /**
+     *  <p>
+     * Test method {@link GaussianBlur}
+     * </p>
+     */
     @Test
     void getGaussianArrayValues(){
         BufferedImage tester = new BufferedImage(10,10,10);

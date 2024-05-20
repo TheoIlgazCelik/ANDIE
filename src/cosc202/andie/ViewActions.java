@@ -88,29 +88,33 @@ public class ViewActions {
         }
 
         public void actionPerformed(ActionEvent e) {
-
             int sizePercentageIncrease100 = 100;
             ResourceBundle b = ResourceBundle.getBundle("cosc202.andie.LanguageBundle", Andie.locale);
-            SpinnerNumberModel increaseModel = new SpinnerNumberModel(100, 1, 1000, 1); // new spinner model
+            SpinnerNumberModel increaseModel = new SpinnerNumberModel(100, 1, 1000, 1);
             JSpinner increaseSpinner = new JSpinner(increaseModel);
             Object[] options2 = { b.getString("Ok"), b.getString("Cancel") };
             int option = JOptionPane.showOptionDialog(null, increaseSpinner, b.getString("Enter_size"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options2, null);
-            if (option == JOptionPane.CANCEL_OPTION) {
+
+            // Cancel button
+            if (option == 1) {
                 return;
-            } else if (option == JOptionPane.OK_OPTION) {
+
+            // OK button
+            } else if (option == 0) {
                 sizePercentageIncrease100 = increaseModel.getNumber().intValue();
             }
+
             try {
                 target.getImage().apply(new ResizeImage(sizePercentageIncrease100));
                 target.repaint();
                 target.getParent().revalidate();
+
             } catch (Exception ex) {
-                // JOptionPane.showMessageDialog(target,"No image selected", "Error",
-                // JOptionPane.ERROR_MESSAGE);
                 Object[] options = { b.getString("Ok") };
                 JOptionPane.showOptionDialog(target, b.getString("No_image"), "Error", JOptionPane.CANCEL_OPTION,
                         JOptionPane.ERROR_MESSAGE, null, options, null);
+
             }
         }
     }

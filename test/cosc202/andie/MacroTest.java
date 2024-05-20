@@ -16,8 +16,25 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Stack;
 import java.util.Iterator;
 
+
+
+/**
+ * <p>
+ * Test class to test recording of macros, through the use of stacks to determine whether the test stack of 
+ * operations matches the expected stack of operations when recording macros
+ * </p>
+ * 
+ * @author Finn Rimmer
+ * @version 1.0
+ */
 public class MacroTest {
     
+    /**
+     * <p> Test method for {@link MacroActions}.
+     * Creates test stack and a real stack of operations 
+     * testing to see whether they are identical
+     * </p>
+     */
     @Test
     void macroStackTest(){
 

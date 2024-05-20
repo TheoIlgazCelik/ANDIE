@@ -38,6 +38,11 @@ public class Andie {
     /** File path for main ANDIE icon. */
     private static final String iconFilePath = "icon.png";
 
+    /** Top row of app which holds all parent menus. */
+    public static JMenuBar menuBar;
+    /** Toolbar for commonly used functions. Sits under the menu bar. */
+    public static JToolBar toolBar;
+
     /**
      * <p>
      * Launches the main GUI for the ANDIE program.
@@ -63,9 +68,6 @@ public class Andie {
      * 
      * 
      */
-    public static JMenuBar menuBar;
-    public static JToolBar toolBar;
-
     private static void createAndShowGUI() {
 
         // Set up the main GUI frame
@@ -121,7 +123,7 @@ public class Andie {
         menuBar.add(drawActions.createMenu());
 
         // Adding a save icon and button
-        ImageIcon saveIcon = new ImageIcon("src/SaveIcon.png");
+        ImageIcon saveIcon = new ImageIcon("src/cosc202/andie/SaveIcon.png");
 
         JButton saveButton = new JButton();
         FileSaveAction saveAction = fileActions.new FileSaveAction(null,
@@ -134,7 +136,7 @@ public class Andie {
         toolBar.add(saveButton);
 
         // Adding a export icon and button
-        ImageIcon exportIcon = new ImageIcon("src/ExportIcon.png");
+        ImageIcon exportIcon = new ImageIcon("src/cosc202/andie/ExportIcon.png");
 
         JButton exportButton = new JButton();
         FileExportAction exportAction = fileActions.new FileExportAction(null,
@@ -146,7 +148,7 @@ public class Andie {
         toolBar.add(exportButton);
 
         // Adding a open icon and button
-        ImageIcon openIcon = new ImageIcon("src/OpenIcon.png");
+        ImageIcon openIcon = new ImageIcon("src/cosc202/andie/OpenIcon.png");
 
         JButton openButton = new JButton();
         FileOpenAction openAction = fileActions.new FileOpenAction(null,
@@ -158,7 +160,7 @@ public class Andie {
         toolBar.add(openButton);
 
         // Adding a undo icon and button
-        ImageIcon undoIcon = new ImageIcon("src/UndoIcon.png");
+        ImageIcon undoIcon = new ImageIcon("src/cosc202/andie/UndoIcon.png");
 
         JButton undoButton = new JButton();
         UndoAction undoAction = editActions.new UndoAction(null,
@@ -170,7 +172,7 @@ public class Andie {
         toolBar.add(undoButton);
 
         // Adding a redo icon and button
-        ImageIcon redoIcon = new ImageIcon("src/redoIcon.png");
+        ImageIcon redoIcon = new ImageIcon("src/cosc202/andie/redoIcon.png");
 
         JButton redoButton = new JButton(
                 new ImageIcon(redoIcon.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH)));
@@ -183,7 +185,7 @@ public class Andie {
         toolBar.add(redoButton);
 
         // Adding a record macro icon and button
-        ImageIcon recordIcon = new ImageIcon("src/StartRecordingIcon.png");
+        ImageIcon recordIcon = new ImageIcon("src/cosc202/andie/StartRecordingIcon.png");
 
         JButton recordButton = new JButton();
         StartRecordingAction recordAction = macroActions.new StartRecordingAction(null,
@@ -195,7 +197,7 @@ public class Andie {
         toolBar.add(recordButton);
 
         // Adding a stop record macro icon and button
-        ImageIcon stopRecordIcon = new ImageIcon("src/StopRecordingIcon.png");
+        ImageIcon stopRecordIcon = new ImageIcon("src/cosc202/andie/StopRecordingIcon.png");
 
         JButton stopRecordButton = new JButton();
         StopRecordingAction stopAction = macroActions.new StopRecordingAction(null,
@@ -242,29 +244,24 @@ public class Andie {
         frame.setVisible(true);
     }
 
+    /** Locale object for language handling. */
+    public static Locale locale = new Locale("en");
+
     /**
      * <p>
      * Main entry point to the ANDIE program.
      * </p>
      * 
      * <p>
-     * Creates and launches the main GUI in a separate thread.
-     * As a result, this is essentially a wrapper around {@code createAndShowGUI()}.
+     * Creates and launches the main GUI in a separate thread. As a result, this is
+     * essentially a wrapper around {@code createAndShowGUI()}.
      * </p>
      * 
-     *
-     * 
      * @see #createAndShowGUI()
+     * @throws Exception
+     * @param args Command lne arguments.
      */
-    // public static Preferences prefs =
-    // Preferences.userNodeForPackage(Andie.class);
-    public static Locale locale = new Locale("en");
-
     public static void main(String[] args) throws Exception {
-        // Preferences prefs = Preferences.userNodeForPackage(Andie.class);
-        // Locale.setDefault(new
-        // Locale(prefs.get("language","en"),prefs.get("country","NZ")));
-        // Locale.setDefault(new Locale("en","NZ"));
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {

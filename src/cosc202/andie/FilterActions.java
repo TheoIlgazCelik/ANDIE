@@ -29,6 +29,7 @@ public class FilterActions {
 
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
+    /** A list of emboss actions for the emboss sub-menu. */
     protected ArrayList<Action> embossActions;
 
     /**
@@ -39,24 +40,35 @@ public class FilterActions {
     public FilterActions() {
         actions = new ArrayList<Action>();
         actions.add(new MeanFilterAction("Mean filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new MedianFilterAction("Median Filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new SharpenFilterAction("Sharpen filter", null, "Apply a sharpen filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new GaussianBlurAction("Gaussian Blur", null, "Apply a Gaussian Blur", Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new BlockAverageAction("Block Average",null,"Apply a block averaging filter",Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new RandomScatteringAction("Random Scattering",null,"Apply a random scattering filter",Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new VerticalSobelFilterAction("Vertical Sobel Filter", null, "Apply a vertical sobel filter", null));
-        actions.add(new HorizontalSobelFilterAction("Horizontal Sobel Filter", null, "Apply a horizontal sobel filter", null));
+        actions.add(
+                new MedianFilterAction("Median Filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new SharpenFilterAction("Sharpen filter", null, "Apply a sharpen filter",
+                Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(
+                new GaussianBlurAction("Gaussian Blur", null, "Apply a Gaussian Blur", Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new BlockAverageAction("Block Average", null, "Apply a block averaging filter",
+                Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new RandomScatteringAction("Random Scattering", null, "Apply a random scattering filter",
+                Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(
+                new VerticalSobelFilterAction("Vertical Sobel Filter", null, "Apply a vertical sobel filter", null));
+        actions.add(new HorizontalSobelFilterAction("Horizontal Sobel Filter", null, "Apply a horizontal sobel filter",
+                null));
 
         // create a new set of filter menu actions for emboss
         embossActions = new ArrayList<Action>();
         embossActions.add(new EmbossFilterEastAction("East", null, "Apply a emboss filter", null));
-        embossActions.add(new EmbossFilterNorthEastAction("North East", null, "Apply an emboss filter north east", null));
-        embossActions.add(new EmbossFilterNorthAction("North", null, "Apply a emboss filter north", null));        
-        embossActions.add(new EmbossFilterNorthWestAction("North West", null, "Apply an emboss filter north west", null));
+        embossActions
+                .add(new EmbossFilterNorthEastAction("North East", null, "Apply an emboss filter north east", null));
+        embossActions.add(new EmbossFilterNorthAction("North", null, "Apply a emboss filter north", null));
+        embossActions
+                .add(new EmbossFilterNorthWestAction("North West", null, "Apply an emboss filter north west", null));
         embossActions.add(new EmbossFilterWestAction("West", null, "Apply an emboss filter west", null));
-        embossActions.add(new EmbossFilterSouthWestAction("South West", null, "Apply an emboss filter south west", null));
+        embossActions
+                .add(new EmbossFilterSouthWestAction("South West", null, "Apply an emboss filter south west", null));
         embossActions.add(new EmbossFilterSouthAction("South", null, "Apply an emboss filter south", null));
-        embossActions.add(new EmbossFilterSouthEastAction("South East", null, "Apply an emboss filter south east", null));
+        embossActions
+                .add(new EmbossFilterSouthEastAction("South East", null, "Apply an emboss filter south east", null));
 
     }
 
@@ -73,11 +85,10 @@ public class FilterActions {
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
         }
-        for (Action embossAction : embossActions){
+        for (Action embossAction : embossActions) {
             embossMenu.add(new JMenuItem(embossAction));
         }
         fileMenu.add(embossMenu);
-
 
         return fileMenu;
     }
@@ -156,7 +167,7 @@ public class FilterActions {
             y = radiusModel2.getNumber().intValue();
         }
 
-        return new int[] {x,y};
+        return new int[] { x, y };
     }
 
     /**
@@ -182,8 +193,9 @@ public class FilterActions {
          */
         MedianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
-            
+            putValue(ACCELERATOR_KEY,
+                    KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
+
         }
 
         /**
@@ -201,7 +213,8 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
             int radius = getRadiusFromUser(this.MIN_VALUE, this.MAX_VALUE);
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
+            putValue(ACCELERATOR_KEY,
+                    KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
 
             if (radius <= 0) {
                 return;
@@ -242,7 +255,8 @@ public class FilterActions {
          */
         GaussianBlurAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK | InputEvent.ALT_DOWN_MASK));
+            putValue(ACCELERATOR_KEY,
+                    KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK | InputEvent.ALT_DOWN_MASK));
         }
 
         /**
@@ -323,7 +337,7 @@ public class FilterActions {
 
             if (radius <= 0) {
                 return;
-            } 
+            }
 
             // Create and apply the filter
             try {
@@ -350,7 +364,8 @@ public class FilterActions {
     public class SharpenFilterAction extends ImageAction {
         SharpenFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
+            putValue(ACCELERATOR_KEY,
+                    KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         }
 
         /**
@@ -379,6 +394,13 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a north west emboss filter to an Image.
+     * </p>
+     * 
+     * @see EmbossFilterNorthWest
+     */
     public class EmbossFilterNorthWestAction extends ImageAction {
         EmbossFilterNorthWestAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -410,6 +432,13 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a south west emboss filter to an Image.
+     * </p>
+     * 
+     * @see EmbossFilterSouthWest
+     */
     public class EmbossFilterSouthWestAction extends ImageAction {
         EmbossFilterSouthWestAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -441,7 +470,13 @@ public class FilterActions {
         }
     }
 
-
+    /**
+     * <p>
+     * Action to apply a west emboss filter to an Image.
+     * </p>
+     * 
+     * @see EmbossFilterWest
+     */
     public class EmbossFilterWestAction extends ImageAction {
         EmbossFilterWestAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -473,6 +508,13 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply an east emboss filter to an Image.
+     * </p>
+     * 
+     * @see EmbossFilterEast
+     */
     public class EmbossFilterEastAction extends ImageAction {
         EmbossFilterEastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -504,6 +546,13 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a north emboss filter to an Image.
+     * </p>
+     * 
+     * @see EmbossFilterNorth
+     */
     public class EmbossFilterNorthAction extends ImageAction {
         EmbossFilterNorthAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -535,6 +584,13 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a north east emboss filter to an Image.
+     * </p>
+     * 
+     * @see EmbossFilterNorthEast
+     */
     public class EmbossFilterNorthEastAction extends ImageAction {
         EmbossFilterNorthEastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -566,6 +622,13 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a south emboss filter to an Image.
+     * </p>
+     * 
+     * @see EmbossFilterSouth
+     */
     public class EmbossFilterSouthAction extends ImageAction {
         EmbossFilterSouthAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -597,6 +660,13 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a south east emboss filter to an Image.
+     * </p>
+     * 
+     * @see EmbossFilterSouthEast
+     */
     public class EmbossFilterSouthEastAction extends ImageAction {
         EmbossFilterSouthEastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -628,6 +698,13 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to apply a vertical sobel filter to an Image.
+     * </p>
+     * 
+     * @see VerticalSobelFilter
+     */
     public class VerticalSobelFilterAction extends ImageAction {
         VerticalSobelFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -659,7 +736,13 @@ public class FilterActions {
         }
     }
 
-    
+    /**
+     * <p>
+     * Action to apply a horizontal sobel filter to an Image.
+     * </p>
+     * 
+     * @see HorizontalSobelFilter
+     */
     public class HorizontalSobelFilterAction extends ImageAction {
         HorizontalSobelFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -690,7 +773,8 @@ public class FilterActions {
             }
         }
     }
-        /**
+
+    /**
      * <p>
      * Action to affect an image with a block averaging filter.
      * </p>
@@ -713,7 +797,8 @@ public class FilterActions {
          */
         BlockAverageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
+            putValue(ACCELERATOR_KEY,
+                    KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         }
 
         /**
@@ -737,7 +822,7 @@ public class FilterActions {
             }
 
             try {
-                target.getImage().apply(new BlockAverage(radius[0],radius[1]));
+                target.getImage().apply(new BlockAverage(radius[0], radius[1]));
                 target.repaint();
                 target.getParent().revalidate();
             } catch (Exception ex) {
@@ -749,7 +834,7 @@ public class FilterActions {
         }
     }
 
-        /**
+    /**
      * <p>
      * Action to affect an image with Random Scattering filter.
      * </p>
@@ -772,7 +857,8 @@ public class FilterActions {
          */
         RandomScatteringAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
+            putValue(ACCELERATOR_KEY,
+                    KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
         }
 
         /**
