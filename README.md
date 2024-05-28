@@ -1,3 +1,18 @@
+## Introduction - Theodore Ilgaz Celik
+This project was done as a part of the University Of Otago's COSC202 paper.
+
+Work done by myself : 
+* Gaussian blur filter
+* Image resize
+* Brightness adjustment
+* Contrast adjustment
+* Drawing functions – rectangle, ellipse, line
+* Colour options for draw function on outline and fill
+* Edit line/outline width in draw function
+* Unit tests
+* Error Avoidance/prevention
+* General Support on other features
+---
 #  **ANDIE**
 ## Documentation
 https://cosc202-jit.cspages.otago.ac.nz/andie/docs/cosc202/andie/package-summary.html
